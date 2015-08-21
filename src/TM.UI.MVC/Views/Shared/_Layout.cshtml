@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:700,300|Open+Sans" rel="stylesheet" type="text/css">
+    <title>
+        TM: @RenderSection("Title", required:false)
+    </title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+</head>
+<body>
+    <div id="page-container">
+        <div id="page-header" class="navbar navbar-default">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Training Manager", "Home", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                </div>
+
+                <div class="navbar-collapse collapse">
+
+                    <ul class="nav navbar-nav navbar-left">
+                        @if (User.IsInRole(AppConstants.UserRole.Administrator))
+                        {
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Admin<span class="caret"></span></a>
+                                <ul class="dropdown-menu" role="menu">
+                                    <li class="dropdown-header">Users And Roles</li>
+                                    <li role="presentation">@Html.ActionLink("Roles", "Index", "ApplicationRoles", new {area = "admin"}, null)</li>
+                                    <li role="presentation">@Html.ActionLink("Users", "Index", "ApplicationUsers", new {area = "admin"}, null)</li>
+                                    <li class="dropdown-header">Catalog</li>
+                                    <li role="presentation">@Html.ActionLink("Training Providers", "Index", "TrainingProviders", new {area = "admin"}, null)</li>
+                                    <li role="presentation">@Html.ActionLink("Courses Without Specializations", "Index", "CoursesWithoutSpecializations", new { area = "admin" }, null)</li>
+                                    <li role="presentation">@Html.ActionLink("Update Events", "Index", "UpdateEvents", new {area = "admin"}, null)</li>
+                                    <li role="presentation">@Html.ActionLink("Authors Resolve", "Index", "AuthorResolves", new {area = "admin"}, null)</li>
+                                </ul>
+                            </li>
+                        }
+                        
+                        <li>@Html.RouteLink("Learning Plan", AppConstants.RouteNames.LearningPlan)</li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Catalog<span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li role="presentation">@Html.RouteLink("Training Providers", AppConstants.RouteNames.AllTrainingProviders)</li>
+                                <li role="presentation">@Html.RouteLink("Categories", AppConstants.RouteNames.AllCategories)</li>
+                                <li role="presentation">@Html.RouteLink("Courses", AppConstants.RouteNames.AllCourses)</li>
+                                <li role="presentation">@Html.RouteLink("Authors", AppConstants.RouteNames.AllAuthors)</li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    @Html.Partial("_LoginPartial")
+
+                    @using (Html.BeginForm("Search", "Course", FormMethod.Get, new { @class = "navbar-form navbar-right", role = "search" }))
+                    {
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="text" class="form-control" name="searchTerm" placeholder="Search">
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                </span>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div id="page-body" class="container">
+            @RenderBody()
+        </div>
+
+        <footer id="page-footer">
+
+            <div id="tm-site-up" class="tm-site-up">
+                <i class="fa fa-caret-up fa-4x"></i>
+            </div>
+
+            <div class="container">
+                <p>
+                    @Html.RouteLink("Learning Plan", AppConstants.RouteNames.LearningPlan) |
+                    @Html.RouteLink("Training Providers", AppConstants.RouteNames.AllTrainingProviders) |
+                    @Html.RouteLink("Categories", AppConstants.RouteNames.AllCategories) |
+                    @Html.RouteLink("Courses", AppConstants.RouteNames.AllCourses) |
+                    @Html.RouteLink("Authors", AppConstants.RouteNames.AllAuthors)
+                </p>
+
+                <div>&copy; @DateTime.Now.Year - Training Manager.</div>
+            </div>
+        </footer>
+    </div>
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/scripts")
+    <script>
+        (function () {
+            var timer;
+            var siteUp = $("#tm-site-up");
+
+            $(window).scroll(function () {
+                if (timer) {
+                    window.clearTimeout(timer);
+                    timer = null;
+                }
+
+                timer = window.setTimeout(function () {
+                    siteUp.removeClass("on-scroll");
+                }, 400);
+                if (window.scrollY < 275) {
+                    siteUp.css("visibility", "hidden");
+                } else {
+                    siteUp.css("visibility", "visible");
+                    siteUp.addClass("on-scroll");
+                }
+            });
+
+            siteUp.click(function () {
+                $("html, body").animate({ scrollTop: 0 });
+            });
+
+            $("#tm-change-specializations").click(function(event) {
+                event.preventDefault();
+                window.location.href = $(event.target).attr("href") + "?ReturnUrl=" + window.location.pathname;
+            });
+
+        })();
+    </script>
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>

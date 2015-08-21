@@ -1,0 +1,57 @@
+﻿@model CategoryViewModel
+
+@section Title{
+    Category - @Model.Title
+}
+
+<!--Breadcrumbs-->
+<ol class="breadcrumb">
+    <li><a href="@Url.Content("~/")">Home</a></li>
+    <li><a href="@Url.RouteUrl(AppConstants.RouteNames.AllTrainingProviders)">Training Providers</a></li>
+    <li><a href="@Url.RouteUrl(AppConstants.RouteNames.TrainingProvider)">@Model.TrainingProvider.Name.ToTitleCaseInvariant()</a></li>
+    <li><a href="@Url.RouteUrl(AppConstants.RouteNames.TrainingProviderCategories)">Categories</a></li>
+    <li class="active">@Model.Title</li>
+</ol>
+
+<div class="clearfix">
+    <img class="img-responsive img-rounded pull-left" src="@Model.LogoUrl" alt="@Model.Title" width="60" />
+
+    <!--Category Header-->
+    <h3 class="tm-h3 text-center">
+        <span>
+            Courses in category <strong>@Model.Title</strong> at
+            <a target="_blank" href="@Model.TrainingProvider.SiteUrl">
+                <img height="40" src="@Model.TrainingProvider.LogoUrl" alt="@Model.TrainingProvider.Name)" />
+            </a>
+        </span>
+    </h3>
+</div>
+
+@if (User.Identity.IsAuthenticated)
+{
+    Html.RenderPartial("_CourseStatisticControl");
+}
+
+<div id="partialContent" data-url="@Url.RouteUrl(AppConstants.RouteNames.CoursesForTrainingProviderCategory, Model.CategoryRouteValuesObject)">
+    <i class="fa fa-spinner fa-pulse"></i> Loading...
+</div>
+
+
+@section scripts
+{
+    <script>
+        $(function () {
+            var coursesContainer = $("#partialContent");
+            var url = coursesContainer.data("url");
+            coursesContainer.load(url, function () {
+                $("table", coursesContainer).tmCourseAddController({
+                    dtSettings: {
+                        order: [[4, 'desc']],
+                        pageLength: 10
+                    }
+                });
+            });
+        });
+    </script>
+}
+

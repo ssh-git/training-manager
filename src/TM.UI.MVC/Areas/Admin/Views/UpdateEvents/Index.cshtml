@@ -1,0 +1,84 @@
+﻿@using PagedList.Mvc
+@using TM.Data.Update
+@model UpdateEventViewModels.IndexControllableViewModel
+
+@section Title{
+    Update Events
+}
+
+<h2>Update Events</h2>
+
+@Html.DisplayForModel("IControllableView")
+
+
+<table class="table table-condensed table-responsive">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Metadata.Id)
+        </th>
+        <th>
+            @Html.ActionLink(Html.DisplayNameFor(model => model.Metadata.TrainingProviderName).ToString(), "Index", Model.Params.ToRouteValueDictionary(Model.SortState.TrainingProviderSortState))
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Metadata.Description)
+        </th>
+        <th>
+            @Html.ActionLink(Html.DisplayNameFor(model => model.Metadata.StartedOn).ToString(), "Index", Model.Params.ToRouteValueDictionary(Model.SortState.StartDateSortState))
+        </th>
+        <th>
+            @Html.ActionLink(Html.DisplayNameFor(model => model.Metadata.EndedOn).ToString(), "Index", Model.Params.ToRouteValueDictionary(Model.SortState.EndDateDateSortState))
+        </th>
+        <th>
+            @Html.ActionLink(Html.DisplayNameFor(model => model.Metadata.Duration).ToString(), "Index", Model.Params.ToRouteValueDictionary(Model.SortState.DurationSortState))
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Metadata.UpdateResult)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.PagedList)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TrainingProviderName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartedOn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndedOn)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Duration)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UpdateResult)
+            </td>
+            <td style="white-space: nowrap">
+                @Html.ActionLink("Details", "Details", Model.Params.ToRouteValueDictionary().Include(new { item.Id }))
+
+                @if (item.UpdateResult == UpdateResult.NeedManualResolve)
+                {
+                    @:| @Html.ActionLink("Resolve", "Index", "AuthorResolves", new { updateEventId = item.Id }, new { target = "_blank" })
+                }
+            </td>
+        </tr>
+    }
+
+</table>
+
+ Page @Model.PagedList.PageNumber of @Model.PagedList.PageCount
+
+@Html.PagedListPager(Model.PagedList, page => Url.Action("Index", Model.Params.ToRouteValueObject(page)))
+
+@section scripts
+{
+    @{Html.RenderPartial("_IControllableViewScript");}
+}

@@ -1,0 +1,39 @@
+﻿@model UpdateEventViewModels.AuthorChangesDetailsViewModel
+
+@section Title{
+    Author Change Details
+}
+
+<h2>Author Change Details</h2>
+<hr />
+<h4>Author: <strong>@Model.CurrentContent.FullName</strong></h4>
+
+<table class="table table-condensed table-responsive">
+    <tr>
+        <th>Property Name</th>
+        <th>@Html.DisplayNameFor(model => model.CurrentContent)</th>
+        <th>@Html.DisplayNameFor(model => model.PreviousContent)</th>
+    </tr>
+
+    @if (Model.PreviousContent.FullName != null)
+    {
+        <tr>
+            <td>@Html.DisplayNameFor(m => m.CurrentContent.FullName)</td>
+            <td>@Html.DisplayFor(m => m.CurrentContent.FullName)</td>
+            <td>@Html.DisplayFor(m => m.PreviousContent.FullName)</td>
+        </tr>
+
+    }
+
+
+    @if (Model.PreviousContent.SiteUrl != null)
+    {
+        <tr>
+            <td>@Html.DisplayNameFor(m => m.CurrentContent.SiteUrl)</td>
+            <td>@Html.DisplayFor(m => m.CurrentContent.SiteUrl)</td>
+            <td>@Html.DisplayFor(m => m.PreviousContent.SiteUrl)</td>
+        </tr>
+    }
+
+</table>
+

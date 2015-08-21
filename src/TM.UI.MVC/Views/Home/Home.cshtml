@@ -1,0 +1,58 @@
+﻿@model HomeViewModels.HomeViewModel
+@section Title{
+    Home
+}
+
+<!--Jumbotron-->
+<div class="jumbotron">
+    <h1>
+        IT <small>Training Manager</small>
+    </h1>
+    <p class="lead">
+        Here you can find information of the most popular online IT trainings. We provide friendly service for managing
+        your learning plan.
+        @if (!User.Identity.IsAuthenticated)
+        {
+            @Html.ActionLink("Register", "Register", "Account")
+            @:or @Html.ActionLink("Log in", "Login", "Account") to be able to add courses to the learning plan.
+        }
+    </p>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Top 5 new courses</h3>
+            </div>
+            <ul class="list-group tm-partial-block" data-url="@Url.RouteUrl(AppConstants.RouteNames.TopNewCourses)">
+                <li class="list-group-item"><i class="fa fa-spinner fa-pulse"></i> Loading...</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Top 5 popular courses for 30 day's</h3>
+            </div>
+            <ul class="list-group tm-partial-block" data-url="@Url.RouteUrl(AppConstants.RouteNames.TopMonthPopularCourses)">
+                <li class="list-group-item"><i class="fa fa-spinner fa-pulse"></i> Loading...</li>
+            </ul>
+        </div>
+
+    </div>
+
+    @{ Html.RenderPartial("_StatisticPartial", Model.TrainingProvidersStatistic);}
+    @{ Html.RenderPartial("_StatisticPartial", Model.CategoriesStatistic);}
+    @{ Html.RenderPartial("_StatisticPartial", Model.CoursesStatistic);}
+    @{ Html.RenderPartial("_StatisticPartial", Model.AuthorsStatistic);}
+</div>
+
+@section scripts{
+    <script>
+        $(".tm-partial-block").each(function() {
+            $(this).load($(this).data("url"));
+        })
+    </script>
+}

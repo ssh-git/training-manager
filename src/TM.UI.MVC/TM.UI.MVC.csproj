@@ -1,0 +1,1179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C299DAC9-7E5D-4384-8F54-3C55156E597B}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TM.UI.MVC</RootNamespace>
+    <AssemblyName>TM.UI.MVC</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <MvcBuildViews>false</MvcBuildViews>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort>
+    </IISExpressSSLPort>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
+    <IISExpressUseClassicPipelineMode />
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ExcludeGeneratedDebugSymbol>true</ExcludeGeneratedDebugSymbol>
+    <PublishDatabaseSettings>
+      <Objects>
+        <ObjectGroup Name="TrainingManagerDb-Deployment" Order="2">
+          <Destination Path="" />
+          <Object Type="DbFullSql">
+            <PreSource Path="Data Source=%28localDB%29\v11.0%3bInitial Catalog=TrainingManager%3bIntegrated Security=True%3bConnect Timeout=15%3bEncrypt=False%3bTrustServerCertificate=False" ScriptSchema="True" ScriptData="True" CopyAllFullTextCatalogs="False" DriDefaults="True" />
+            <Source Path="obj\Debug\AutoScripts\TrainingManagerDb-Deployment_SchemaAndData.sql" Transacted="True" />
+          </Object>
+        </ObjectGroup>
+      </Objects>
+    </PublishDatabaseSettings>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.5.0.2, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Glimpse.AspNet, Version=1.9.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Glimpse.AspNet.1.9.2\lib\net45\Glimpse.AspNet.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Glimpse.Core, Version=1.8.6.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Glimpse.1.8.6\lib\net45\Glimpse.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Glimpse.Mvc5, Version=1.5.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Glimpse.Mvc5.1.5.3\lib\net45\Glimpse.Mvc5.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Hangfire.Core, Version=1.4.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Hangfire.Core.1.4.5\lib\net45\Hangfire.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Hangfire.Dashboard.Authorization, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Hangfire.Dashboard.Authorization.2.1.0\lib\net45\Hangfire.Dashboard.Authorization.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Hangfire.SqlServer">
+      <HintPath>..\..\packages\Hangfire.SqlServer.1.4.5\lib\net45\Hangfire.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Hangfire.SqlServer.Msmq, Version=1.4.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Hangfire.SqlServer.MSMQ.1.4.5\lib\net45\Hangfire.SqlServer.Msmq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\..\packages\Microsoft.Owin.3.0.1\lib\net45\Microsoft.Owin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.Owin.Host.SystemWeb.3.0.1\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.Owin.Security.3.0.1\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.Owin.Security.Cookies.3.0.1\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Facebook, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.Owin.Security.Facebook.3.0.1\lib\net45\Microsoft.Owin.Security.Facebook.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Google, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.Owin.Security.Google.3.0.1\lib\net45\Microsoft.Owin.Security.Google.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.MicrosoftAccount, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.Owin.Security.MicrosoftAccount.3.0.1\lib\net45\Microsoft.Owin.Security.MicrosoftAccount.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Twitter, Version=3.0.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Microsoft.Owin.Security.Twitter.3.0.1\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.QualityTools.Testing.Fakes, Version=12.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject">
+      <HintPath>..\..\packages\Ninject.3.2.0.0\lib\net45-full\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Extensions.Conventions, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Ninject.Extensions.Conventions.3.2.0.0\lib\net45-full\Ninject.Extensions.Conventions.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Ninject.Web.Common">
+      <HintPath>..\..\packages\Ninject.Web.Common.3.2.0.0\lib\net45-full\Ninject.Web.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Ninject.Web.Mvc">
+      <HintPath>..\..\packages\Ninject.MVC3.3.2.1.0\lib\net45-full\Ninject.Web.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="PagedList, Version=1.17.0.0, Culture=neutral, PublicKeyToken=abbb863e9397c5e1, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PagedList.Mvc">
+      <HintPath>..\..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Serilog, Version=1.5.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Serilog.1.5.9\lib\net45\Serilog.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Serilog.FullNetFx, Version=1.5.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Serilog.1.5.9\lib\net45\Serilog.FullNetFx.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SerilogMetrics">
+      <HintPath>..\..\packages\SerilogMetrics.1.0.29\lib\net45\SerilogMetrics.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="SerilogWeb.Classic, Version=2.0.0.0, Culture=neutral, PublicKeyToken=9462ddd55fbc0e7f, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\SerilogWeb.Classic.2.0.5\lib\net45\SerilogWeb.Classic.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.IO" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.Helpers.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Mvc, Version=5.2.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Mvc.5.2.3\lib\net45\System.Web.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.Razor.3.2.3\lib\net45\System.Web.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Deployment, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Deployment.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http">
+    </Reference>
+    <Reference Include="System.Net.Http.WebRequest">
+    </Reference>
+    <Reference Include="System.Web.Optimization">
+      <HintPath>..\..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
+    <Reference Include="WebActivatorEx">
+      <HintPath>..\..\packages\WebActivatorEx.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease">
+      <HintPath>..\..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Owin">
+      <HintPath>..\..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="App_Start\LoggerConfig.cs" />
+    <Compile Include="Areas\Admin\Controllers\ApplicationRolesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\ApplicationUsersController.cs" />
+    <Compile Include="Areas\Admin\ViewModels\ApplicationRoleViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\ApplicationUserViewModels.cs" />
+    <Compile Include="Areas\Admin\ViewModels\CoursesWithoutSpecializationsViewModels.cs" />
+    <Compile Include="Areas\Admin\ViewModels\TrainingProviderViewModels.cs" />
+    <Compile Include="Areas\Admin\ViewModels\UpdateEventViewModels.cs" />
+    <Compile Include="Controllers\AuthorController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\CourseController.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\ControllerBase.cs" />
+    <Compile Include="Controllers\TrainingProviderController.cs" />
+    <Compile Include="GlimpseSecurityPolicy.cs" />
+    <Compile Include="Helpers\EnumExtensions.cs" />
+    <Compile Include="Helpers\RouteValueDictionaryExtensions.cs" />
+    <Compile Include="Helpers\ViewDataExtensions.cs" />
+    <Compile Include="Identity\ApplicationRole.cs" />
+    <Compile Include="Identity\ApplicationRoleManager.cs" />
+    <Compile Include="Identity\ApplicationSignInManager.cs" />
+    <Compile Include="Identity\ApplicationUserManager.cs" />
+    <Compile Include="App_Start\BundleConfig.cs" />
+    <Compile Include="Identity\UserSpecializations.cs" />
+    <Compile Include="Infrastructure\CatalogManagerBase.cs" />
+    <Compile Include="Infrastructure\EmailService.cs" />
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="Infrastructure\SmsService.cs" />
+    <Compile Include="App_Start\NinjectWebCommon.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\OwinConfig.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\CoursesWithoutSpecializationsController.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Areas\Admin\Controllers\AuthorResolvesController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TrainingProvidersController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UpdateEventsController.cs" />
+    <Compile Include="Controllers\LearningPlanController.cs" />
+    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\HtmlHelperExtensions.cs" />
+    <Compile Include="Helpers\StringExtensions.cs" />
+    <Compile Include="Helpers\ViewModelsExtensions.cs" />
+    <Compile Include="Identity\IdentityDbContext.cs" />
+    <Compile Include="App_Start\AppConstants.cs" />
+    <Compile Include="Infrastructure\JsonNetResult.cs" />
+    <Compile Include="Infrastructure\NinjectMappings.cs" />
+    <Compile Include="App_Start\UpdateDaemon.cs" />
+    <Compile Include="Migrations\201508180804108_Initial.cs" />
+    <Compile Include="Migrations\201508180804108_Initial.Designer.cs">
+      <DependentUpon>201508180804108_Initial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="ControllableModel\ControllableViewModel.cs" />
+    <Compile Include="ControllableModel\ControllableViewModelParams.cs" />
+    <Compile Include="ControllableModel\IControllableView.cs" />
+    <Compile Include="ControllableModel\IControllableViewModelParams.cs" />
+    <Compile Include="ControllableModel\PageableViewModel.cs" />
+    <Compile Include="ControllableModel\PageableViewModelParams.cs" />
+    <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Areas\Admin\ViewModels\AuthorResolveViewModels.cs" />
+    <Compile Include="Models\AuthorViewModels.cs" />
+    <Compile Include="Models\NavigationViewModel.cs" />
+    <Compile Include="Areas\Admin\ViewModels\CategoryLogoFileUploadModel.cs" />
+    <Compile Include="Models\CourseRouteParam.cs" />
+    <Compile Include="Identity\ApplicationUser.cs" />
+    <Compile Include="Models\CourseViewModels.cs" />
+    <Compile Include="Models\HomeViewModels.cs" />
+    <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\SpecializationsListViewModel.cs" />
+    <Compile Include="Models\CategoryViewModels.cs" />
+    <Compile Include="Models\TrainingProviderViewModels.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Startup.cs" />
+    <Compile Include="Models\LearningPlanViewModels.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AppSettingsPrivate.config" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\dataTables.bootstrap.css" />
+    <Content Include="Content\dataTables.colReorder.css" />
+    <Content Include="Content\dataTables.colVis.css" />
+    <Content Include="Content\dataTables.responsive.css" />
+    <Content Include="Content\font-awesome.css" />
+    <Content Include="Content\images\authors\aaron-patterson-v1.jpg" />
+    <Content Include="Content\images\authors\aaron-powell-v1.jpg" />
+    <Content Include="Content\images\authors\aaron-skonnard-v1.jpg" />
+    <Content Include="Content\images\authors\abhishek-kant-v1.jpg" />
+    <Content Include="Content\images\authors\abhishek-kumar-v3.jpg" />
+    <Content Include="Content\images\authors\adam-bertram-v1.jpg" />
+    <Content Include="Content\images\authors\adam-churvis-v1.jpg" />
+    <Content Include="Content\images\authors\adam-grocholski-v1.jpg" />
+    <Content Include="Content\images\authors\adam-purkiss-v1.jpg" />
+    <Content Include="Content\images\authors\adam-tuliper-v1.jpg" />
+    <Content Include="Content\images\authors\addison-berry-v1.jpg" />
+    <Content Include="Content\images\authors\adron-hall-v1.jpg" />
+    <Content Include="Content\images\authors\ahmad-alkilani-v2.jpg" />
+    <Content Include="Content\images\authors\alan-ackmann-v1.jpg" />
+    <Content Include="Content\images\authors\alan-dipert-v1.jpg" />
+    <Content Include="Content\images\authors\alan-smith-v1.jpg" />
+    <Content Include="Content\images\authors\alan-wright-v1.jpg" />
+    <Content Include="Content\images\authors\alex-hernandez-v1.jpg" />
+    <Content Include="Content\images\authors\alex-korban-v1.jpg" />
+    <Content Include="Content\images\authors\alex-mackey-v1.jpg" />
+    <Content Include="Content\images\authors\alex-vollmer-v1.jpg" />
+    <Content Include="Content\images\authors\alex-wolf-v3.jpg" />
+    <Content Include="Content\images\authors\alex-zanfir-v1.jpg" />
+    <Content Include="Content\images\authors\alexander-wechsler-v2.jpg" />
+    <Content Include="Content\images\authors\alfredo-aponte-v1.jpg" />
+    <Content Include="Content\images\authors\amber-mac-v1.jpg" />
+    <Content Include="Content\images\authors\andras-velvart-v1.jpg" />
+    <Content Include="Content\images\authors\andreas-ohlund-v1.jpg" />
+    <Content Include="Content\images\authors\andrew-brust-v2.jpg" />
+    <Content Include="Content\images\authors\andrew-connell-v2.jpg" />
+    <Content Include="Content\images\authors\andrew-mallett-v1.jpg" />
+    <Content Include="Content\images\authors\andrew-stewart-v1.jpg" />
+    <Content Include="Content\images\authors\antonia-anni-v1.jpg" />
+    <Content Include="Content\images\authors\antonio-goncalves-v1.jpg" />
+    <Content Include="Content\images\authors\ashley-hunt-v1.jpg" />
+    <Content Include="Content\images\authors\austin-bingham-v1.jpg" />
+    <Content Include="Content\images\authors\avril-salter-v1.jpg" />
+    <Content Include="Content\images\authors\ayende-rahien-v1.jpg" />
+    <Content Include="Content\images\authors\bart-desmet-v1.jpg" />
+    <Content Include="Content\images\authors\ben-callahan-v1.jpg" />
+    <Content Include="Content\images\authors\ben-day-v1.jpg" />
+    <Content Include="Content\images\authors\ben-galbraith-v2.jpg" />
+    <Content Include="Content\images\authors\ben-hoskings-v1.jpg" />
+    <Content Include="Content\images\authors\ben-howard-v1.jpg" />
+    <Content Include="Content\images\authors\ben-piper-v1.jpg" />
+    <Content Include="Content\images\authors\ben-scheirman-v1.jpg" />
+    <Content Include="Content\images\authors\ben-schwarz-v1.jpg" />
+    <Content Include="Content\images\authors\ben-smith-v1.jpg" />
+    <Content Include="Content\images\authors\ben-sullins-v2.jpg" />
+    <Content Include="Content\images\authors\benjamin-culbertson-v1.jpg" />
+    <Content Include="Content\images\authors\benson-joeris-v2.jpg" />
+    <Content Include="Content\images\authors\bill-gurling-v1.jpg" />
+    <Content Include="Content\images\authors\bill-kulterman-v1.jpg" />
+    <Content Include="Content\images\authors\bill-pearson-v1.jpg" />
+    <Content Include="Content\images\authors\bill-scott-v1.jpg" />
+    <Content Include="Content\images\authors\bill-stavroulakis-v1.jpg" />
+    <Content Include="Content\images\authors\billy-hollis-v2.jpg" />
+    <Content Include="Content\images\authors\blake-hall-v1.jpg" />
+    <Content Include="Content\images\authors\bo-milanovich-v1.jpg" />
+    <Content Include="Content\images\authors\bob-beauchemin-v1.jpg" />
+    <Content Include="Content\images\authors\bob-lautenbach-v1.jpg" />
+    <Content Include="Content\images\authors\bobby-meador-v1.jpg" />
+    <Content Include="Content\images\authors\boris-hristov-v1.jpg" />
+    <Content Include="Content\images\authors\brad-wilson-v1.jpg" />
+    <Content Include="Content\images\authors\brandon-carroll-v1.jpg" />
+    <Content Include="Content\images\authors\brendan-enrick-v1.jpg" />
+    <Content Include="Content\images\authors\brendan-kowitz-v1.jpg" />
+    <Content Include="Content\images\authors\brendan-younger-v1.jpg" />
+    <Content Include="Content\images\authors\bret-stateham-v2.jpg" />
+    <Content Include="Content\images\authors\brett-romero-v1.jpg" />
+    <Content Include="Content\images\authors\brian-eiler-v1.jpg" />
+    <Content Include="Content\images\authors\brian-knudtson-v1.jpg" />
+    <Content Include="Content\images\authors\brian-lagunas-v1.jpg" />
+    <Content Include="Content\images\authors\brian-morearty-v1.jpg" />
+    <Content Include="Content\images\authors\brian-noyes-v2.jpg" />
+    <Content Include="Content\images\authors\brian-tobia-v1.jpg" />
+    <Content Include="Content\images\authors\brice-wilson-v1.jpg" />
+    <Content Include="Content\images\authors\bruce-mackenzielow-v1.jpg" />
+    <Content Include="Content\images\authors\bryan-hansen-v1.jpg" />
+    <Content Include="Content\images\authors\calvin-conaway-v1.jpg" />
+    <Content Include="Content\images\authors\carlos-figueira-v1.jpg" />
+    <Content Include="Content\images\authors\casey-ayers-v1.jpg" />
+    <Content Include="Content\images\authors\casimir-saternos-v1.jpg" />
+    <Content Include="Content\images\authors\chad-mccallum-v1.jpg" />
+    <Content Include="Content\images\authors\charles-nurse-v1.jpg" />
+    <Content Include="Content\images\authors\chiuki-chan-v1.jpg" />
+    <Content Include="Content\images\authors\chris-brown-v1.jpg" />
+    <Content Include="Content\images\authors\chris-frisch-v1.jpg" />
+    <Content Include="Content\images\authors\chris-hartjes-v1.jpg" />
+    <Content Include="Content\images\authors\chris-rees-v3.jpg" />
+    <Content Include="Content\images\authors\chris-reynolds-v1.jpg" />
+    <Content Include="Content\images\authors\chris-simmons-v1.jpg" />
+    <Content Include="Content\images\authors\chris-wahl-v2.jpg" />
+    <Content Include="Content\images\authors\christian-wenz-v1.jpg" />
+    <Content Include="Content\images\authors\christian-weyer-v1.jpg" />
+    <Content Include="Content\images\authors\christopher-harrison-v1.jpg" />
+    <Content Include="Content\images\authors\christopher-kao-v1.jpg" />
+    <Content Include="Content\images\authors\christopher-schmitt-v1.jpg" />
+    <Content Include="Content\images\authors\clemens-vasters-v1.jpg" />
+    <Content Include="Content\images\authors\colin-melia-v1.jpg" />
+    <Content Include="Content\images\authors\cory-house-v1.jpg" />
+    <Content Include="Content\images\authors\craig-andera-v1.jpg" />
+    <Content Include="Content\images\authors\craig-shoemaker-v2.jpg" />
+    <Content Include="Content\images\authors\dale-meredith-v2.jpg" />
+    <Content Include="Content\images\authors\dan-appleman-v1.jpg" />
+    <Content Include="Content\images\authors\dan-benjamin-v1.jpg" />
+    <Content Include="Content\images\authors\dan-bunker-v1.jpg" />
+    <Content Include="Content\images\authors\dan-sinclair-v1.jpg" />
+    <Content Include="Content\images\authors\dan-sullivan-v1.jpg" />
+    <Content Include="Content\images\authors\dan-toomey-v1.jpg" />
+    <Content Include="Content\images\authors\dan-wahlin-v1.jpg" />
+    <Content Include="Content\images\authors\darren-marelia-v1.jpg" />
+    <Content Include="Content\images\authors\dave-green-v1.jpg" />
+    <Content Include="Content\images\authors\dave-shackelford-v1.jpg" />
+    <Content Include="Content\images\authors\david-batten-v1.jpg" />
+    <Content Include="Content\images\authors\david-berry-v1.jpg" />
+    <Content Include="Content\images\authors\david-chappell-v2.jpg" />
+    <Content Include="Content\images\authors\david-davis-v1.jpg" />
+    <Content Include="Content\images\authors\david-donovan-v1.jpg" />
+    <Content Include="Content\images\authors\david-goodlad-v2.jpg" />
+    <Content Include="Content\images\authors\david-mann-v1.jpg" />
+    <Content Include="Content\images\authors\david-mosher-v1.jpg" />
+    <Content Include="Content\images\authors\david-starr-v1.jpg" />
+    <Content Include="Content\images\authors\david-yack-v1.jpg" />
+    <Content Include="Content\images\authors\deborah-kurata-v1.jpg" />
+    <Content Include="Content\images\authors\dejan-sarka-v1.jpg" />
+    <Content Include="Content\images\authors\derik-whittaker-v1.jpg" />
+    <Content Include="Content\images\authors\devin-thorpe-v1.jpg" />
+    <Content Include="Content\images\authors\diane-mcsorley-v1.jpg" />
+    <Content Include="Content\images\authors\dimitre-novatchev-v1.jpg" />
+    <Content Include="Content\images\authors\dino-esposito-v1.jpg" />
+    <Content Include="Content\images\authors\dion-almaer-v2.jpg" />
+    <Content Include="Content\images\authors\dmitri-nesteruk-v1.jpg" />
+    <Content Include="Content\images\authors\dominick-baier-v1.jpg" />
+    <Content Include="Content\images\authors\don-jones-v1.jpg" />
+    <Content Include="Content\images\authors\don-robins-v1.jpg" />
+    <Content Include="Content\images\authors\donald-belcham-v1.jpg" />
+    <Content Include="Content\images\authors\doug-turnure-v1.jpg" />
+    <Content Include="Content\images\authors\douglas-crockford-v1.jpg" />
+    <Content Include="Content\images\authors\dustin-davis-v1.jpg" />
+    <Content Include="Content\images\authors\eberhard-wolff-v1.jpg" />
+    <Content Include="Content\images\authors\ed-liberman-v1.jpg" />
+    <Content Include="Content\images\authors\eddie-russell-v1.jpg" />
+    <Content Include="Content\images\authors\edin-kapic-v1.jpg" />
+    <Content Include="Content\images\authors\elias-khnaser-v1.jpg" />
+    <Content Include="Content\images\authors\elijah-manor-v1.jpg" />
+    <Content Include="Content\images\authors\elton-stoneman-v1.jpg" />
+    <Content Include="Content\images\authors\emily-bache-v1.jpg" />
+    <Content Include="Content\images\authors\eric-burke-v1.jpg" />
+    <Content Include="Content\images\authors\eric-lindvall-v1.jpg" />
+    <Content Include="Content\images\authors\eric-siebert-v1.jpg" />
+    <Content Include="Content\images\authors\eric-skaggs-v1.jpg" />
+    <Content Include="Content\images\authors\eric-wright-v1.jpg" />
+    <Content Include="Content\images\authors\erik-dietrich-v1.jpg" />
+    <Content Include="Content\images\authors\erin-stellato-v1.jpg" />
+    <Content Include="Content\images\authors\esteban-garcia-v1.jpg" />
+    <Content Include="Content\images\authors\estelle-weyl-v1.jpg" />
+    <Content Include="Content\images\authors\fabian-deitelhoff-v1.jpg" />
+    <Content Include="Content\images\authors\felbrigg-herriot-v1.jpg" />
+    <Content Include="Content\images\authors\filip-ekberg-v1.jpg" />
+    <Content Include="Content\images\authors\francis-hwang-v1.jpg" />
+    <Content Include="Content\images\authors\fritz-onion-v1.jpg" />
+    <Content Include="Content\images\authors\garann-means-v1.jpg" />
+    <Content Include="Content\images\authors\gary-bernhardt-v1.jpg" />
+    <Content Include="Content\images\authors\gary-eimerman-v1.jpg" />
+    <Content Include="Content\images\authors\gary-grudzinskas-v1.jpg" />
+    <Content Include="Content\images\authors\gary-lapointe-v1.jpg" />
+    <Content Include="Content\images\authors\gary-simon-v1.jpg" />
+    <Content Include="Content\images\authors\geoffrey-grosenbach-v1.jpg" />
+    <Content Include="Content\images\authors\gergely-orosz-v1.jpg" />
+    <Content Include="Content\images\authors\gerhard-adam-v1.jpg" />
+    <Content Include="Content\images\authors\gianni-rosagallina-v1.jpg" />
+    <Content Include="Content\images\authors\gill-cleeren-v1.jpg" />
+    <Content Include="Content\images\authors\giovanni-dicanio-v1.jpg" />
+    <Content Include="Content\images\authors\glenn-berry-v1.jpg" />
+    <Content Include="Content\images\authors\greg-shields-v1.jpg" />
+    <Content Include="Content\images\authors\gregory-knight-v1.jpg" />
+    <Content Include="Content\images\authors\hadi-hariri-v1.jpg" />
+    <Content Include="Content\images\authors\hal-rottenberg-v1.jpg" />
+    <Content Include="Content\images\authors\heather-ackmann-v1.jpg" />
+    <Content Include="Content\images\authors\heather-fitzpatrick-v1.jpg" />
+    <Content Include="Content\images\authors\herta-nava-v1.jpg" />
+    <Content Include="Content\images\authors\herve-roggero-v1.jpg" />
+    <Content Include="Content\images\authors\howard-dierking-v1.jpg" />
+    <Content Include="Content\images\authors\hugo-kornelis-v1.jpg" />
+    <Content Include="Content\images\authors\ian-griffiths-v1.jpg" />
+    <Content Include="Content\images\authors\ian-johnson-v1.jpg" />
+    <Content Include="Content\images\authors\iris-classon-v4.jpg" />
+    <Content Include="Content\images\authors\jake-robinson-v1.jpg" />
+    <Content Include="Content\images\authors\james-hughes-v1.jpg" />
+    <Content Include="Content\images\authors\james-kovacs-v1.jpg" />
+    <Content Include="Content\images\authors\james-simpson-v1.jpg" />
+    <Content Include="Content\images\authors\james-toto-v1.jpg" />
+    <Content Include="Content\images\authors\james-wilson-v1.jpg" />
+    <Content Include="Content\images\authors\jan-zavrl-v1.jpg" />
+    <Content Include="Content\images\authors\janerik-sandberg-v1.jpg" />
+    <Content Include="Content\images\authors\janis-hall-v1.jpg" />
+    <Content Include="Content\images\authors\japhia-olson-v1.jpg" />
+    <Content Include="Content\images\authors\jason-alba-v1.jpg" />
+    <Content Include="Content\images\authors\jason-helmick-v2.jpg" />
+    <Content Include="Content\images\authors\jason-nash-v2.jpg" />
+    <Content Include="Content\images\authors\jason-roberts-v1.jpg" />
+    <Content Include="Content\images\authors\jason-sauer-v1.jpg" />
+    <Content Include="Content\images\authors\jay-boucher-v1.jpg" />
+    <Content Include="Content\images\authors\jay-mcfarland-v1.jpg" />
+    <Content Include="Content\images\authors\jeff-adkin-v1.jpg" />
+    <Content Include="Content\images\authors\jeff-fritz-v1.jpg" />
+    <Content Include="Content\images\authors\jeff-hicks-v2.jpg" />
+    <Content Include="Content\images\authors\jeff-hurd-v1.jpg" />
+    <Content Include="Content\images\authors\jeff-valore-v1.jpg" />
+    <Content Include="Content\images\authors\jeffrey-snover-v1.jpg" />
+    <Content Include="Content\images\authors\jeremy-clark-v1.jpg" />
+    <Content Include="Content\images\authors\jeremy-foster-v1.jpg" />
+    <Content Include="Content\images\authors\jeremy-jarrell-v1.jpg" />
+    <Content Include="Content\images\authors\jesse-liberty-v2.jpg" />
+    <Content Include="Content\images\authors\jesse-stay-v1.jpg" />
+    <Content Include="Content\images\authors\jessica-kerr-v1.jpg" />
+    <Content Include="Content\images\authors\jill-gundersen-v1.jpg" />
+    <Content Include="Content\images\authors\jim-christopher-v1.jpg" />
+    <Content Include="Content\images\authors\jim-cooper-v1.jpg" />
+    <Content Include="Content\images\authors\jim-manico-v1.jpg" />
+    <Content Include="Content\images\authors\jim-pickrell-v1.jpg" />
+    <Content Include="Content\images\authors\jim-weirich-v1.jpg" />
+    <Content Include="Content\images\authors\jim-wilson-v3.jpg" />
+    <Content Include="Content\images\authors\jimmy-skowronski-v1.jpg" />
+    <Content Include="Content\images\authors\joe-astorino-v2.jpg" />
+    <Content Include="Content\images\authors\joe-crum-v1.jpg" />
+    <Content Include="Content\images\authors\joe-eames-v1.jpg" />
+    <Content Include="Content\images\authors\joe-hummel-v2.jpg" />
+    <Content Include="Content\images\authors\joe-kelly-v1.jpg" />
+    <Content Include="Content\images\authors\joe-kunk-v1.jpg" />
+    <Content Include="Content\images\authors\joe-rinehart-v1.jpg" />
+    <Content Include="Content\images\authors\joe-sack-v1.jpg" />
+    <Content Include="Content\images\authors\joe-shindelar-v1.jpg" />
+    <Content Include="Content\images\authors\joel-neubeck-v1.jpg" />
+    <Content Include="Content\images\authors\johan-arwidmark-v1.jpg" />
+    <Content Include="Content\images\authors\john-barnette-v1.jpg" />
+    <Content Include="Content\images\authors\john-brown-v1.jpg" />
+    <Content Include="Content\images\authors\john-hales-v1.jpg" />
+    <Content Include="Content\images\authors\john-oneill-v1.jpg" />
+    <Content Include="Content\images\authors\john-papa-v1.jpg" />
+    <Content Include="Content\images\authors\john-petersen-v2.jpg" />
+    <Content Include="Content\images\authors\john-purcell-v1.jpg" />
+    <Content Include="Content\images\authors\john-sonmez-v2.jpg" />
+    <Content Include="Content\images\authors\jon-flanders-v1.jpg" />
+    <Content Include="Content\images\authors\jon-hassell-v1.jpg" />
+    <Content Include="Content\images\authors\jon-skeet-v1.jpg" />
+    <Content Include="Content\images\authors\jonathan-kehayias-v1.jpg" />
+    <Content Include="Content\images\authors\jose-paumard-v1.jpg" />
+    <Content Include="Content\images\authors\jose-valim-v1.jpg" />
+    <Content Include="Content\images\authors\josh-kittle-v1.jpg" />
+    <Content Include="Content\images\authors\joshua-samson-v1.jpg" />
+    <Content Include="Content\images\authors\joshua-sierles-v1.jpg" />
+    <Content Include="Content\images\authors\julie-lerman-v2.jpg" />
+    <Content Include="Content\images\authors\julie-yack-v1.jpg" />
+    <Content Include="Content\images\authors\justin-pihony-v1.jpg" />
+    <Content Include="Content\images\authors\justin-schwarty-v1.jpg" />
+    <Content Include="Content\images\authors\karen-stevenson-v1.jpg" />
+    <Content Include="Content\images\authors\karl-swedberg-v1.jpg" />
+    <Content Include="Content\images\authors\kate-gregory-v2.jpg" />
+    <Content Include="Content\images\authors\kathleen-dollard-v1.jpg" />
+    <Content Include="Content\images\authors\katrina-owen-v1.jpg" />
+    <Content Include="Content\images\authors\keith-brown-v1.jpg" />
+    <Content Include="Content\images\authors\keith-burnell-v1.jpg" />
+    <Content Include="Content\images\authors\keith-harvey-v1.jpg" />
+    <Content Include="Content\images\authors\ken-getz-v1.jpg" />
+    <Content Include="Content\images\authors\ken-holman-v1.jpg" />
+    <Content Include="Content\images\authors\ken-mauldin-v1.jpg" />
+    <Content Include="Content\images\authors\kenny-kerr-v2.jpg" />
+    <Content Include="Content\images\authors\kerry-dew-v1.jpg" />
+    <Content Include="Content\images\authors\kevin-dockx-v2.jpg" />
+    <Content Include="Content\images\authors\kevin-jones-v1.jpg" />
+    <Content Include="Content\images\authors\kevin-kuebler-v1.jpg" />
+    <Content Include="Content\images\authors\kevin-murray-v1.jpg" />
+    <Content Include="Content\images\authors\kevin-whinnery-v1.jpg" />
+    <Content Include="Content\images\authors\kimberly-tripp-v1.jpg" />
+    <Content Include="Content\images\authors\kirk-marshall-v1.jpg" />
+    <Content Include="Content\images\authors\kit-eason-v1.jpg" />
+    <Content Include="Content\images\authors\kunal-mehta-v1.jpg" />
+    <Content Include="Content\images\authors\kurt-jones-v2.jpg" />
+    <Content Include="Content\images\authors\kyle-hofmeyer-v1.jpg" />
+    <Content Include="Content\images\authors\kyle-neath-v1.jpg" />
+    <Content Include="Content\images\authors\kyle-simpson-v1.jpg" />
+    <Content Include="Content\images\authors\lane-leverett-v1.jpg" />
+    <Content Include="Content\images\authors\larry-schiefer-v1.jpg" />
+    <Content Include="Content\images\authors\lars-alin-v1.jpg" />
+    <Content Include="Content\images\authors\lars-klint-v2.jpg" />
+    <Content Include="Content\images\authors\laszlo-meszaros-v1.jpg" />
+    <Content Include="Content\images\authors\laurence-moroney-v1.jpg" />
+    <Content Include="Content\images\authors\laurent-bugnion-v1.jpg" />
+    <Content Include="Content\images\authors\lea-verou-v1.jpg" />
+    <Content Include="Content\images\authors\lee-allen-v1.jpg" />
+    <Content Include="Content\images\authors\lenni-lobel-v1.jpg" />
+    <Content Include="Content\images\authors\leo-schuman-v1.jpg" />
+    <Content Include="Content\images\authors\liam-mclennan-v1.jpg" />
+    <Content Include="Content\images\authors\lino-tadros-v1.jpg" />
+    <Content Include="Content\images\authors\lisa-larsonkelley-v1.jpg" />
+    <Content Include="Content\images\authors\lisa-szpunar-v1.jpg" />
+    <Content Include="Content\images\authors\llewellyn-falco-v1.jpg" />
+    <Content Include="Content\images\authors\lowell-amos-v1.jpg" />
+    <Content Include="Content\images\authors\lukas-ruebbelke-v1.jpg" />
+    <Content Include="Content\images\authors\lynn-langit-v1.jpg" />
+    <Content Include="Content\images\authors\marcel-devries-v1.jpg" />
+    <Content Include="Content\images\authors\marcus-hammarberg-v2.jpg" />
+    <Content Include="Content\images\authors\mario-hewardt-v1.jpg" />
+    <Content Include="Content\images\authors\mark-boas-v1.jpg" />
+    <Content Include="Content\images\authors\mark-heath-v1.jpg" />
+    <Content Include="Content\images\authors\mark-lewin-v1.jpg" />
+    <Content Include="Content\images\authors\mark-minasi-v1.jpg" />
+    <Content Include="Content\images\authors\mark-russinovich-v1.jpg" />
+    <Content Include="Content\images\authors\mark-scott-v2.jpg" />
+    <Content Include="Content\images\authors\mark-seemann-v1.jpg" />
+    <Content Include="Content\images\authors\mark-zamoyta-v1.jpg" />
+    <Content Include="Content\images\authors\markus-jensen-v1.jpg" />
+    <Content Include="Content\images\authors\matt-austin-v1.jpg" />
+    <Content Include="Content\images\authors\matt-honeycutt-v1.jpg" />
+    <Content Include="Content\images\authors\matt-johnson-v1.jpg" />
+    <Content Include="Content\images\authors\matt-kruczek-v1.jpg" />
+    <Content Include="Content\images\authors\matt-lacey-v1.jpg" />
+    <Content Include="Content\images\authors\matt-milner-v3.jpg" />
+    <Content Include="Content\images\authors\matthew-clendening-v3.jpg" />
+    <Content Include="Content\images\authors\matthew-mcdermott-v1.jpg" />
+    <Content Include="Content\images\authors\mel-haynes-v1.jpg" />
+    <Content Include="Content\images\authors\michael-bender-v1.jpg" />
+    <Content Include="Content\images\authors\michael-crump-v1.jpg" />
+    <Content Include="Content\images\authors\michael-dudley-v1.jpg" />
+    <Content Include="Content\images\authors\michael-hoffman-v2.jpg" />
+    <Content Include="Content\images\authors\michael-krasowski-v1.jpg" />
+    <Content Include="Content\images\authors\michael-lopp-v1.jpg" />
+    <Content Include="Content\images\authors\michael-palermo-v1.jpg" />
+    <Content Include="Content\images\authors\michael-perry-v2.jpg" />
+    <Content Include="Content\images\authors\michael-ries-v1.jpg" />
+    <Content Include="Content\images\authors\michael-stephenson-v1.jpg" />
+    <Content Include="Content\images\authors\michelle-lauer-v1.jpg" />
+    <Content Include="Content\images\authors\miguel-castro-v1.jpg" />
+    <Content Include="Content\images\authors\mike-erickson-v1.jpg" />
+    <Content Include="Content\images\authors\mike-halsey-v1.jpg" />
+    <Content Include="Content\images\authors\mike-hammond-v1.jpg" />
+    <Content Include="Content\images\authors\mike-mckeown-v1.jpg" />
+    <Content Include="Content\images\authors\mike-nolan-v1.jpg" />
+    <Content Include="Content\images\authors\mike-vansickle-v1.jpg" />
+    <Content Include="Content\images\authors\mike-woodring-v2.jpg" />
+    <Content Include="Content\images\authors\milena-pajic-v1.jpg" />
+    <Content Include="Content\images\authors\misko-hevery-v1.jpg" />
+    <Content Include="Content\images\authors\mohamad-halabi-v1.jpg" />
+    <Content Include="Content\images\authors\nate-taylor-v1.jpg" />
+    <Content Include="Content\images\authors\neven-mrgan-v1.jpg" />
+    <Content Include="Content\images\authors\nic-williams-v1.jpg" />
+    <Content Include="Content\images\authors\nigel-poulton-v1.jpg" />
+    <Content Include="Content\images\authors\niraj-bhatt-v1.jpg" />
+    <Content Include="Content\images\authors\noel-peden-v1.jpg" />
+    <Content Include="Content\images\authors\nuri-halperin-v1.jpg" />
+    <Content Include="Content\images\authors\obaid-chhatriwala-v1.jpg" />
+    <Content Include="Content\images\authors\oliver-sturm-v2.jpg" />
+    <Content Include="Content\images\authors\orin-thomas-v1.jpg" />
+    <Content Include="Content\images\authors\pankaj-jain-v1.jpg" />
+    <Content Include="Content\images\authors\patricia-ciszek-v1.jpg" />
+    <Content Include="Content\images\authors\patrick-hynds-v2.jpg" />
+    <Content Include="Content\images\authors\patrick-neborg-v1.jpg" />
+    <Content Include="Content\images\authors\paul-bouwer-v1.jpg" />
+    <Content Include="Content\images\authors\paul-cheney-v1.jpg" />
+    <Content Include="Content\images\authors\paul-gadbois-v1.jpg" />
+    <Content Include="Content\images\authors\paul-lemmers-v1.jpg" />
+    <Content Include="Content\images\authors\paul-ofallon-v1.jpg" />
+    <Content Include="Content\images\authors\paul-randal-v1.jpg" />
+    <Content Include="Content\images\authors\paul-sheriff-v1.jpg" />
+    <Content Include="Content\images\authors\paul-wilson-v1.jpg" />
+    <Content Include="Content\images\authors\pavel-yosifovich-v1.jpg" />
+    <Content Include="Content\images\authors\peter-bruzzese-v1.jpg" />
+    <Content Include="Content\images\authors\peter-kellner-v1.jpg" />
+    <Content Include="Content\images\authors\peter-shaw-v1.jpg" />
+    <Content Include="Content\images\authors\peterpaul-koch-v1.jpg" />
+    <Content Include="Content\images\authors\phani-kumar-v1.jpg" />
+    <Content Include="Content\images\authors\phil-hagelberg-v1.jpg" />
+    <Content Include="Content\images\authors\philip-japikse-v1.jpg" />
+    <Content Include="Content\images\authors\pinal-dave-v1.jpg" />
+    <Content Include="Content\images\authors\rachel-wilkinspatel-v1.jpg" />
+    <Content Include="Content\images\authors\rag-dhiman-v2.jpg" />
+    <Content Include="Content\images\authors\reindertjan-ekker-v1.jpg" />
+    <Content Include="Content\images\authors\rhonda-layfield-v1.jpg" />
+    <Content Include="Content\images\authors\rich-dudley-v1.jpg" />
+    <Content Include="Content\images\authors\rich-hickey-v2.jpg" />
+    <Content Include="Content\images\authors\richard-astbury-v1.jpg" />
+    <Content Include="Content\images\authors\richard-cirerol-v1.jpg" />
+    <Content Include="Content\images\authors\richard-hicks-v2.jpg" />
+    <Content Include="Content\images\authors\richard-seroter-v2.jpg" />
+    <Content Include="Content\images\authors\rick-scherer-v1.jpg" />
+    <Content Include="Content\images\authors\rob-conery-v1.jpg" />
+    <Content Include="Content\images\authors\rob-mangold-v1.jpg" />
+    <Content Include="Content\images\authors\rob-sullivan-v1.jpg" />
+    <Content Include="Content\images\authors\rob-windsor-v1.jpg" />
+    <Content Include="Content\images\authors\robbe-morris-v1.jpg" />
+    <Content Include="Content\images\authors\robert-boedigheimer-v1.jpg" />
+    <Content Include="Content\images\authors\robert-bogue-v1.jpg" />
+    <Content Include="Content\images\authors\robert-cain-v1.jpg" />
+    <Content Include="Content\images\authors\robert-horvick-v3.jpg" />
+    <Content Include="Content\images\authors\robert-juric-v1.jpg" />
+    <Content Include="Content\images\authors\robert-smallshire-v1.jpg" />
+    <Content Include="Content\images\authors\roland-guijt-v1.jpg" />
+    <Content Include="Content\images\authors\ron-schindler-v1.jpg" />
+    <Content Include="Content\images\authors\ross-bagurdes-v1.jpg" />
+    <Content Include="Content\images\authors\rudi-bruchez-v1.jpg" />
+    <Content Include="Content\images\authors\russell-elledge-v1.jpg" />
+    <Content Include="Content\images\authors\rusty-lowrey-v1.jpg" />
+    <Content Include="Content\images\authors\ryan-irelan-v1.jpg" />
+    <Content Include="Content\images\authors\ryan-niemeyer-v1.jpg" />
+    <Content Include="Content\images\authors\ryan-singer-v1.jpg" />
+    <Content Include="Content\images\authors\sahil-malik-v1.jpg" />
+    <Content Include="Content\images\authors\sam-breed-v1.jpg" />
+    <Content Include="Content\images\authors\sam-saffron-v1.jpg" />
+    <Content Include="Content\images\authors\samidip-basu-v1.jpg" />
+    <Content Include="Content\images\authors\sasha-goldshtein-v1.jpg" />
+    <Content Include="Content\images\authors\scot-hillier-v1.jpg" />
+    <Content Include="Content\images\authors\scott-allen-v1.jpg" />
+    <Content Include="Content\images\authors\scott-forsyth-v1.jpg" />
+    <Content Include="Content\images\authors\scott-gonzalez-v1.jpg" />
+    <Content Include="Content\images\authors\scott-hanselman-v1.jpg" />
+    <Content Include="Content\images\authors\scott-hecht-v2.jpg" />
+    <Content Include="Content\images\authors\scott-seely-v1.jpg" />
+    <Content Include="Content\images\authors\scott-skinger-v1.jpg" />
+    <Content Include="Content\images\authors\sean-clark-v1.jpg" />
+    <Content Include="Content\images\authors\sean-mccown-v1.jpg" />
+    <Content Include="Content\images\authors\shadow-farrell-v1.jpg" />
+    <Content Include="Content\images\authors\shawn-wildermuth-v1.jpg" />
+    <Content Include="Content\images\authors\simon-robinson-v1.jpg" />
+    <Content Include="Content\images\authors\skip-krenek-v2.jpg" />
+    <Content Include="Content\images\authors\slim-chtourou-v1.jpg" />
+    <Content Include="Content\images\authors\spike-xavier-v1.jpg" />
+    <Content Include="Content\images\authors\stacia-misner-v1.jpg" />
+    <Content Include="Content\images\authors\stephen-forte-v1.jpg" />
+    <Content Include="Content\images\authors\stephen-haunts-v1.jpg" />
+    <Content Include="Content\images\authors\stephen-mccassey-v1.jpg" />
+    <Content Include="Content\images\authors\stephen-sharp-v1.jpg" />
+    <Content Include="Content\images\authors\stephen-thomas-v1.jpg" />
+    <Content Include="Content\images\authors\steve-evans-v2.jpg" />
+    <Content Include="Content\images\authors\steve-michelotti-v1.jpg" />
+    <Content Include="Content\images\authors\steve-smith-v2.jpg" />
+    <Content Include="Content\images\authors\susan-simkins-v1.jpg" />
+    <Content Include="Content\images\authors\ted-pattison-v1.jpg" />
+    <Content Include="Content\images\authors\terry-bradbury-v1.jpg" />
+    <Content Include="Content\images\authors\thomas-huber-v1.jpg" />
+    <Content Include="Content\images\authors\thomas-lee-v1.jpg" />
+    <Content Include="Content\images\authors\tim-caswell-v1.jpg" />
+    <Content Include="Content\images\authors\tim-pope-v1.jpg" />
+    <Content Include="Content\images\authors\tim-schmidt-v1.jpg" />
+    <Content Include="Content\images\authors\tim-warner-v1.jpg" />
+    <Content Include="Content\images\authors\toby-weston-v1.jpg" />
+    <Content Include="Content\images\authors\tod-gentille-v2.jpg" />
+    <Content Include="Content\images\authors\todd-ropog-v1.jpg" />
+    <Content Include="Content\images\authors\tom-bousso-v1.jpg" />
+    <Content Include="Content\images\authors\tony-northrup-v1.jpg" />
+    <Content Include="Content\images\authors\tracey-wiedmeyer-v1.jpg" />
+    <Content Include="Content\images\authors\travis-gosselin-v1.jpg" />
+    <Content Include="Content\images\authors\troy-hunt-v2.jpg" />
+    <Content Include="Content\images\authors\troy-kranendonk-v2.jpg" />
+    <Content Include="Content\images\authors\veronica-henry-v1.jpg" />
+    <Content Include="Content\images\authors\vinod-kumar-v1.jpg" />
+    <Content Include="Content\images\authors\vishwas-lele-v1.jpg" />
+    <Content Include="Content\images\authors\wendy-henry-v1.jpg" />
+    <Content Include="Content\images\authors\wes-mcclure-v2.jpg" />
+    <Content Include="Content\images\authors\william-turner-v1.jpg" />
+    <Content Include="Content\images\authors\xavier-morera-v2.jpg" />
+    <Content Include="Content\images\authors\xavier-shay-v1.jpg" />
+    <Content Include="Content\images\authors\yacine-khammal-v2.jpg" />
+    <Content Include="Content\images\authors\yan-zhang-v1.jpg" />
+    <Content Include="Content\images\authors\yasser-shohoud-v2.jpg" />
+    <Content Include="Content\images\authors\yehuda-katz-v1.jpg" />
+    <Content Include="Content\images\authors\zed-shaw-v1.jpg" />
+    <Content Include="Content\images\authors\zoiner-tejada-v1.jpg" />
+    <Content Include="Content\images\authors\zoran-horvat-v1.jpg" />
+    <Content Include="Content\images\badges\google-cloud-platform-developer-expert-2013-L.png" />
+    <Content Include="Content\images\badges\mvp-mainbio-green-v1.gif" />
+    <Content Include="Content\images\category\pluralsight\adobe-v1.png" />
+    <Content Include="Content\images\category\pluralsight\amazon-web-services-v1.png" />
+    <Content Include="Content\images\category\pluralsight\android-v1.png" />
+    <Content Include="Content\images\category\pluralsight\aop-v1.png" />
+    <Content Include="Content\images\category\pluralsight\architecture-v1.png" />
+    <Content Include="Content\images\category\pluralsight\aspdotnet-v1.png" />
+    <Content Include="Content\images\category\pluralsight\beginner-programming-v1.png" />
+    <Content Include="Content\images\category\pluralsight\big-data-v1.png" />
+    <Content Include="Content\images\category\pluralsight\biztalk-v1.png" />
+    <Content Include="Content\images\category\pluralsight\business-intelligence-v2.png" />
+    <Content Include="Content\images\category\pluralsight\careers-v1.png" />
+    <Content Include="Content\images\category\pluralsight\cloud-computing-v1.png" />
+    <Content Include="Content\images\category\pluralsight\cms-v1.png" />
+    <Content Include="Content\images\category\pluralsight\computer-science-v1.png" />
+    <Content Include="Content\images\category\pluralsight\cpp-v1.png" />
+    <Content Include="Content\images\category\pluralsight\csharp-v1.png" />
+    <Content Include="Content\images\category\pluralsight\css-v1.png" />
+    <Content Include="Content\images\category\pluralsight\databases-v1.png" />
+    <Content Include="Content\images\category\pluralsight\debugging-v1.png" />
+    <Content Include="Content\images\category\pluralsight\deployment-v1.png" />
+    <Content Include="Content\images\category\pluralsight\digital-audio-v1.png" />
+    <Content Include="Content\images\category\pluralsight\dotnet-v1.png" />
+    <Content Include="Content\images\category\pluralsight\drupal-v1.png" />
+    <Content Include="Content\images\category\pluralsight\dynamics-crm-v1.png" />
+    <Content Include="Content\images\category\pluralsight\eclipse-v1.png" />
+    <Content Include="Content\images\category\pluralsight\enterprise-library-v1.png" />
+    <Content Include="Content\images\category\pluralsight\entity-framework-v1.png" />
+    <Content Include="Content\images\category\pluralsight\exchange-server-v1.png" />
+    <Content Include="Content\images\category\pluralsight\f-sharp-v1.png" />
+    <Content Include="Content\images\category\pluralsight\google-v1.png" />
+    <Content Include="Content\images\category\pluralsight\hardware-v3.png" />
+    <Content Include="Content\images\category\pluralsight\html-5-v1.png" />
+    <Content Include="Content\images\category\pluralsight\http-v1.png" />
+    <Content Include="Content\images\category\pluralsight\iis-v1.png" />
+    <Content Include="Content\images\category\pluralsight\ios-v1.png" />
+    <Content Include="Content\images\category\pluralsight\it-administration-v1.png" />
+    <Content Include="Content\images\category\pluralsight\java-v1.png" />
+    <Content Include="Content\images\category\pluralsight\javascript-v1.png" />
+    <Content Include="Content\images\category\pluralsight\jquery-v2.png" />
+    <Content Include="Content\images\category\pluralsight\leadership-v1.png" />
+    <Content Include="Content\images\category\pluralsight\lightswitch-v1.png" />
+    <Content Include="Content\images\category\pluralsight\linq-v1.png" />
+    <Content Include="Content\images\category\pluralsight\linux-v1.png" />
+    <Content Include="Content\images\category\pluralsight\lync-server-v1.png" />
+    <Content Include="Content\images\category\pluralsight\microsoft-office-v1.png" />
+    <Content Include="Content\images\category\pluralsight\mobile-frameworks-v1.png" />
+    <Content Include="Content\images\category\pluralsight\mono-v1.png" />
+    <Content Include="Content\images\category\pluralsight\mse-v1.png" />
+    <Content Include="Content\images\category\pluralsight\mysql-v1.png" />
+    <Content Include="Content\images\category\pluralsight\networking-v1.png" />
+    <Content Include="Content\images\category\pluralsight\nhibernate-v1.png" />
+    <Content Include="Content\images\category\pluralsight\nodejs-v2.png" />
+    <Content Include="Content\images\category\pluralsight\nosql-v1.png" />
+    <Content Include="Content\images\category\pluralsight\numerical-computation-v1.png" />
+    <Content Include="Content\images\category\pluralsight\odata-v1.png" />
+    <Content Include="Content\images\category\pluralsight\oracle-v1.png" />
+    <Content Include="Content\images\category\pluralsight\performance-v1.png" />
+    <Content Include="Content\images\category\pluralsight\photoshop-v1.png" />
+    <Content Include="Content\images\category\pluralsight\php-v1.png" />
+    <Content Include="Content\images\category\pluralsight\powershell-v1.png" />
+    <Content Include="Content\images\category\pluralsight\productivity-v1.png" />
+    <Content Include="Content\images\category\pluralsight\programming-languages-v1.png" />
+    <Content Include="Content\images\category\pluralsight\project-management-v1.png" />
+    <Content Include="Content\images\category\pluralsight\python-v2.png" />
+    <Content Include="Content\images\category\pluralsight\ruby-on-rails-v1.png" />
+    <Content Include="Content\images\category\pluralsight\ruby-v1.png" />
+    <Content Include="Content\images\category\pluralsight\salesforce-v1.png" />
+    <Content Include="Content\images\category\pluralsight\sap-v1.png" />
+    <Content Include="Content\images\category\pluralsight\security-v1.png" />
+    <Content Include="Content\images\category\pluralsight\sharepoint-v1.png" />
+    <Content Include="Content\images\category\pluralsight\silverlight-v1.png" />
+    <Content Include="Content\images\category\pluralsight\social-media-v1.png" />
+    <Content Include="Content\images\category\pluralsight\software-practices-v1.png" />
+    <Content Include="Content\images\category\pluralsight\source-control-v1.png" />
+    <Content Include="Content\images\category\pluralsight\sql-server-v1.png" />
+    <Content Include="Content\images\category\pluralsight\sql-v1.png" />
+    <Content Include="Content\images\category\pluralsight\storage-v1.png" />
+    <Content Include="Content\images\category\pluralsight\system-center-v1.png" />
+    <Content Include="Content\images\category\pluralsight\tfs-v1.png" />
+    <Content Include="Content\images\category\pluralsight\unix-v1.png" />
+    <Content Include="Content\images\category\pluralsight\ux-design-v1.png" />
+    <Content Include="Content\images\category\pluralsight\virtualization-v1.png" />
+    <Content Include="Content\images\category\pluralsight\visual-studio-v1.png" />
+    <Content Include="Content\images\category\pluralsight\wcf-v1.png" />
+    <Content Include="Content\images\category\pluralsight\web-frameworks-v1.png" />
+    <Content Include="Content\images\category\pluralsight\wf-v1.png" />
+    <Content Include="Content\images\category\pluralsight\windows-7-v1.png" />
+    <Content Include="Content\images\category\pluralsight\windows-8-v2.png" />
+    <Content Include="Content\images\category\pluralsight\windows-azure-v1.png" />
+    <Content Include="Content\images\category\pluralsight\windows-embedded-v1.png" />
+    <Content Include="Content\images\category\pluralsight\windows-phone-v1.png" />
+    <Content Include="Content\images\category\pluralsight\windows-server-v1.png" />
+    <Content Include="Content\images\category\pluralsight\windows-vista-v1.png" />
+    <Content Include="Content\images\category\pluralsight\windows-xp-v1.png" />
+    <Content Include="Content\images\category\pluralsight\wordpress-v1.png" />
+    <Content Include="Content\images\category\pluralsight\wpf-v1.png" />
+    <Content Include="Content\images\category\pluralsight\xaml-v1.png" />
+    <Content Include="Content\images\category\pluralsight\xml-v1.png" />
+    <Content Include="Content\images\loading.gif" />
+    <Content Include="Content\images\placeholder.png" />
+    <Content Include="Content\images\training-provider\pluralsight-logo-orange-250x78-v1.png" />
+    <Content Include="Content\jquery-img\ui-bg_flat_0_aaaaaa_40x100.png" />
+    <Content Include="Content\jquery-img\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\jquery-img\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\jquery-img\ui-bg_glass_65_ffffff_1x400.png" />
+    <Content Include="Content\jquery-img\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\jquery-img\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\jquery-img\ui-bg_glass_95_fef1ec_1x400.png" />
+    <Content Include="Content\jquery-img\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\jquery-img\ui-icons_222222_256x240.png" />
+    <Content Include="Content\jquery-img\ui-icons_2e83ff_256x240.png" />
+    <Content Include="Content\jquery-img\ui-icons_454545_256x240.png" />
+    <Content Include="Content\jquery-img\ui-icons_888888_256x240.png" />
+    <Content Include="Content\jquery-img\ui-icons_cd0a0a_256x240.png" />
+    <Content Include="Content\jquery-ui.css" />
+    <Content Include="Content\jquery-ui.min.css" />
+    <Content Include="Content\jquery-ui.structure.css" />
+    <Content Include="Content\jquery-ui.structure.min.css" />
+    <Content Include="Content\jquery-ui.theme.css" />
+    <Content Include="Content\jquery-ui.theme.min.css" />
+    <Content Include="Content\jquery.dataTables.css" />
+    <Content Include="Content\PagedList.css" />
+    <Content Include="Content\star-rating.css" />
+    <Content Include="Content\star-rating.min.css" />
+    <Content Include="favicon.ico" />
+    <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="Content\Site.css" />
+    <Content Include="fonts\fontawesome-webfont.eot" />
+    <Content Include="fonts\fontawesome-webfont.ttf" />
+    <Content Include="fonts\fontawesome-webfont.woff" />
+    <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="fonts\FontAwesome.otf" />
+    <Content Include="SQLIndexScript\CourseIndexes.sql" />
+    <Content Include="SQLIndexScript\CourseAuthorIndexes.sql" />
+    <Content Include="SQLIndexScript\TOCIndexes.sql" />
+    <Content Include="SQLIndexScript\TrainingProviderAuthorIndexes.sql" />
+    <Content Include="robots.txt" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\dataTables.bootstrap.js" />
+    <Content Include="Scripts\dataTables.bootstrap.min.js" />
+    <Content Include="Areas\Admin\Views\web.config" />
+    <Content Include="Areas\Admin\Views\AuthorResolves\UrlNullDetails.cshtml" />
+    <Content Include="Areas\Admin\Views\AuthorResolves\UrlNullResolve.cshtml" />
+    <Content Include="Areas\Admin\Views\AuthorResolves\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Admin\Views\CoursesWithoutSpecializations\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\CoursesWithoutSpecializations\CategoryCourses.cshtml" />
+    <Content Include="Areas\Admin\Views\ApplicationUsers\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\ApplicationUsers\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\ApplicationRoles\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\ApplicationRoles\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\ApplicationRoles\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\ApplicationRoles\Index.cshtml" />
+    <Content Include="Scripts\jquery-ui.js" />
+    <Content Include="Scripts\jquery-ui.min.js" />
+    <Content Include="Scripts\star-rating.js" />
+    <Content Include="Scripts\star-rating.min.js" />
+    <Content Include="Scripts\tm-course-ajax-add-to-plan.js" />
+    <Content Include="Scripts\tm-course-add-controller.js" />
+    <Content Include="Scripts\tm-course-toc.js" />
+    <Content Include="Scripts\tm-dataTables.js" />
+    <Content Include="Scripts\tm-dom-search.js" />
+    <Content Include="Scripts\tm-learning-plan.js" />
+    <Content Include="Scripts\tm-training-provider.js" />
+    <Content Include="Views\Shared\DisplayTemplates\EnabledDisabled.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\YesNo.cshtml" />
+    <Content Include="Areas\Admin\Views\UpdateEvents\_StatisticViewModel.cshtml" />
+    <Content Include="Areas\Admin\Views\UpdateEvents\CourseChangesDetails.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\DisplayTemplates\AuthorCoAuthor.cshtml" />
+    <Content Include="Areas\Admin\Views\UpdateEvents\AuthorsUpdateDetails.cshtml" />
+    <Content Include="Areas\Admin\Views\UpdateEvents\AuthorChangesDetails.cshtml" />
+    <Content Include="Areas\Admin\Views\UpdateEvents\CategoriesUpdateDetails.cshtml" />
+    <Content Include="Areas\Admin\Views\UpdateEvents\CategoryChangesDetails.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\EditorTemplates\Upload.cshtml" />
+    <Content Include="Areas\Admin\Views\TrainingProviders\Delete.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\DisplayTemplates\UrlInNewWindow.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\DisplayTemplates\IControllableView.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_IControllableViewScript.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\DisplayTemplates\UpdateResult.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\DisplayTemplates\Specializations.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\DisplayTemplates\ProblemType.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\DisplayTemplates\ResolveState.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\DisplayTemplates\LocationType.cshtml" />
+    <Content Include="Areas\Admin\Views\AuthorResolves\_UrlNullPartial.cshtml" />
+    <Content Include="Areas\Admin\Views\UpdateEvents\CoursesUpdateDetails.cshtml" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <None Include="Properties\PublishProfiles\File System.pubxml" />
+    <None Include="Properties\PublishProfiles\ittm.mooo.com - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\ittm.mooo.com - Web Deploy.pubxml" />
+    <None Include="Scripts\jquery-1.11.2.intellisense.js" />
+    <Content Include="Scripts\dataTables.colReorder.js" />
+    <Content Include="Scripts\dataTables.colReorder.min.js" />
+    <Content Include="Scripts\dataTables.colVis.js" />
+    <Content Include="Scripts\dataTables.colVis.min.js" />
+    <Content Include="Scripts\dataTables.responsive.js" />
+    <Content Include="Scripts\dataTables.responsive.min.js" />
+    <Content Include="Scripts\jquery-1.11.2.js" />
+    <Content Include="Scripts\jquery-1.11.2.min.js" />
+    <Content Include="Scripts\jquery-1.11.2.min.map" />
+    <Content Include="Scripts\jquery.dataTables.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\notify-combined.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.matchmedia.addListener.js" />
+    <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\_references.js" />
+    <Content Include="SMTPSettingsPrivate.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
+    </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
+    <Content Include="Views\Shared\_Layout.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Message.cshtml" />
+    <Content Include="Views\Shared\Lockout.cshtml" />
+    <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Home\_StatisticPartial.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\CourseDuration.cshtml" />
+    <Content Include="Views\LearningPlan\Empty.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\TopicDuration.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Social.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\AuthorBadge.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\AuthorAvatar.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\CourseToC.cshtml" />
+    <Content Include="Areas\Admin\Views\TrainingProviders\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\TrainingProviders\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\TrainingProviders\Edit.cshtml" />
+    <Content Include="Areas\Admin\Views\TrainingProviders\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\UpdateEvents\Details.cshtml" />
+    <Content Include="Areas\Admin\Views\UpdateEvents\Index.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Statistic.cshtml" />
+    <Content Include="Views\Manage\ChangeSpecializations.cshtml" />
+    <Content Include="Views\Account\ChangeDefaultAdminNameAndPassword.cshtml" />
+    <Content Include="Views\TrainingProvider\TrainingProvider.cshtml" />
+    <Content Include="Views\TrainingProvider\TrainingProviders.cshtml" />
+    <Content Include="Views\Category\Category.cshtml" />
+    <Content Include="Views\Category\Categories.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\LearningState.cshtml" />
+    <Content Include="Views\Author\Author.cshtml" />
+    <Content Include="Views\Author\Authors.cshtml" />
+    <Content Include="Views\Course\Course.cshtml" />
+    <Content Include="Views\Course\Courses.cshtml" />
+    <Content Include="Views\Course\Search.cshtml" />
+    <Content Include="Views\Home\Home.cshtml" />
+    <Content Include="Views\Course\_AjaxCourseListPartial.cshtml" />
+    <Content Include="Views\Course\_CourseListPartial.cshtml" />
+    <Content Include="Views\LearningPlan\LearningPlan.cshtml" />
+    <Content Include="Views\LearningPlan\_CourseRateModal.cshtml" />
+    <Content Include="Views\LearningPlan\_SubscriptionFormPartial.cshtml" />
+    <Content Include="Views\Course\_TopCourseListPartial.cshtml" />
+    <Content Include="Views\LearningPlan\_LearningPlanStatisticControl.cshtml" />
+    <Content Include="Views\LearningPlan\_CourseDeleteModal.cshtml" />
+    <Content Include="Views\Shared\_CourseStatisticControl.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Views\Shared\EditorTemplates\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TM.Data.Pluralsight\TM.Data.Pluralsight.csproj">
+      <Project>{3c3f8e2b-deb6-488d-b4e5-0b528512653c}</Project>
+      <Name>TM.Data.Pluralsight</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TM.Data.Update\TM.Data.Update.csproj">
+      <Project>{5F3B6EF5-A1D6-44DF-AD65-0A72CA601220}</Project>
+      <Name>TM.Data.Update</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TM.Data\TM.Data.csproj">
+      <Project>{a7dcc904-181b-4a12-8289-96d5b14201c9}</Project>
+      <Name>TM.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TM.Shared\TM.Shared.csproj">
+      <Project>{e06ec9ad-b556-49f5-89bd-b2490ee1d4b8}</Project>
+      <Name>TM.Shared</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201508180804108_Initial.resx">
+      <DependentUpon>201508180804108_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
+    <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>49532</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:44300/</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://localhost:44300/</IISAppRootUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target> -->
+</Project>

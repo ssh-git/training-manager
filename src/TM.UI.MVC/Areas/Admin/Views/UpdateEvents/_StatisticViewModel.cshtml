@@ -1,0 +1,34 @@
+﻿@model UpdateEventViewModels.StatisticViewModel
+
+@if (Model.HasCategoriesUpdateLog)
+{
+    <a target="_blank" href="@Url.Action("CategoriesUpdateDetails", "UpdateEvents", new {id = ViewData["id"], operation = ViewData["operation"]})">
+        @Html.DisplayNameFor(model => model.Categories): @Html.DisplayFor(m => m.Categories)
+    </a>
+} else
+{
+    @: @Html.DisplayNameFor(model => model.Categories): @Html.DisplayFor(m => m.Categories)
+}
+<br />
+
+@if (Model.HasCoursesUpdateLog)
+{
+    <a target="_blank" href="@Url.Action("CoursesUpdateDetails", "UpdateEvents", new { id = ViewData["id"], operation = ViewData["operation"] })">
+        @Html.DisplayNameFor(model => model.Courses): @Html.DisplayFor(m => m.Courses)
+    </a>
+} else
+{
+    @: @Html.DisplayNameFor(model => model.Courses): @Html.DisplayFor(m => m.Courses)
+}
+<br />
+
+@if (Model.HasAuthorsUpdateLog)
+{
+    <a target="_blank" href="@Url.Action("AuthorsUpdateDetails", "UpdateEvents", new { id = ViewData["id"], operation = ViewData["operation"] })">
+        @Html.DisplayNameFor(model => model.Authors): @Html.DisplayFor(m => m.Authors)
+    </a>
+} else
+{
+    @: @Html.DisplayNameFor(model => model.Authors): @Html.DisplayFor(m => m.Authors)
+}
+<br />

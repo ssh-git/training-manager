@@ -1,0 +1,47 @@
+﻿@model UpdateEventViewModels.CategoryChangesDetailsViewModel
+
+@section Title{
+    Category Change Details
+}
+
+<h2>Category Change Details</h2>
+<hr />
+<h4>Category: <strong>@Model.CurrentContent.Title</strong></h4>
+
+<table class="table table-condensed table-responsive">
+    <tr>
+        <th>Property Name</th>
+        <th>@Html.DisplayNameFor(model => model.CurrentContent)</th>
+        <th>@Html.DisplayNameFor(model => model.PreviousContent)</th>
+    </tr>
+
+    @if (Model.PreviousContent.Title != null)
+    {
+        <tr>
+            <td>@Html.DisplayNameFor(m => m.CurrentContent.Title)</td>
+            <td>@Html.DisplayFor(m => m.CurrentContent.Title)</td>
+            <td>@Html.DisplayFor(m => m.PreviousContent.Title)</td>
+        </tr>
+
+    }
+
+
+    @if (Model.PreviousContent.LogoUrl != null)
+    {
+        <tr>
+            <td>@Html.DisplayNameFor(m => m.CurrentContent.LogoUrl)</td>
+            <td>@Html.DisplayFor(m => m.CurrentContent.LogoUrl)</td>
+            <td>@Html.DisplayFor(m => m.PreviousContent.LogoUrl)</td>
+        </tr>
+    }
+
+    @if (Model.PreviousContent.LogoFileName != null)
+    {
+        <tr>
+            <td>@Html.DisplayNameFor(m => m.CurrentContent.LogoFileName)</td>
+            <td>@Html.DisplayFor(m => m.CurrentContent.LogoFileName)</td>
+            <td>@Html.DisplayFor(m => m.PreviousContent.LogoFileName)</td>
+        </tr>
+    }
+
+</table>

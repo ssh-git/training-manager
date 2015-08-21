@@ -1,0 +1,21 @@
+﻿@model TM.UI.MVC.ControllableModel.IControllableView
+        
+
+@using (Html.BeginForm(ViewContext.RouteData.Values["action"].ToString(), ViewContext.RouteData.Values["controller"].ToString(), FormMethod.Get, new { @class = "form-inline form-group" }))
+{
+    @Html.Hidden("SortKey", Model.Params.SortKey)
+    <div class="form-group form-group-sm">
+        @Html.Label("PageSize", "Select page size", new { @class = "form-control-static" }) &nbsp;
+        @Html.DropDownList("PageSize", Model.PageSizeSelectList, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group form-group-sm">
+        @Html.Label("FilterKey", "Filter by", new { @class = "form-control-static" }) &nbsp;
+        @Html.DropDownList("FilterKey", Model.FilterSelectList, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group form-group-sm ">
+        @Html.TextBox("SearchKey", Model.Params.SearchKey, new { @class = "form-control", placeholder = Model.SearchBoxTextPlaceholder })
+        <input type="submit" class="btn btn-default form-control" value="Search" />
+    </div>
+}

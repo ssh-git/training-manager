@@ -1,0 +1,38 @@
+﻿@model IEnumerable<TrainingProviderViewModels.CatalogEntryViewModel>
+
+@section Title{
+    Training Providers
+}
+
+<!--Breadcrumbs-->
+<ol class="breadcrumb">
+    <li><a href="@Url.Content("~/")">Home</a></li>
+    <li class="active">Training Providers</li>
+</ol>
+
+<!--Content-->
+<div class="row tm-line-bound">
+    @foreach (var trainingProvider in Model)
+    {
+        <div class="col-sm-6 col-md-6 col-lg-4">
+            <div class="thumbnail">
+                <a href="@Url.RouteUrl(AppConstants.RouteNames.TrainingProvider, trainingProvider.TrainingProviderRouteValuesObject)">
+                    <img height="65" src="@Url.Content(trainingProvider.LogoUrl)" alt="@trainingProvider.Name">
+                </a>
+                <div class="caption">
+                    <div class="btn-group btn-group-sm btn-group-justified">
+                        <a href="@Url.RouteUrl(AppConstants.RouteNames.TrainingProviderCategories, trainingProvider.TrainingProviderRouteValuesObject)" class="btn btn-default" role="button">
+                            Categories: <b>@trainingProvider.CategoryCount</b>
+                        </a>
+                        <a href="@Url.RouteUrl(AppConstants.RouteNames.TrainingProviderCourses, trainingProvider.TrainingProviderRouteValuesObject)" class="btn btn-default" role="button">
+                            Courses: <b>@trainingProvider.CourseCount</b>
+                        </a>
+                        <a href="@Url.RouteUrl(AppConstants.RouteNames.TrainingProviderAuthors, trainingProvider.TrainingProviderRouteValuesObject)" class="btn btn-default" role="button">
+                            Authors: <b>@trainingProvider.AuthorsCount</b>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

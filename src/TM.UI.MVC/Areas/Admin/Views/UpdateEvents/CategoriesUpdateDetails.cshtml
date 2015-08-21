@@ -1,0 +1,64 @@
+﻿@using TM.Data.Update
+@model UpdateEventViewModels.CategoryUpdateDetailsViewModel
+
+@section Title{
+    Categories Update Details
+}
+
+<h2>Categories Update Details</h2>
+
+<dl class="dl-horizontal">
+    <dt>
+        @Html.DisplayNameFor(model => model.UpdateEventId)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.UpdateEventId)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.TrainingProviderName)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.TrainingProviderName)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.OperationType)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.OperationType)
+    </dd>
+</dl>
+
+
+<table class="table table-striped table-condensed table-responsive">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoriesMetadata.Title)
+        </th>
+
+        @if (Model.OperationType == OperationType.Modify)
+        {
+            <th></th>
+        }
+    </tr>
+
+    @foreach (var category in Model.Categories)
+    {
+        <tr>
+            <td>
+                <a target="_blank" href="@Url.RouteUrl(AppConstants.RouteNames.TrainingProviderCategory, new { Model.TrainingProviderName, category.CategoryUrlName })">
+                    @Html.DisplayFor(m => category.Title)
+                </a>
+            </td>
+
+            @if (Model.OperationType == OperationType.Modify)
+            {
+                <td>
+                    @Html.ActionLink("Details", "CategoryChangesDetails", "UpdateEvents", new { Model.UpdateEventId, category.CategoryId }, null)
+                </td>
+            }
+        </tr>
+    }
+
+</table>

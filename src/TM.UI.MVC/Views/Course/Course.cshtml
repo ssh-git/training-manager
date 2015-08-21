@@ -1,0 +1,150 @@
+﻿@using TM.Shared
+@model CourseViewModels.CourseInfoViewModel
+
+@section Title{
+    Course - @Model.Title
+}
+
+@{
+    bool inLearningPlan = User.Identity.IsAuthenticated && Model.LearningState != default(LearningState);
+}
+
+<!--Breadcrumbs-->
+<ol class="breadcrumb">
+    <li><a href="@Url.Content("~/")">Home</a></li>
+    <li><a href="@Url.RouteUrl(AppConstants.RouteNames.AllTrainingProviders)">Training Providers</a></li>
+    <li><a href="@Url.RouteUrl(AppConstants.RouteNames.TrainingProvider)">@Model.TrainingProvider.Name.ToTitleCaseInvariant()</a></li>
+    <li><a href="@Url.RouteUrl(AppConstants.RouteNames.TrainingProviderCategories)">Categories</a></li>
+    <li><a href="@Url.RouteUrl(AppConstants.RouteNames.TrainingProviderCategory, Model.Category.CategoryRouteValuesObject)">@Model.Category.Title</a></li>
+    <li class="active">...</li>
+</ol>
+
+
+<section class="jumbotron tm-course-info-jumbotron">
+    <h2>@Model.Title</h2>
+    <p>@MvcHtmlString.Create(Model.ShortDescription)</p>
+</section>
+<section>
+
+    <!--Authors links-->
+    <div class="row">
+        <div class="col-xs-12">
+            <span>
+                by @Html.DisplayCourseAuthors(Model.TrainingProvider.Name, Model.Authors) for <a target="_blank" href="@Model.SiteUrl">
+                    <img height="30" src="@Model.TrainingProvider.LogoUrl" alt="@Model.TrainingProvider.Name)" />
+                </a>
+            </span>
+        </div>
+    </div>
+
+    <!--Content-->
+    <div class="row">
+        <div class="col-md-9">
+
+            <!--TOC-->
+            <div id="toc-block">
+
+                <!--Header-->
+                <h3 class="tm-h3">
+                    <span>Table of contents&nbsp;&nbsp;<a id="toc-expand-all" href="#">Expand all</a><a id="toc-collapse-all" href="#">Collapse all</a></span>
+                </h3>
+
+                @Html.DisplayFor(m => m.Modules)
+
+            </div>
+
+            <!--Description-->
+            <div id="description-block">
+                <!--Header-->
+
+                <h3 class="tm-h3">Description</h3>
+
+
+                <!--Description-->
+                <p class="text-justify">@MvcHtmlString.Create(@Model.Description)</p>
+
+                <h3 class="tm-h3">Authored by</h3>
+
+                <!--Authors-->
+                <div>
+                    @for (var i = 0; i < Model.AuthorsInfo.Count; i++)
+                    {
+                        <div class="row">
+                            <div class=" col-xs-12 tm-container clearfix">
+
+                                @Html.DisplayFor(m => m.AuthorsInfo[i].Avatar)
+                                @Html.DisplayFor(m => m.AuthorsInfo[i].Badge)
+
+                                <h3 class="tm-h3">@Model.AuthorsInfo[i].FullName</h3>
+
+                                @Html.DisplayFor(m => m.AuthorsInfo[i].Social)
+                                <div class="text-justify">@MvcHtmlString.Create(Model.AuthorsInfo[i].Bio)</div>
+
+                                <a role="button" class="btn btn-primary tm-margin-top" href="@Url.RouteUrl(AppConstants.RouteNames.Author, new { trainingProviderName = Model.TrainingProvider.Name, authorUrlName = Model.AuthorsInfo[i].UrlName })">More by the author</a>
+                            </div>
+                        </div>
+
+                        <hr />
+                    }
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-3">
+            <h3 class="tm-h3">Course info</h3>
+
+            <div class="list-group">
+                <a id="toc-link" href="#" class="list-group-item active"><i class="fa fa-list-ul fa-fw fa-lg"></i> Table of contents</a>
+                <a id="description-link" href="#" class="list-group-item"><i class="fa fa-info fa-fw fa-lg"></i> Description</a>
+            </div>
+
+            @if (User.Identity.IsAuthenticated && !inLearningPlan)
+            {
+                <div id="tm-form-container">
+                    @using (Html.BeginForm("AjaxAdd", "LearningPlan", FormMethod.Post, new { @class = "form-inline", id = "tm-add-form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="courseId" value="@Model.Id" />
+                        <button type="submit" class="btn btn-success">Add To The Learning Plan</button>
+
+                        <div class="alert alert-success" style="display: none" role="alert">Course added to the learning plan.</div>
+                        <div class="alert alert-danger" style="display: none" role="alert">Error occured. Try again later.</div>
+                    }
+                </div>
+            }
+
+            <h3 class="tm-h3">More info</h3>
+
+            <div id="course-more-info" class="list-group">
+
+                <div class="list-group-item clearfix">
+                    <div class="pull-left">@Html.DisplayNameFor(m => m.Level)</div>
+                    <div class="pull-right">@Html.DisplayFor(m => m.Level)</div>
+                </div>
+                <div class="list-group-item clearfix">
+                    <div class="pull-left">@Html.DisplayNameFor(m => m.Rating)</div>
+                    <div class="pull-right">@Html.DisplayCourseRating(Model.Rating)</div>
+                </div>
+                <div class="list-group-item clearfix">
+                    <div class="pull-left">@Html.DisplayNameFor(m => m.Duration)</div>
+                    <div class="pull-right">@Html.DisplayFor(m => m.Duration)</div>
+                </div>
+                <div class="list-group-item clearfix">
+                    <div class="pull-left">@Html.DisplayNameFor(m => m.ReleaseDate)</div>
+                    <div class="pull-right">@Html.DisplayFor(m => m.ReleaseDate)</div>
+                </div>
+                <div class="list-group-item clearfix">
+                    <div class="pull-left">@Html.DisplayNameFor(m => m.HasClosedCaptions)</div>
+                    <div class="pull-right">@Html.DisplayFor(m => m.HasClosedCaptions)</div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/course");
+}

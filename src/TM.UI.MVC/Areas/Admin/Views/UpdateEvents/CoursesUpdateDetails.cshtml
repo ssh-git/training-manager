@@ -1,0 +1,75 @@
+﻿@using TM.Data.Update
+@model UpdateEventViewModels.CourseUpdateDetailsViewModel
+
+@section Title{
+    Courses Update Details
+}
+
+<h2>Courses Update Details</h2>
+
+<dl class="dl-horizontal">
+    <dt>
+        @Html.DisplayNameFor(model => model.UpdateEventId)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.UpdateEventId)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.TrainingProviderName)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.TrainingProviderName)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.OperationType)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.OperationType)
+    </dd>
+</dl>
+
+<table class="table table-condensed table-responsive">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CoursesMetadata.CategoryTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CoursesMetadata.CourseTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CoursesMetadata.CourseReleaseDate)
+        </th>
+        @if (Model.OperationType == OperationType.Modify)
+        {
+            <th></th>
+        }
+    </tr>
+
+    @foreach (var item in Model.Courses)
+    {
+        <tr>
+            <td>
+                <a target="_blank" href="@Url.RouteUrl(AppConstants.RouteNames.TrainingProviderCategory, new { Model.TrainingProviderName, item.CategoryUrlName })">
+                    @Html.DisplayFor(m => item.CategoryTitle)
+                </a> 
+             </td>
+            <td>
+                <a target="_blank" href="@Url.RouteUrl(AppConstants.RouteNames.Course, new { Model.TrainingProviderName, item.CategoryUrlName, item.CourseUrlName })">
+                    @Html.DisplayFor(m => item.CourseTitle)
+                </a> 
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CourseReleaseDate)
+            </td>
+            @if (Model.OperationType == OperationType.Modify)
+            {
+                <td>
+                    @Html.ActionLink("Details", "CourseChangesDetails", "UpdateEvents", new {Model.UpdateEventId, item.CourseId }, null)
+                </td>
+            }
+        </tr>
+    }
+
+</table>

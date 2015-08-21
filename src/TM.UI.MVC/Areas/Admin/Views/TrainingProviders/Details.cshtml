@@ -1,0 +1,92 @@
+﻿@model TrainingProviderViewModels.DetailsViewModel
+
+@section Title{
+    Training Provider Details
+}
+
+<h2>Training Provider Details</h2>
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SiteUrl)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SiteUrl)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrentLogo)
+        </dt>
+        <dd>
+            <img height="30" src="@Model.CurrentLogo.LocalUrl" title="@Model.CurrentLogo.FileName"/>
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdateFrequencyHours)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UpdateFrequencyHours)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AllowedUpdateUtcHoursString)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AllowedUpdateUtcHoursString)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SourceUrl)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SourceUrl)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SourceLocation)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.SourceLocation)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AssemblyType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.AssemblyType)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IsDeleted)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IsDeleted)
+        </dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

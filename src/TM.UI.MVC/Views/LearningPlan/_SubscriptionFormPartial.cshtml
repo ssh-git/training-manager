@@ -1,0 +1,48 @@
+﻿@model LearningPlanViewModels.SubscriptionViewModel
+
+@using (Html.BeginRouteForm(AppConstants.RouteNames.LearningPlanCourseSubscription, FormMethod.Post, new { @class = "form-horizontal" }))
+{
+    @Html.HiddenFor(m => m.CourseId)
+    @Html.AntiForgeryToken()
+
+    <div id="validation-error-container" class="text-danger">
+        
+    </div>
+    
+    <div class="form-group form-group-sm">
+        @Html.LabelFor(m => m.State, new { @class = "col-sm-4 control-label" })
+        <div class="col-sm-8">
+            @Html.EnumDropDownListFor(m => m.State, new { @class = "form-control tm-state-dropdown" })
+        </div>
+    </div>
+
+
+    <div class="form-group form-group-sm">
+        @Html.LabelFor(m => m.StartDate, new { @class = "col-sm-4 control-label" })
+        <div class="col-sm-8">
+            @Html.TextBoxFor(m => m.StartDate,"{0:yyyy-MM-dd}", new { @class = "form-control tm-datepicker"  })
+        </div>
+    </div>
+
+    <div class="form-group form-group-sm">
+        @Html.LabelFor(m => m.FinishDate, new { @class = "col-sm-4 control-label" })
+        <div class="col-sm-8">
+            @Html.TextBoxFor(m => m.FinishDate, "{0:yyyy-MM-dd}", new { @class = "form-control tm-datepicker" })
+        </div>
+    </div>
+
+    <div class="form-group form-group-sm">
+        @Html.LabelFor(m => m.Comment, new { @class = "col-sm-4 control-label" })
+        <div class="col-sm-8">
+            @Html.TextAreaFor(m => m.Comment, new { @class = "form-control", rows = 5 })
+        </div>
+    </div>
+
+    <div class="form-group form-group-sm">
+        @Html.LabelFor(m => m.OwnRating, new { @class = "col-sm-4 control-label" })
+        <div class="col-sm-8">
+            @Html.TextBoxFor(m => m.OwnRating, new { @class = "form-control",data_step=1, data_glyphicon="false", data_rating_class="rating-fa" })
+        </div>
+    </div>
+}
+

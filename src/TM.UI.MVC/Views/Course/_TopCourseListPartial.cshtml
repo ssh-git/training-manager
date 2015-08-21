@@ -1,0 +1,10 @@
+﻿@model IEnumerable<CourseViewModels.CourseLinkViewModel>
+           
+@foreach (var courseLink in Model)
+{
+    <li class="list-group-item">
+        <a href="@Url.RouteUrl(AppConstants.RouteNames.Course, courseLink.CourseRouteValueObject)" class="list-group-item">
+            @Html.DisplayFor(m => courseLink.CourseTitle)
+        </a>
+    </li>
+}

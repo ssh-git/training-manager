@@ -1,0 +1,6 @@
+﻿@model TM.Shared.AuthorBadge
+
+@if (!Model.IsEmpty)
+{
+    <a target="_blank" href="@Model.Link"><img class="img-responsive pull-right tm-img-right" width="100" src="@Model.GetBadgeLocalUrl()" alt="badge" data-toggle="tooltip" title="@Model.HoverText" /></a>
+}

@@ -1,0 +1,17 @@
+﻿@using TM.Data.Update
+@model AuthorResolvesViewModels.UrlNullDetailsViewModel
+
+@section Title{
+    Url Null Problem Details
+}
+
+<h2>Url Null Problem Details</h2>
+
+<div>
+    @{Html.RenderPartial("_UrlNullPartial", Model);}
+</div>
+<p>
+    @Html.If(Model.ResolveState == ResolveState.Pending, Html.ActionLink("Resolve", "UrlNullResolve", new { id = Model.Id }) + " | ")
+
+    @Html.ActionLink("Back to List", "Index")
+</p>

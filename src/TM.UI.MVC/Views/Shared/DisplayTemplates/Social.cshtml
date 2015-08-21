@@ -1,0 +1,31 @@
+﻿@model TM.Shared.Social
+@if (!Model.IsEmpty)
+{
+    <ul class="list-inline tm-social-list">
+        @if (!string.IsNullOrWhiteSpace(Model.TwitterLink))
+        {
+            <li role="presentation">
+                <a target="_blank" href="@Model.TwitterLink"><i class="fa fa-twitter-square fa-fw"></i></a>
+            </li>
+        }
+
+        @if (!string.IsNullOrWhiteSpace(Model.LinkedInLink))
+        {
+            <li role="presentation">
+                <a target="_blank" href="@Model.LinkedInLink"><i class="fa fa-linkedin-square fa-fw"></i></a>
+            </li>
+        }
+        @if (!string.IsNullOrWhiteSpace(Model.RssLink))
+        {
+            <li role="presentation">
+                <a target="_blank" href="@Model.RssLink"><i class="fa fa-rss-square fa-fw"></i></a>
+            </li>
+        }
+        @if (!string.IsNullOrWhiteSpace(Model.FacebookLink))
+        {
+            <li role="presentation">
+                <a target="_blank" href="@Model.FacebookLink"><i class="fa fa-facebook-square fa-fw"></i></a>
+            </li>
+        }
+    </ul>
+}

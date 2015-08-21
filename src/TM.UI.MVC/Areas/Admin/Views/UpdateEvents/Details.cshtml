@@ -1,0 +1,116 @@
+﻿@using TM.Data.Update
+@model UpdateEventViewModels.DetailsViewModel
+
+@section Title{
+    Update Event Details
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Update Event</h4>
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TrainingProviderName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TrainingProviderName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StartedOn)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.StartedOn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EndedOn)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EndedOn)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Duration)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Duration)
+        </dd>
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ErrorData)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ErrorData)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdateResult)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UpdateResult)
+        </dd>
+    </dl>
+
+    <h4>Update Statistic</h4>
+
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(m => m.Added)
+        </dt>
+        <dd>
+            @{ Html.RenderPartial("_StatisticViewModel", Model.Added, new ViewDataDictionary
+               {
+                   {"operation", OperationType.Add},
+                   {"id", Model.Id}
+               }); }
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(m => m.Deleted)
+        </dt>
+        <dd>
+            @{ Html.RenderPartial("_StatisticViewModel", Model.Deleted, new ViewDataDictionary
+               {
+                   {"operation", OperationType.Delete},
+                   {"id", Model.Id}
+               }); }
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(m => m.Modified)
+        </dt>
+        <dd>
+            @{ Html.RenderPartial("_StatisticViewModel", Model.Modified, new ViewDataDictionary
+               {
+                   {"operation", OperationType.Modify},
+                   {"id", Model.Id}
+               }); }
+        </dd>
+    </dl>
+</div>
+
+<p>
+    @if (Model.UpdateResult == UpdateResult.NeedManualResolve)
+    {
+        @Html.ActionLink("Resolve", "Index", "AuthorResolves", new { updateEventId = Model.Id }, new{target="_blank"})
+        @:|
+    }
+    
+    @Html.ActionLink("Back to List", "Index", ViewData.GetControllableViewModelParams())
+</p>

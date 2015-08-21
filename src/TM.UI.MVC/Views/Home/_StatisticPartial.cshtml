@@ -1,0 +1,25 @@
+﻿@model HomeViewModels.StatisticViewModel
+
+<div class="col-md-3 col-sm-6">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-xs-8 text-left">
+                    <div>@Model.Title</div>
+                </div>
+                <div class="col-xs-4 text-right">
+                    <div>@Model.Count</div>
+                </div>
+            </div>
+        </div>
+        <a href="@Model.Url">
+            <div class="panel-body">
+                <span class="pull-left">View Details</span>
+                <span class="pull-right">
+                    <i class="fa fa-arrow-circle-right fa-lg"></i>
+                </span>
+                <div class="clearfix"></div>
+            </div>
+        </a>
+    </div>
+</div>

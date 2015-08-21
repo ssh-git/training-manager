@@ -1,0 +1,20 @@
+﻿@model CourseCatalogEntryViewModel
+
+
+@Html.AntiForgeryToken()
+
+<!--Courses Table-->
+<table class="table tm-data-table table-bordered table-striped responsive nowrap" data-page-length="10" data-order='[[6, "desc"]]' data-dom="RClrtip">
+    <thead>
+        <tr>
+            <th class="desktop">@Html.DisplayNameFor(m => m.TrainingProvider.Name)</th>
+            <th class="min-tablet-l">@Html.DisplayNameFor(m => m.Category.Title)</th>
+            <th class="all">@Html.DisplayNameFor(m => m.Course.Title)</th>
+            <th class="min-tablet">@Html.DisplayNameFor(m => m.Course.Authors)</th>
+            <th class="desktop">@Html.DisplayNameFor(m => m.Course.Level)</th>
+            <th class="desktop">@Html.DisplayNameFor(m => m.Course.Duration)</th>
+            <th class="min-tablet">@Html.DisplayNameFor(m => m.Course.ReleaseDate)</th>
+            <th class="min-tablet-l">@Html.DisplayNameFor(m => m.Course.Rating)</th>
+        </tr>
+    </thead>
+</table>

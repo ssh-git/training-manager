@@ -1,0 +1,139 @@
+﻿@model LearningPlanViewModels.LearningPlanViewModel
+
+@section Title{
+    Learnin Plan
+}
+
+@{Html.RenderPartial("_CourseRateModal");}
+@{Html.RenderPartial("_CourseDeleteModal");}
+
+<!--Breadcrumbs-->
+<ol class="breadcrumb">
+    <li><a href="@Url.Content("~/")">Home</a></li>
+    <li class="active">Learning Plan</li>
+</ol>
+
+@{Html.RenderPartial("_LearningPlanStatisticControl");}
+
+
+@Html.AntiForgeryToken()
+
+<!--Learning Plan Table-->
+<table class="table table-bordered table-striped tm-data-table" data-order='[[7, "desc"]]'
+       data-actions='{"start":"@Url.Action("AjaxStart")", "finish":"@Url.Action("AjaxFinish")", "delete":"@Url.Action("AjaxDelete")"}'>
+    <thead>
+        <tr>
+            <!--Category-->
+            <th lass="min-tablet-l">@Html.DisplayNameFor(model => model.Metadata.Category.Title)</th>
+            <!--Course-->
+            <th id="course-name-column" class="all">@Html.DisplayNameFor(model => model.Metadata.Course.Title)</th>
+            <!--Authors-->
+            <th class="min-tablet">@Html.DisplayNameFor(model => model.Metadata.Course.Authors)</th>
+            <!--Level-->
+            <th class="desktop">@Html.DisplayNameFor(model => model.Metadata.Course.Level)</th>
+            <!--Duration-->
+            <th class="desktop">@Html.DisplayNameFor(model => model.Metadata.Course.Duration)</th>
+            <!--ReleaseDate-->
+            <th class="tm-dt-dom-numeric-order text-nowrap min-tablet">@Html.DisplayNameFor(model => model.Metadata.Course.ReleaseDate)</th>
+            <!--Rating-->
+            <th class="min-tablet-l">@Html.DisplayNameFor(model => model.Metadata.Course.Rating)</th>
+            <!--Start Date-->
+            <th id="start-date-column" class="text-nowrap">@Html.DisplayNameFor(model => model.Metadata.Subscription.StartDate)</th>
+            <!--Finish Date-->
+            <th id="finish-date-column" class="text-nowrap">@Html.DisplayNameFor(model => model.Metadata.Subscription.FinishDate)</th>
+
+            <!--Actions-->
+            <th id="control-column" class="all tm-dt-not-orderable tm-dt-not-searchable"></th>
+
+            <!--Delete-->
+            <th id="delete-column" class="all tm-dt-not-orderable tm-dt-not-searchable"></th>
+
+            <!--Subscription Token-->
+            <th id="token-column" class="never tm-dt-not-orderable">Token</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        @foreach (var entry in Model.Courses)
+        {
+            <tr>
+                <!--Category-->
+                <td>
+                    <a href="@Url.RouteUrl(AppConstants.RouteNames.TrainingProviderCategory, entry.CategoryRouteValueObject)">
+                        @Html.DisplayFor(m => entry.Category.Title)
+                    </a>
+                </td>
+
+                <!--Course-->
+                <td>
+                    @Html.DisplayCourseSubscriptionMarker(entry.Course.LearningState)
+                    <a href="@Url.RouteUrl(AppConstants.RouteNames.Course, entry.CourseRouteValueObject)">
+                        @Html.DisplayFor(model => entry.Course.Title)
+                    </a>
+                    @if (entry.Course.HasClosedCaptions)
+                    {
+                        <i class="text-info fa fa-cc"></i>
+                    }
+                </td>
+                <!--Authors-->
+                <td data-search="@string.Join(", ", entry.Course.Authors.Select(x => x.FullName))">@Html.DisplayCourseAuthors(entry.TrainingProvider.Name, entry.Course.Authors)</td>
+                <!--Level-->
+                <td data-order="@((int) entry.Course.Level)">@Html.DisplayFor(modelItem => entry.Course.Level)</td>
+                <!--Duration-->
+                <td data-order="@entry.Course.Duration.Ticks">@Html.DisplayFor(modelItem => entry.Course.Duration)</td>
+                <!--ReleaseDate-->
+                <td data-order="@entry.Course.ReleaseDate.Ticks">@Html.DisplayFor(modelItem => entry.Course.ReleaseDate)</td>
+                <!--Rating-->
+                <td data-order="@entry.Course.Rating.Rating">@Html.DisplayCourseRating(entry.Course.Rating)</td>
+                <!--Start Date-->
+                <td data-order="@(entry.Subscription.StartDate.HasValue ? entry.Subscription.StartDate.Value.Ticks : 0)">@Html.DisplayFor(modelItem => entry.Subscription.StartDate)</td>
+
+                <!--Finish Date-->
+                <td data-order="@(entry.Subscription.FinishDate.HasValue ? entry.Subscription.FinishDate.Value.Ticks : 0)">@Html.DisplayFor(modelItem => entry.Subscription.FinishDate)</td>
+
+                <!--Actions-->
+                <td>
+                    @{
+                    var startVisible = (entry.Subscription.StartDate == null && entry.Subscription.FinishDate == null) ? null : "style=display:none;";
+                    var finishVisible = (entry.Subscription.StartDate != null && entry.Subscription.FinishDate == null) ? null : "style=display:none;";
+                    var rateVisible = (entry.Subscription.StartDate != null && entry.Subscription.FinishDate != null) ? null : "style=display:none;";
+                    }
+
+                    <input type="hidden" name="courseId" value="@entry.Course.Id" />
+                    <button type="button" data-toggle="tooltip" title="Start learning" @startVisible class="btn btn-xs btn-primary" data-action="start" data-token="start"><span class="tm-marker">S</span></button>
+                    <button type="button" data-toggle="tooltip" title="Finish learning" @finishVisible class="btn btn-xs btn-success" data-action="finish" data-token="finish"><span class="tm-marker">F</span></button>
+                    <button type="button" data-toggle="tooltip" title="Rate course" @rateVisible class="btn btn-xs btn-info" data-action="rate" data-token="rate"><span class="tm-marker">R</span></button>
+                </td>
+
+                <!--Delete-->
+                <td>
+                    <button type="button" data-toggle="tooltip" title="Delete from learning plan" class="btn btn-xs btn-danger" data-action="delete" data-token="delete"><i class="fa fa-trash-o fa-lg"></i></button>
+
+                </td>
+
+                <!--Subscription Token-->
+                <td>@Html.DisplayCourseSubscriptionToken(entry.Course.LearningState)</td>
+            </tr>
+        }
+
+    </tbody>
+
+</table>
+
+
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/learningPlan")
+    @*<script>
+        var settings = {
+            tableId: "learning-plan",
+            order: [[7, "desc"]],
+            colVis: { exclude: [9, 10, 11] }
+        };
+
+        tmDataTable.registerLearningPlanTable(settings);
+    </script>*@
+}

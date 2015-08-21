@@ -1,0 +1,71 @@
+﻿@model AuthorViewModels.AuthorInfoViewModel
+
+@section Title{
+        Author - @Model.FullName;
+}
+
+<!--Breadcrumbs-->
+<ol class="breadcrumb">
+    <li><a href="@Url.Content("~/")">Home</a></li>
+    <li><a href="@Url.RouteUrl(AppConstants.RouteNames.AllTrainingProviders)">Training Providers</a></li>
+    <li><a href="@Url.RouteUrl(AppConstants.RouteNames.TrainingProvider)">@Model.TrainingProvider.Name.ToTitleCaseInvariant()</a></li>
+    <li><a href="@Url.RouteUrl(AppConstants.RouteNames.TrainingProviderAuthors)">Authors</a></li>
+    <li class="active">@Model.FullName</li>
+</ol>
+
+<!--Panel Body-->
+<div class="panel-body">
+    <div class="tm-container clearfix">
+
+        @Html.DisplayFor(m => m.Avatar)
+        @Html.DisplayFor(m => m.Badge)
+
+        <h3 class="tm-h3">@Model.FullName</h3>
+
+        @Html.DisplayFor(m => m.Social)
+
+        <div class="text-justify">
+            @MvcHtmlString.Create(Model.Bio)
+        </div>
+
+    </div>
+
+    <!--Courses Header-->
+    <h3 class="tm-h3 text-center">
+        <span>
+            Courses by <strong>@Model.FirstName</strong> at
+            <a target="_blank" href="@Model.SiteUrl">
+                <img height="40" src="@Model.TrainingProvider.LogoUrl" alt="@Model.TrainingProvider.Name" />
+            </a>
+            @Html.DisplayAuthorParticipationDropDown("(See also at)")
+        </span>
+    </h3>
+</div>
+
+@if (User.Identity.IsAuthenticated)
+{
+    Html.RenderPartial("_CourseStatisticControl");
+}
+
+<div id="partialContent" data-url="@Url.RouteUrl(AppConstants.RouteNames.CoursesForTrainingProviderAuthor, Model.TrainingProviderAuthorRouteObject)">
+    <i class="fa fa-spinner fa-pulse"></i> Loading...
+</div>
+
+
+@section scripts
+{
+    <script>
+        $(function() {
+            var coursesContainer = $("#partialContent");
+            var url = coursesContainer.data("url");
+            coursesContainer.load(url, function () {
+                $("table", coursesContainer).tmCourseAddController({
+                    dtSettings: {
+                        order: [[5, 'desc']],
+                        pageLength: 10
+                    }
+                });
+            });
+        });
+    </script>
+}

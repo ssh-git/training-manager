@@ -1,0 +1,309 @@
+﻿/*#region Page layout. Footer at bottom */
+
+html, body {
+    padding: 0;
+    margin: 0;
+    height: 100%;
+    font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+#page-container {
+    min-height: 100%;
+    position: relative;
+}
+
+#page-header {
+    padding-top: 10px;
+    background-color: white;
+}
+
+#page-body {
+    padding-top: 10px;
+    padding-bottom: 100px; /* Height of the footer + own padding */
+}
+
+#page-footer {
+    position: absolute;
+    bottom: 0;
+    z-index: 100;
+    width: 100%;
+    height: 80px; /* Height of the footer */
+    padding: 10px 0 0;
+}
+
+/*#endregion */
+
+
+/*#region Bootstrap ovverrides*/
+
+#page-header.navbar {
+    border: none;
+    margin-bottom: 0;
+}
+
+.navbar-brand {
+    font-weight: bold;
+}
+
+.nav-tabs {
+    margin-bottom: 10px;
+}
+
+/*#endregion*/
+
+
+/*#region DataTables markers*/
+
+.tm-dt-dom-numeric-order, .tm-dt-not-orderable, .tm-dt-not-searchable {
+}
+
+/*#endregion*/
+
+.tm-selected-background {
+    background-color: red;
+}
+
+.tm-white {
+    color: white;
+}
+
+.tm-marker {
+    font-family: "Lucida Console", Monaco, monospace;
+    font-size: 1.3333em;
+    font-weight: 600;
+    line-height: 12px;
+}
+
+#tm-datatable, #tm-ajax-datatable {
+    font-weight: 700;
+    font-family: "Open Sans Condensed", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.tm-data-table {
+    width: 100% !important;
+    font-weight: 700;
+    font-family: "Open Sans Condensed", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.tm-home-cat-block {
+    margin-bottom: 20px;
+}
+
+.tm-hr {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border: 0;
+    border-top: 1px solid rgb(199, 199, 199);
+}
+
+.tm-category-container h4 {
+    margin-top: 5px;
+}
+
+.tm-category-container a {
+    text-decoration: none !important;
+    color: inherit;
+}
+
+.tm-category-statistic {
+    font-size: 80%;
+}
+
+    .tm-category-statistic .label {
+        width: 40px;
+    }
+
+.tm-star {
+    color: #FFAD00;
+}
+
+.tm-course-info-jumbotron {
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin-bottom: 30px;
+    font-family: "Open Sans", "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+}
+
+    .tm-course-info-jumbotron > h2 {
+        margin: 0;
+        margin-bottom: 18px;
+    }
+
+
+.tm-social-list {
+    margin: 0 0 10px -5px;
+}
+
+    .tm-social-list li {
+        padding: 0;
+    }
+
+    .tm-social-list i {
+        font-size: 1.6em;
+    }
+
+.tm-img {
+    margin-right: 15px;
+    margin-bottom: 10px;
+}
+
+.tm-img-right {
+    margin-left: 15px;
+    margin-bottom: 10px;
+}
+
+.tm-sb-marker {
+    cursor: default;
+}
+
+.tm-h3 {
+    font-size: 1.6em;
+    margin-bottom: 15px;
+}
+
+    .tm-h3 > span:first-child > a {
+        font-size: 0.8em;
+    }
+
+.tm-margin-top {
+    margin-top: 20px;
+}
+
+.panel-body > .tm-h3:first-child, .tm-container > .tm-h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+#toc {
+    cursor: default;
+}
+
+    #toc .panel-title {
+        cursor: pointer;
+    }
+
+        #toc .panel-title:hover {
+            color: blue;
+            transition: color 0.15s ease-in-out;
+            cursor: pointer;
+        }
+
+        #toc .panel-title a {
+            cursor: help;
+        }
+
+    #toc .popover-title, .popover-content {
+        color: initial !important;
+    }
+
+#course-more-info {
+    border: 0;
+    box-shadow: none;
+}
+
+    #course-more-info div {
+        border: 0;
+    }
+
+.tm-category-thumb h4 {
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+
+.tm-btn-group-nowrap {
+    white-space: nowrap;
+}
+
+    .tm-btn-group-nowrap > .btn-link {
+        padding: 0;
+        text-align: right;
+    }
+
+.tm-danger, .tm-danger:hover {
+    color: red;
+}
+
+
+.tm-filter-bar > div {
+    display: inline-block;
+}
+
+.tm-filter-bar input[type='text'] {
+    display: inline-block;
+    width: 200px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+
+
+.tm-site-up {
+    visibility: hidden;
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    margin-bottom: -10px;
+    z-index: 200;
+    cursor: pointer;
+    color: #C4C4C4;
+    opacity: 0.4;
+    transition: opacity 0.4s ease, color 0.4s ease, margin-bottom 0.4s ease;
+}
+
+    .tm-site-up.on-scroll {
+        color: #33CC33;
+        margin-bottom: 25px;
+        opacity: 1;
+    }
+
+    .tm-site-up:hover {
+        color: #33CC33;
+        opacity: 1;
+    }
+
+.tm-spec-line {
+    font-size: 0.9em;
+}
+
+/* Large devices (large desktops, 1200px and up)  bootstrap @screen-lg-min */
+@media only screen and (min-width: 1200px ) {
+    .tm-line-bound .col-lg-2:nth-child(6n+1) {
+        clear: left;
+        /*background-color: rosybrown;*/
+    }
+
+    .tm-line-bound > .col-lg-4:nth-child(3n+1) {
+        clear: left;
+        /*background-color: rosybrown;*/
+    }
+}
+
+/* Medium devices (desktops, 992px and up)  bootstrap @screen-md-min */
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+    .tm-line-bound .col-md-2:nth-child(6n+1) {
+        clear: left;
+        /* background-color: aquamarine; */
+    }
+
+    .tm-line-bound .col-md-4:nth-child(3n+1) {
+        clear: left;
+        /* background-color: aquamarine; */
+    }
+}
+
+/* Small devices (tablets, 768px and up)  bootstrap @screen-sm-min */
+@media only screen and (min-width: 768px ) and (max-width: 991px) {
+    .tm-line-bound .col-sm-3:nth-child(4n+1) {
+        clear: left;
+        /* background-color: burlywood;*/
+    }
+
+    .tm-line-bound .col-sm-6:nth-child(2n+1) {
+        clear: left;
+        /*background-color: burlywood;*/
+    }
+}
+
+/* Extra small devices (phones, less than 768px) */
+@media only screen and (max-width: 767px) {
+}

@@ -1,0 +1,73 @@
+﻿@using TM.Data.Update
+@model AuthorResolvesViewModels.UrlNullDetailsViewModel
+
+<dl class="dl-horizontal">
+    <dt>
+        @Html.DisplayNameFor(m => m.ProblemType)
+    </dt>
+    <dd>
+        @Html.DisplayFor(m => m.ProblemType)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(m => m.UpdateDate)
+    </dt>
+    <dd>
+        @Html.DisplayFor(m => m.UpdateDate)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(m => m.TrainingProviderName)
+    </dt>
+    <dd>
+        @Html.DisplayFor(m => m.TrainingProviderName)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(m => m.CourseTitle)
+    </dt>
+    <dd>
+        @Html.RouteLink(Model.CourseTitle, AppConstants.RouteNames.Course, Model.CourseRouteValuesObject, new { target = "_blank" })
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(m => m.ProviderCourseUrl)
+    </dt>
+    <dd>
+        @Html.DisplayFor(m => m.ProviderCourseUrl)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(m => m.AuthorFullName)
+    </dt>
+    <dd>
+        @Html.IfElse(Model.ResolveState == ResolveState.Resolved,
+            () => Html.RouteLink(Model.AuthorFullName, AppConstants.RouteNames.Author, Model.AuthorRouteValuesObject, new { target = "_blank" }),
+            () => Html.DisplayFor(m => m.AuthorFullName))
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(m => m.IsCoAuthor)
+    </dt>
+    <dd>
+        @Html.DisplayFor(m => m.IsCoAuthor)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.ResolveState)
+    </dt>
+    <dd>
+        @Html.DisplayFor(m => m.ResolveState)
+    </dd>
+
+    @if (Model.ResolveState == ResolveState.Resolved)
+    {
+        <dt>
+            @Html.DisplayNameFor(m => m.ResolvedUrl)
+        </dt>
+        <dd>
+            @Html.DisplayFor(m => m.ResolvedUrl)
+        </dd>
+    }
+
+</dl>

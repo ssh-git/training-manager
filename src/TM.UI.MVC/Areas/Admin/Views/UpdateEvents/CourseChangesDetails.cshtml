@@ -1,0 +1,160 @@
+﻿@using TM.Data.Update
+@model UpdateEventViewModels.CourseChangesDetailsViewModel
+@section Title{
+    Course Change Details
+}
+
+<h2>Course Change Details</h2>
+<hr />
+<h4>Course: <strong>@Model.CurrentContent.Title</strong></h4>
+
+<table class="table table-condensed table-responsive">
+    <tr>
+        <th>Property Name</th>
+        <th>@Html.DisplayNameFor(model => model.CurrentContent)</th>
+        <th>@Html.DisplayNameFor(model => model.PreviousContent)</th>
+    </tr>
+
+    @if (Model.PreviousContent.CategoryTitle != null)
+    {
+        <tr>
+            <td>@Html.DisplayNameFor(m => m.CurrentContent.CategoryTitle)</td>
+            <td>
+                <a target="_blank" href="@Url.RouteUrl(AppConstants.RouteNames.TrainingProviderCategory, new { Model.TrainingProviderName, Model.CurrentContent.CategoryUrlName })">
+                    @Html.DisplayFor(m => m.CurrentContent.CategoryTitle)
+                </a>
+            </td>
+            <td>
+                <a target="_blank" href="@Url.RouteUrl(AppConstants.RouteNames.TrainingProviderCategory, new { Model.TrainingProviderName, Model.PreviousContent.CategoryUrlName })">
+                    @Html.DisplayFor(m => m.PreviousContent.CategoryTitle)
+                </a>
+            </td>
+        </tr>
+
+    }
+
+
+    @if (Model.PreviousContent.Title != null)
+    {
+        <tr>
+            <td>@Html.DisplayNameFor(m => m.CurrentContent.Title)</td>
+            <td>@Html.DisplayFor(m => m.CurrentContent.Title)</td>
+            <td>@Html.DisplayFor(m => m.PreviousContent.Title)</td>
+        </tr>
+    }
+
+    @if (Model.PreviousContent.SiteUrl != null)
+    {
+        <tr>
+            <td>@Html.DisplayNameFor(m => m.CurrentContent.SiteUrl)</td>
+            <td>@Html.DisplayFor(m => m.CurrentContent.SiteUrl)</td>
+            <td>@Html.DisplayFor(m => m.PreviousContent.SiteUrl)</td>
+        </tr>
+    }
+
+    @if (Model.PreviousContent.Description != null)
+    {
+        <tr>
+            <td>@Html.DisplayNameFor(m => m.CurrentContent.Description)</td>
+            <td>@Html.DisplayFor(m => m.CurrentContent.Description)</td>
+            <td>@Html.DisplayFor(m => m.PreviousContent.Description)</td>
+        </tr>
+    }
+
+    @if (Model.PreviousContent.HasClosedCaptions != null)
+    {
+        <tr>
+            <td>@Html.DisplayNameFor(m => m.CurrentContent.HasClosedCaptions)</td>
+            <td>@Html.DisplayFor(m => m.CurrentContent.HasClosedCaptions)</td>
+            <td>@Html.DisplayFor(m => m.PreviousContent.HasClosedCaptions)</td>
+        </tr>
+    }
+
+    @if (Model.PreviousContent.CourseLevel != null)
+    {
+        <tr>
+            <td>@Html.DisplayNameFor(m => m.CurrentContent.CourseLevel)</td>
+            <td>@Html.DisplayFor(m => m.CurrentContent.CourseLevel)</td>
+            <td>@Html.DisplayFor(m => m.PreviousContent.CourseLevel)</td>
+        </tr>
+    }
+
+
+    @if (Model.PreviousContent.Duration != null)
+    {
+        <tr>
+            <td>@Html.DisplayNameFor(m => m.CurrentContent.Duration)</td>
+            <td>@Html.DisplayFor(m => m.CurrentContent.Duration)</td>
+            <td>@Html.DisplayFor(m => m.PreviousContent.Duration)</td>
+        </tr>
+    }
+
+    @if (Model.PreviousContent.ReleaseDate != null)
+    {
+        <tr>
+            <td>@Html.DisplayNameFor(m => m.CurrentContent.ReleaseDate)</td>
+            <td>@Html.DisplayFor(m => m.CurrentContent.ReleaseDate)</td>
+            <td>@Html.DisplayFor(m => m.PreviousContent.ReleaseDate)</td>
+        </tr>
+    }
+
+</table>
+
+
+@if (Model.HasAuthorsChanges)
+{
+    if (Model.PreviousContent.AuthorsChanges.Any(x => x.OperationType == OperationType.Add))
+    {
+        <h4>Added Authors</h4>
+
+        <div class="row tm-line-bound">
+            @foreach (var author in Model.PreviousContent.AuthorsChanges.Where(x => x.OperationType == OperationType.Add))
+            {
+                <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
+                    <div class="well well-sm">
+                        <a target="_blank" href="@Url.RouteUrl(AppConstants.RouteNames.Author, new { Model.TrainingProviderName, author.AuthorUrlName })">
+                            @Html.DisplayFor(m => author.FullName)
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    if (Model.PreviousContent.AuthorsChanges.Any(x => x.OperationType == OperationType.Delete))
+    {
+        <h4>Deleted Authors</h4>
+
+        <div class="row tm-line-bound">
+            @foreach (var author in Model.PreviousContent.AuthorsChanges.Where(x => x.OperationType == OperationType.Delete))
+            {
+                <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
+                    <div class="well well-sm">
+                        <a target="_blank" href="@Url.RouteUrl(AppConstants.RouteNames.Author, new { Model.TrainingProviderName, author.AuthorUrlName })">
+                            @Html.DisplayFor(m => author.FullName)
+                        </a>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
+    if (Model.PreviousContent.AuthorsChanges.Any(x => x.OperationType == OperationType.Modify))
+    {
+        <h4>Modified Authors</h4>
+
+        <div class="row tm-line-bound">
+            @foreach (var author in Model.PreviousContent.AuthorsChanges.Where(x => x.OperationType == OperationType.Modify))
+            {
+                var currentAuthor = Model.CurrentContent.AuthorsChanges.Single(x => x.FullName == author.FullName);
+                <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12">
+                    <div class="well well-sm">
+                        <a target="_blank" href="@Url.RouteUrl(AppConstants.RouteNames.Author, new { Model.TrainingProviderName, author.AuthorUrlName })">
+                            @Html.DisplayFor(m => author.FullName)
+                        </a>
+                        now @Html.DisplayFor(m => currentAuthor.IsAuthorCoAuthor)
+                    </div>
+                </div>
+            }
+        </div>
+    }
+}

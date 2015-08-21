@@ -1,0 +1,116 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{F5ED8F37-9C48-455E-A523-175F9A2C9755}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>TM.Shared</RootNamespace>
+    <AssemblyName>TM.Shared</AssemblyName>
+    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AsyncLazy.cs" />
+    <Compile Include="AuthorAvatar.cs" />
+    <Compile Include="AuthorBadge.cs" />
+    <Compile Include="Enums\StringLengthConstraint.cs" />
+    <Compile Include="Exceptions\ArchiveSaveException.cs" />
+    <Compile Include="Helpers\AsyncHelper.cs" />
+    <Compile Include="Helpers\DictionaryExtensions.cs" />
+    <Compile Include="HtmlContainer\HtmlLoader.cs" />
+    <Compile Include="HtmlContainer\HtmlLoadException.cs" />
+    <Compile Include="HtmlContainer\IHtmlContainer.cs" />
+    <Compile Include="HtmlContainer\IHtmlLoader.cs" />
+    <Compile Include="HtmlContainer\INode.cs" />
+    <Compile Include="HtmlContainer\IQueryableNode.cs" />
+    <Compile Include="HtmlContainer\NodeParseException.cs" />
+    <Compile Include="IActivatorProxy.cs" />
+    <Compile Include="IFilesystemProxy.cs" />
+    <Compile Include="CallResult.cs" />
+    <Compile Include="Parse\IAuthorParseModel.cs" />
+    <Compile Include="Parse\IAuthorsParseResult.cs" />
+    <Compile Include="Parse\ICategoriesParseResult.cs" />
+    <Compile Include="Parse\ICategoryParseModel.cs" />
+    <Compile Include="Parse\ICourseParseModel.cs" />
+    <Compile Include="NaturalKeys\FullNameNaturalKeyEqualityComparer.cs" />
+    <Compile Include="NaturalKeys\IAuthorFullNameNaturalKey.cs" />
+    <Compile Include="NaturalKeys\ICourseUrlNameNaturalKey.cs" />
+    <Compile Include="NaturalKeys\ICategoryUrlNameNaturalKey.cs" />
+    <Compile Include="NaturalKeys\IAuthorUrlNameNaturalKey.cs" />
+    <Compile Include="NaturalKeys\IFullNameNaturalKey.cs" />
+    <Compile Include="NaturalKeys\IUrlNameNaturalKey.cs" />
+    <Compile Include="NaturalKeys\UrlNameNaturalKeyEqualityComparer.cs" />
+    <Compile Include="DownloadManager\DownloadException.cs" />
+    <Compile Include="DownloadManager\DownloadResult.cs" />
+    <Compile Include="DownloadManager\HttpProxy.cs" />
+    <Compile Include="DownloadManager\IHttpDownloadManager.cs" />
+    <Compile Include="DownloadManager\NullProxy.cs" />
+    <Compile Include="DownloadManager\ProxyBase.cs" />
+    <Compile Include="DownloadManager\InCloakWebAnonymizer.cs" />
+    <Compile Include="DownloadManager\WebAnonymizer.cs" />
+    <Compile Include="Exceptions\EntityNotFoundException.cs" />
+    <Compile Include="Enums\CourseLevel.cs" />
+    <Compile Include="CourseRating.cs" />
+    <Compile Include="DownloadManager\HttpDownloadManager.cs" />
+    <Compile Include="IDateTimeProxy.cs" />
+    <Compile Include="IEmailNotification.cs" />
+    <Compile Include="IMediaPath.cs" />
+    <Compile Include="Enums\LocationType.cs" />
+    <Compile Include="Parse\ICoursesParseResult.cs" />
+    <Compile Include="Parse\ITrainingCatalogParser.cs" />
+    <Compile Include="Parse\IUpdateContentParseResult.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ReferenceEqualityComparer.cs" />
+    <Compile Include="Social.cs" />
+    <Compile Include="Enums\LearningState.cs" />
+    <Compile Include="Enums\Specializations.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

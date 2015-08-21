@@ -1,0 +1,100 @@
+﻿@model CategoryViewModels.CatalogViewModel
+
+@section Title{
+    @{
+        var title = Model.Navigation.SelectedToken == NavigationViewModel.ALLToken
+            ? "Categories"
+            : "Categories at " + Model.Navigation.SelectedToken.ToTitleCaseInvariant();}
+    @title
+}
+
+
+<!--Breadcrumbs-->
+@if (Model.Navigation.SelectedToken == NavigationViewModel.ALLToken)
+{
+    <ol class="breadcrumb">
+        <li><a href="@Url.Content("~/")">Home</a></li>
+        <li class="active">Categories</li>
+    </ol>
+} else
+{
+    <ol class="breadcrumb">
+        <li><a href="@Url.Content("~/")">Home</a></li>
+        <li><a href="@Url.RouteUrl(AppConstants.RouteNames.AllTrainingProviders)">Training Providers</a></li>
+        <li><a href="@Url.RouteUrl(AppConstants.RouteNames.TrainingProvider)">@Model.Navigation.SelectedToken.ToTitleCaseInvariant()</a></li>
+        <li class="active">Categories</li>
+    </ol>
+}
+
+<!--Navigation-->
+<ul class="nav nav-tabs">
+    @foreach (var token in Model.Navigation.TokenCatalog)
+    {
+        var active = token.Equals(Model.Navigation.SelectedToken, StringComparison.OrdinalIgnoreCase) ? "active" : null;
+        var url = token == NavigationViewModel.ALLToken
+            ? Url.RouteUrl(AppConstants.RouteNames.AllCategories)
+            : Url.RouteUrl(AppConstants.RouteNames.TrainingProviderCategories, new { trainingProviderName = token.ToLowerInvariant() });
+        <li role="presentation" class="@active"><a href="@url">@token</a></li>
+    }
+</ul>
+
+<!--Filters-->
+<div class="row">
+    <div class="col-xs-12 tm-filter-bar">
+        <!--Search Box-->
+        <input id="search-box" class="form-control" type="text" placeholder="Filter by category name" />
+    </div>
+</div>
+
+<div id="search-result" class="row tm-line-bound" style="display: none">
+</div>
+
+<!--Content-->
+<div id="search-source" class="row tm-line-bound" data-tm-search="hide">
+    @foreach (var category in Model.Categories)
+    {
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 tm-category-container" data-tm-search="clone">
+            <div class="well well-sm">
+                <a href="@Url.RouteUrl(AppConstants.RouteNames.TrainingProviderCategory, category.CategoryRouteValuesObject)">
+                    <div class="media">
+                        <div class="media-left">
+                            <img class="media-object" src="@category.LogoUrl" alt="@category.Title" width="60" />
+                        </div>
+                        <div class="media-body">
+                            <div class="media-heading tm-category-thumb">
+                                <img class="img-rounded" height="30" src="@category.TrainingProvider.LogoUrl" />
+                                <h4 data-tm-search="target">@category.Title</h4>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                <hr class="tm-hr"/>
+                <!--Statistic block-->
+                <div class="row tm-category-statistic">
+                    <div class="col-xs-12">
+                        <span>
+                            Courses:
+                            <span class="text-primary">
+                                <b>@category.CourseCount</b>
+                            </span>|
+                        </span>
+                        <span>
+                            Latest:
+                            <i class="fa fa-calendar"></i>
+                            <span class="text-primary">
+                                <b>@Html.DisplayFor(m => category.LastCourseDate)</b>
+                            </span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section scripts
+{
+    <script>
+        $("#search-box").tmDomSearch($("#search-source"), $("#search-result")); 
+    </script>
+}

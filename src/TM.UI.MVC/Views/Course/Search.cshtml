@@ -1,0 +1,38 @@
+﻿@model CourseViewModels.CourseSearchViewModel
+
+@section Title{
+    Search - @Html.Encode(Model.SearchTerm)
+}
+
+<!--Breadcrumbs-->
+<ol class="breadcrumb">
+    <li><a href="@Url.Content("~/")">Home</a></li>
+    <li class="active">Search - @Html.Encode(Model.SearchTerm)</li>
+</ol>
+
+@{Html.RenderPartial("_AjaxCourseListPartial", Model.Metadata);}
+
+
+@section scripts
+{
+    <script>
+        var settings = {
+            useAjaxTable: true,
+            dtAjaxSettings: {
+                ajax: {
+                    url: '@Url.Action("AjaxSearch")',
+                    data: function (data) {
+                        data.__RequestVerificationToken = $("[name=__RequestVerificationToken]").val();
+                        data.searchTerm = '@Model.SearchTerm';
+                        return data;
+                    }
+                }
+            }
+        };
+
+        $(".tm-data-table").tmDataTable(settings);
+
+    </script>
+}
+
+

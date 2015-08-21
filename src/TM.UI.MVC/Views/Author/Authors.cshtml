@@ -1,0 +1,97 @@
+﻿@model AuthorViewModels.AuthorCatalogViewModel
+@section Title{
+    @{
+        var title = Model.Navigation.SelectedToken == NavigationViewModel.ALLToken
+            ? "Authors"
+            : "Authors at " + Model.Navigation.SelectedToken.ToTitleCaseInvariant();}
+    @title
+}
+
+
+<!--Breadcrumbs-->
+@if (Model.Navigation.SelectedToken == NavigationViewModel.ALLToken)
+{
+
+    <ol class="breadcrumb">
+        <li><a href="@Url.Content("~/")">Home</a></li>
+        <li class="active">Authors</li>
+    </ol>
+} else
+{
+    <ol class="breadcrumb">
+        <li><a href="@Url.Content("~/")">Home</a></li>
+        <li><a href="@Url.RouteUrl(AppConstants.RouteNames.AllTrainingProviders)">Training Providers</a></li>
+        <li><a href="@Url.RouteUrl(AppConstants.RouteNames.TrainingProvider)">@Model.Navigation.SelectedToken.ToTitleCaseInvariant()</a></li>
+        <li class="active">Authors</li>
+    </ol>
+}
+
+<!--Navigation-->
+<ul class="nav nav-tabs">
+    @foreach (var token in Model.Navigation.TokenCatalog)
+    {
+        var active = token.Equals(Model.Navigation.SelectedToken, StringComparison.OrdinalIgnoreCase) ? "active" : null;
+        var url = token == NavigationViewModel.ALLToken
+            ? Url.RouteUrl(AppConstants.RouteNames.AllAuthors)
+            : Url.RouteUrl(AppConstants.RouteNames.TrainingProviderAuthors, new { trainingProviderName = token.ToLowerInvariant() });
+
+        <li role="presentation" class="@active"><a href="@url">@token</a></li>
+    }
+</ul>
+
+<!--Filters-->
+<div class="row">
+    <div class="col-xs-12 tm-filter-bar">
+        <input id="authors-search-box" class="form-control" type="text" placeholder="Filter by full name" />
+        <div>
+            @foreach (var group in Model.Catalog)
+            {
+                <a href="#@group.Key">@group.Key</a>@:&nbsp;
+                    }
+        </div>
+    </div>
+</div>
+
+<!--Search Container-->
+<div id="search-result" class="row tm-line-bound" style="display: none">
+
+</div>
+
+<!--Content-->
+<div id="search-source" data-tm-search="hide">
+    @foreach (var group in Model.Catalog)
+    {
+        <div id="@group.Key" class="row">
+            <h4>@group.Key</h4>
+        </div>
+        <div class="row tm-line-bound">
+            @foreach (var entry in group.OrderBy(x => x.Author.LastName).ThenBy(x => x.Author.FirstName))
+            {
+                <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12" data-tm-search="clone">
+                    <div class="well well-sm">
+                        <a data-tm-search="target" href="@Url.RouteUrl(AppConstants.RouteNames.Author, entry.TrainingProviderAuthorRouteObject)">@entry.Author.FullName</a>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+
+</div>
+
+
+@section scripts
+{
+    <script>
+
+        $(".tm-filter-bar a").each(function (index, element) {
+            $(element).click(function (event) {
+                event.preventDefault();
+                var targetId = $(this).attr("href");
+                $("html, body").animate({ scrollTop: $(targetId).offset().top });
+            });
+        });
+
+        $("#authors-search-box").tmDomSearch($("#search-source"), $("#search-result"));       
+
+    </script>
+}

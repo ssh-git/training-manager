@@ -1,0 +1,10 @@
+{
+  "TrainingProviderName": "pluralsight",
+  "Date": "2000-01-01T00:00:00.0000000Z",
+  "Content": {
+   "dotnet-reflector-by-example": "SoftwareDeveloper",
+   "ads-part1": "SoftwareDeveloper",
+   "becoming-dotnet-developer": "SoftwareDeveloper",
+   "xhttp-fund": "SoftwareDeveloper"
+  }
+}

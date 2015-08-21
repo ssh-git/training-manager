@@ -1,0 +1,71 @@
+﻿@using TM.Data.Update
+@model IEnumerable<AuthorResolvesViewModels.IndexViewModel>
+
+@section Title{
+    Authors To Resolve
+}
+
+<h2>Authors To Resolve</h2>
+
+<table class="table table-striped table-condensed table-responsive">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(m => m.UpdateDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(m => m.TrainingProviderName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(m => m.CourseTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProblemType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ResolveState)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        var itemForClosure = item;
+        <tr>
+            <td>
+                @Html.ActionLink(Html.DisplayFor(m => item.UpdateDate).ToString(), "Details", "UpdateEvents", new {id = item.UpdateEventId}, new {target = "_blank"})
+            </td>
+            <td>
+                @Html.DisplayFor(m => item.TrainingProviderName)
+            </td>
+            <td>
+                @Html.RouteLink(item.CourseTitle, AppConstants.RouteNames.Course, item.CourseRouteValuesObject, new { target = "_blank" })
+            </td>
+            <td>
+                @Html.DisplayFor(m => item.ProblemType)
+            </td>
+            <td>
+                @Html.DisplayFor(m => item.ResolveState)
+            </td>
+            <td>
+                @* ReSharper disable once ExceptionNotDocumented *@
+                @switch (item.ProblemType)
+                {
+                    case ProblemType.AuthorUrlIsNull:
+
+                        @Html.IfElse(
+                            item.ResolveState == ResolveState.Pending,
+                            () => Html.ActionLink("Resolve", "UrlNullResolve", new {itemForClosure.Id}),
+                            () => Html.Raw("<span class='disabled'>Resolve</span>"))
+                        @:|
+                        @Html.ActionLink("Details", "UrlNullDetails", new {item.Id})
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+
+            </td>
+        </tr>
+    }
+
+</table>

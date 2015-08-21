@@ -1,0 +1,95 @@
+﻿@model AuthorResolvesViewModels.UrlNullResolveViewModel
+
+@section Title{
+    Url Null Problem Resolve
+}
+
+
+<h2>Url Null Problem Resolve</h2>
+
+<div>
+    @{Html.RenderPartial("_UrlNullPartial", Model);}
+</div>
+<hr />
+
+@using (Html.BeginForm("UrlNullResolve","AuthorResolves", FormMethod.Post, new{@class="form-horizontal"}))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.Id)
+
+    if (Model.PossibleAuthors.Any())
+    {
+        <div class="form-group">
+            @Html.LabelFor(model => model.SelectedAuthorId, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(model => model.SelectedAuthorId, new { @class = "form-control", @readonly = "readonly" })
+                @Html.ValidationMessageFor(model => model.SelectedAuthorId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    }
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ResolvedUrl, new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.ResolvedUrl, new { htmlAttributes = new { @class = "form-control", autofocus = "autofocus" } })
+            @Html.ValidationMessageFor(model => model.ResolvedUrl, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default btn-sm" })
+            <input type="submit" value="Resolve" class="btn btn-success btn-sm" />
+        </div>
+    </div>
+
+}
+
+@if (Model.PossibleAuthors.Any())
+{
+    <hr/>
+    <h4>Posssibe Authors</h4>
+    <table id="possible-authors" class="table table-striped table-condensed table-responsive">
+        <tr>
+            <th>@Html.DisplayNameFor(m => m.PossibleAuthorsMetadata.AuthorId)</th>
+            <th>@Html.DisplayNameFor(m => m.PossibleAuthorsMetadata.FullName)</th>
+            <th>@Html.DisplayNameFor(m => m.PossibleAuthorsMetadata.SocialLinks)</th>
+            <th>@Html.DisplayNameFor(m => m.PossibleAuthorsMetadata.SiteUrls)</th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model.PossibleAuthors)
+        {
+            <tr>
+                <td>@Html.DisplayFor(m => item.AuthorId)</td>
+                <td>@Html.DisplayFor(m => item.FullName)</td>
+                <td>@Html.DisplayFor(m => item.SocialLinks)</td>
+                <td>@Html.DropDownListFor(m => item.SiteUrls, item.SiteUrlsSelectList, new { @class = "form-control" })</td>
+                <td><button id="@item.AuthorId" class="btn btn-success btn-sm">Use For Resovle</button></td>
+            </tr>
+        }
+    </table>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    @if (Model.PossibleAuthors.Any())
+    {
+        <script>
+            $("#possible-authors button").click(function() {
+                var resolvedAuthorIdContainer = $("#@Html.IdFor(m =>m.SelectedAuthorId)");
+                var resolvedUrlContainer = $("#@Html.IdFor(m =>m.ResolvedUrl)");
+
+                resolvedAuthorIdContainer.val($(this).attr("id"));
+
+                var selectedUrl = $("select option:selected", $(this).closest("tr")).val();
+                resolvedUrlContainer.val(selectedUrl);
+            })
+        </script>
+    }
+    
+}

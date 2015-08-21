@@ -1,0 +1,80 @@
+﻿@model ApplicationUserViewModels.EditViewModel
+
+@section Title{
+    Edit User
+}
+
+<h2>Edit User</h2>
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UserName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.IsLocked)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.IsLocked)
+            @using (Html.BeginForm(Model.IsLocked ? "UnLockAccount" : "LockAccount", "ApplicationUsers", FormMethod.Post, new { style="display: inline" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.HiddenFor(model => model.UserId)
+                
+                @ViewData.GetControllableViewModelParams().ToHiddenFields()
+                
+                <input type="submit" class="btn btn-danger btn-xs" value=" @Html.IfElse(Model.IsLocked, "Unlock user", "Lock User") ">
+            }
+        </dd>
+        <dd>
+            @Html.If(Model.IsLocked, () => Html.DisplayFor(model => model.LockoutEndDateUtc))
+        </dd>
+
+    </dl>
+</div>
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @ViewData.GetControllableViewModelParams().ToHiddenFields()
+        @Html.HiddenFor(model => model.UserId)
+        @Html.HiddenFor(model => model.LockoutEndDateUtc)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.LockoutEnabled, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.LockoutEnabled, Model.LockoutSelectList, new { @calss = "form-control" })
+
+                @Html.ValidationMessageFor(model => model.LockoutEnabled, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SelectedRoles, new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.CheckBoxListFor(model => model.SelectedRoles, Model.RoleList)
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @Html.ActionLink("Back to List", "Index", ViewData.GetControllableViewModelParams(), new { @class = "btn btn-default btn-sm" })
+                <input type="submit" value="Save" class="btn btn-success btn-sm" />
+            </div>
+        </div>
+    </div>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

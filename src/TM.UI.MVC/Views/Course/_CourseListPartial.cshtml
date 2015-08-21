@@ -1,0 +1,87 @@
+﻿@using TM.Shared
+@model CourseViewModels.CourseCatalogViewModel
+
+@Html.AntiForgeryToken()
+
+<!--Courses Table-->
+<table class="table tm-data-table table-bordered table-striped" data-actions='{"add":"@Url.Action("AjaxAdd", "LearningPlan")"}'>
+    <thead>
+        <tr>
+            @if (Model.CourseListFor == CourseViewModels.CourseListFor.Author)
+            {
+                <!--Category-->
+                <th class="min-tablet-l">@Html.DisplayNameFor(model => model.Metadata.Category.Title)</th>
+            }
+            <!--Course-->
+            <th id="course-name-column" class="all">@Html.DisplayNameFor(model => model.Metadata.Course.Title)</th>
+            <!--Authors-->
+            <th class="min-tablet">@Html.DisplayNameFor(model => model.Metadata.Course.Authors)</th>
+            <!--Level-->
+            <th class ="desktop">@Html.DisplayNameFor(model => model.Metadata.Course.Level)</th>
+            <!--Duration-->
+            <th class="desktop">@Html.DisplayNameFor(model => model.Metadata.Course.Duration)</th>
+            <!--ReleaseDate-->
+            <th class="tm-dt-dom-numeric-order text-nowrap min-tablet">@Html.DisplayNameFor(model => model.Metadata.Course.ReleaseDate)</th>
+            <!--Rating-->
+            <th class="min-tablet-l">@Html.DisplayNameFor(model => model.Metadata.Course.Rating)</th>
+
+            @if (User.Identity.IsAuthenticated)
+            {
+                <!--Actions-->
+                <th id="control-column" class="all tm-dt-not-orderable tm-dt-not-searchable"></th>
+                <!--Subscription Token-->
+                <th id="token-column" class="never tm-dt-not-orderable">Subscription Token</th>
+            }
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var entry in Model.Courses)
+        {
+            <tr>
+                @if (Model.CourseListFor == CourseViewModels.CourseListFor.Author)
+                {
+                    <!--Category-->
+                    <td data-order="@entry.Category.Title">
+                        <a href="@Url.RouteUrl(AppConstants.RouteNames.TrainingProviderCategory, entry.CategoryRouteValueObject)">
+                            @entry.Category.Title
+                        </a>
+                    </td>
+                }
+                <!--Course-->
+                <td>
+                    @Html.DisplayCourseSubscriptionMarker(entry.Course.LearningState)
+                    <a href="@Url.RouteUrl(AppConstants.RouteNames.Course, entry.CourseRouteValueObject)">
+                        @entry.Course.Title
+                    </a>
+                    @if (entry.Course.HasClosedCaptions)
+                    {
+                        <i class="text-info fa fa-cc"></i>
+                    }
+                </td>
+                <!--Authors-->
+                <td data-search="@string.Join(", ", entry.Course.Authors.Select(x => x.FullName))">@Html.DisplayCourseAuthors(entry.TrainingProvider.Name, entry.Course.Authors)</td>
+                <!--Level-->
+                <td data-order="@((int) entry.Course.Level)">@Html.DisplayFor(m => entry.Course.Level)</td>
+                <!--Duration-->
+                <td data-order="@entry.Course.Duration.Ticks">@Html.DisplayFor(m => entry.Course.Duration)</td>
+                <!--ReleaseDate-->
+                <td data-order="@entry.Course.ReleaseDate.Ticks">@Html.DisplayFor(m => entry.Course.ReleaseDate)</td>
+                <!--Rating-->
+                <td data-order="@entry.Course.Rating.Rating">@Html.DisplayCourseRating(entry.Course.Rating)</td>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <!--Actions-->
+                    <td>
+                        @{ var disabled = entry.Course.LearningState != default(LearningState) ? "disabled" : null; }
+
+                        <input type="hidden" name="courseId" value="@entry.Course.Id" />
+                        <button type="button" data-toggle="tooltip" title="Add to learning plan" class="btn btn-xs btn-success @disabled" data-action="add"><i class="fa fa-plus fa-lg tm-white "></i></button>
+                    </td>
+                    <!--Subscription Token-->
+                    <td>@Html.DisplayCourseSubscriptionToken(entry.Course.LearningState)</td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>

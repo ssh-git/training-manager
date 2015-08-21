@@ -1,0 +1,68 @@
+﻿@model CourseViewModels.CourseCatalogViewModel
+
+@section Title{
+    @{ var title = Model.Navigation.SelectedToken == NavigationViewModel.ALLToken
+           ? "Courses"
+           : "Courses at " + Model.Navigation.SelectedToken.ToTitleCaseInvariant(); }
+    @title
+}
+
+
+<!--Breadcrumbs-->
+@if (Model.Navigation.SelectedToken == NavigationViewModel.ALLToken)
+{
+    <ol class="breadcrumb">
+        <li><a href="@Url.Content("~/")">Home</a></li>
+        <li class="active">Courses</li>
+    </ol>
+} else
+{
+    <ol class="breadcrumb">
+        <li><a href="@Url.Content("~/")">Home</a></li>
+        <li><a href="@Url.RouteUrl(AppConstants.RouteNames.AllTrainingProviders)">Training Providers</a></li>
+        <li><a href="@Url.RouteUrl(AppConstants.RouteNames.TrainingProvider)">@Model.Navigation.SelectedToken.ToTitleCaseInvariant()</a></li>
+        <li class="active">Courses</li>
+    </ol>
+}
+
+<!--Navigation-->
+<ul class="nav nav-tabs">
+    @foreach (var token in Model.Navigation.TokenCatalog)
+    {
+        var active = token.Equals(Model.Navigation.SelectedToken, StringComparison.OrdinalIgnoreCase) ? "active" : null;
+        var url = token == NavigationViewModel.ALLToken
+            ? Url.RouteUrl(AppConstants.RouteNames.AllCourses)
+            : Url.RouteUrl(AppConstants.RouteNames.TrainingProviderCourses, new {trainingProviderName = token.ToLowerInvariant()});
+        <li role="presentation" class="@active"><a href="@url">@token</a></li>
+    }
+</ul>
+
+
+@{Html.RenderPartial("_AjaxCourseListPartial", Model.Metadata);}
+
+
+@section scripts
+{
+    <script>
+
+        var settings = {
+            useAjaxTable: true,
+            dtAjaxSettings: {
+                ajax: {
+                    url: '@Url.Action("AjaxSearch")',
+                    data: function (data) {
+                        data.__RequestVerificationToken = $('[name=__RequestVerificationToken]').val();
+                        data.trainingProviderName = '@Model.Navigation.SelectedToken';
+                        //data.searchTerm = searchTerm;
+                        return data;
+                    }
+                }
+            }
+        };
+
+        $(".tm-data-table").tmDataTable(settings);
+
+    </script>
+}
+
+

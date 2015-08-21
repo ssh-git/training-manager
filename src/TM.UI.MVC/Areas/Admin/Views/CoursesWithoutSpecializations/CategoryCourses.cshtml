@@ -1,0 +1,78 @@
+﻿@model CoursesWithoutSpecializationsViewModels.CategoryCoursesViewModel
+@section Title{
+    Set Specializations For Category Courses
+}
+
+@{
+    var selectedCategoryLink = Html.RouteLink(Model.CategoryTitle, AppConstants.RouteNames.TrainingProviderCategory,
+        new { Model.TrainingProviderName, Model.CategoryUrlName }, new { target = "_blank" });
+}
+
+<h3>
+    Set Specializations For @selectedCategoryLink Category Courses:
+</h3>
+<hr/>
+
+<form class="form-inline" id="manual-spec">
+    <div class="form-group form-group-sm">
+        <button type="submit" class="form-control btn btn-danger ">Apply to all:</button>
+        <div style="display: inline-block">
+            @Html.CheckBoxList("pattern", "pattern", Model.SpecializationsSelectList, new { @class = "checkbox-inline"})
+
+            
+        </div>
+    </div>
+</form>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+    
+    @ViewData.GetControllableViewModelParams().ToHiddenFields()
+
+    <div class="row tm-line-bound">
+        @for (var i = 0; i < Model.Courses.Count; i++)
+        {
+           
+            var indexForClosure = i;
+            <div class="col-lg-6 col-md-6 ">
+                <div class="well well-sm">
+                    <a target="_blank" href="@Url.RouteUrl(AppConstants.RouteNames.Course, new { Model.TrainingProviderName, Model.CategoryUrlName, Model.Courses[i].CourseUrlName })">
+                        @Model.Courses[i].CourseTitle
+                    </a>
+                    <div>
+                        @Html.DisplayNameFor(m => Model.Courses[indexForClosure].CourseReleaseDate): @Html.DisplayFor(m => Model.Courses[i].CourseReleaseDate)
+                    </div>
+                    <div class="tm-spec-line">
+                        <hr class="tm-hr" />
+
+                        @Html.HiddenFor(m => Model.SelectedSpecializations[indexForClosure].CourseId, Model.SelectedSpecializations[i].CourseId)
+                        
+                        @Html.CheckBoxListFor(m => Model.SelectedSpecializations[indexForClosure].Specializations, Model.SpecializationsSelectList, new { @class = "checkbox-inline" })
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+
+    <div class="form-group">
+        @Html.ActionLink("Back to category list", "Index", ViewData.GetControllableViewModelParams(), new { @class = "btn btn-default btn-sm" })
+        <input type="submit" class="btn btn-success btn-sm" value="Set specializations" />
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $("#manual-spec").submit(function (event) {
+            event.preventDefault();
+
+            $('.checkbox-inline input', this).each(function(index, elem) {
+                $('.checkbox-inline input[value=' + $(elem).val() + ']', 'form:last').prop('checked', $(elem).prop('checked'));
+            });
+        });
+    </script>
+}

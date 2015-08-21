@@ -1,0 +1,88 @@
+﻿@model TrainingProviderViewModels.InfoViewModel
+
+@section Title{
+    Training Provider - @Model.Name.ToTitleCaseInvariant()
+}
+<div id="tm-date-select-modal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Select Update Date</h4>
+            </div>
+            <div class="modal-body">
+                <div id="tm-modal-datepicker"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button id="tm-modal-applay-date" type="button" class="btn btn-primary">Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Breadcrumbs-->
+<ol class="breadcrumb">
+    <li><a href="@Url.Content("~/")">Home</a></li>
+    <li><a href="@Url.RouteUrl(AppConstants.RouteNames.AllTrainingProviders)">Training Providers</a></li>
+    <li class="active">@Model.Name.ToTitleCaseInvariant()</li>
+</ol>
+
+<div class="row">
+    <div class="col-md-9">
+        <div class="tm-container clearfix">
+            <h3 class="tm-h3">
+                Description For
+                <a href="@Model.SiteUrl" target="_blank"><img src="@Model.LogoUrl" alt="@Model.Name" height="30" /></a> Training Provider
+            </h3>
+
+            <p class="text-justify" style="text-indent: 30px;">
+                @Model.Description
+            </p>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+        <div class="list-group">
+            <a href="@Url.RouteUrl(AppConstants.RouteNames.TrainingProviderCategories, Model.TrainingProviderRouteValueObject)" class="list-group-item">
+                View Categories: <span class="badge">@Model.CategoryCount</span>
+            </a>
+            <a href="@Url.RouteUrl(AppConstants.RouteNames.TrainingProviderCourses, Model.TrainingProviderRouteValueObject)" class="list-group-item">
+                View Courses: <span class="badge">@Model.CourseCount</span>
+            </a>
+            <a href="@Url.RouteUrl(AppConstants.RouteNames.TrainingProviderAuthors, Model.TrainingProviderRouteValueObject)" class="list-group-item">
+                View Authors: <span class="badge">@Model.AuthorsCount</span>
+            </a>
+            <a id="tm-update-select" href="#" class="list-group-item list-group-item-info" data-target="#tm-date-select-modal" data-toggle="modal">
+                Select Update Date
+            </a>
+        </div>
+    </div>
+</div>
+
+<!--Courses Header-->
+<h3 class="tm-h3 text-center">
+    <span>
+        Courses added on <strong id="tm-ui-selected-date">@Html.DisplayFor(m => m.SelectedUpdateDate)</strong>
+    </span>
+</h3>
+
+@if (User.Identity.IsAuthenticated)
+{
+  Html.RenderPartial("_CourseStatisticControl");
+}
+<div id="partialContent" data-url="@Url.RouteUrl(AppConstants.RouteNames.CoursesAddedOnDate, Model.CoursesForDateRouteValueObject)">
+    <i class="fa fa-spinner fa-pulse"></i> Loading...
+</div>
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/trainingProvider")
+
+    <script>
+        var availableUpdateDates = [@Html.Raw(string.Join(",", Model.UpdateDates.Select(x => string.Format("'{0:yyyy-MM-dd}'", x))))];
+        var selectedUpdateDate = "@Html.Raw(Model.SelectedUpdateDate.ToString("yyyy-MM-dd"))";
+
+        $().tmTrainingProvider(availableUpdateDates, selectedUpdateDate);
+    </script>
+}

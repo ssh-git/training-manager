@@ -1,0 +1,71 @@
+﻿@using TM.Data.Update
+@model UpdateEventViewModels.AuthorUpdateDetailsViewModel
+
+@section Title{
+    Authors Update Details
+}
+
+<h2>Authors Update Details</h2>
+
+<dl class="dl-horizontal">
+    <dt>
+        @Html.DisplayNameFor(model => model.UpdateEventId)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.UpdateEventId)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.TrainingProviderName)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.TrainingProviderName)
+    </dd>
+
+    <dt>
+        @Html.DisplayNameFor(model => model.OperationType)
+    </dt>
+    <dd>
+        @Html.DisplayFor(model => model.OperationType)
+    </dd>
+</dl>
+
+
+<table class="table table-condensed table-responsive">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AuthorsMetadata.FullName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.AuthorsMetadata.SiteUrl)
+        </th>
+        @if (Model.OperationType == OperationType.Modify)
+        {
+            <th></th>
+        }
+    </tr>
+
+    @foreach (var author in Model.Authors)
+    {
+        <tr>
+            <td>
+                <a target="_blank" href="@Url.RouteUrl(AppConstants.RouteNames.Author, new { Model.TrainingProviderName, author.AuthorUrlName })">
+                    @Html.DisplayFor(m => author.FullName)
+                </a>
+            </td>
+            <td>
+                <a target="_blank" href="@Html.DisplayFor(m => author.SiteUrl)">
+                    @Html.DisplayFor(m => author.SiteUrl)
+                </a>
+                
+            </td>
+            @if (Model.OperationType == OperationType.Modify)
+            {
+                <td>
+                    @Html.ActionLink("Details", "AuthorChangesDetails", "UpdateEvents", new { Model.UpdateEventId, author.AuthorId }, null)
+                </td>
+            }
+        </tr>
+    }
+
+</table>

@@ -1,0 +1,80 @@
+﻿@using PagedList.Mvc
+@model ApplicationUserViewModels.IndexControllableViewModel
+
+@section Title{
+    User List
+}
+
+<h2>User List</h2>
+
+@Html.DisplayForModel("IControllableView")
+
+<table class="table table-striped table-condensed table-responsive">
+    <tr>
+        <th>
+            @Html.ActionLink(Html.DisplayNameFor(model => model.Metadata.UserName).ToString(), "Index", Model.Params.ToRouteValueDictionary(Model.SortState.NicknameSortState))
+        </th>
+        <th>
+            @Html.ActionLink(Html.DisplayNameFor(model => model.Metadata.RegisteredOnUtc).ToString(), "Index", Model.Params.ToRouteValueDictionary(Model.SortState.RegistrationDateSortState))
+        </th>
+        <th>
+            @Html.ActionLink(Html.DisplayNameFor(model => model.Metadata.LastLoginOnUtc).ToString(), "Index", Model.Params.ToRouteValueDictionary(Model.SortState.LastLoginDateSortState))
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Metadata.LockoutEnabled)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Metadata.LockoutEndDateUtc)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Metadata.AccessFailedCount)
+        </th>
+
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.PagedList)
+    {
+        var mark = item.IsAdmin
+            ? "text-muted"
+            : item.IsLocked
+                ? "text-danger"
+                : null;
+
+        <tr class="@mark">
+            <td>
+                @Html.DisplayFor(modelItem => item.UserName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RegisteredOnUtc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastLoginOnUtc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LockoutEnabled)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LockoutEndDateUtc)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AccessFailedCount)
+            </td>
+
+            <td>
+                @Html.ActionLink("Edit", "Edit", Model.Params.ToRouteValueDictionary().Include(new { item.UserName }))
+            </td>
+        </tr>
+    }
+
+</table>
+
+ Page @Model.PagedList.PageNumber of @Model.PagedList.PageCount
+
+
+@Html.PagedListPager(Model.PagedList, page => Url.Action("Index", Model.Params.ToRouteValueObject(page)))
+
+@section scripts
+{
+    @{ Html.RenderPartial("_IControllableViewScript");}
+}
