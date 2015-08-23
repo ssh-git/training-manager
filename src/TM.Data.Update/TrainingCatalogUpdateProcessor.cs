@@ -516,9 +516,12 @@ namespace TM.Data.Update
                      IsAuthorCoAuthor = existingCourseAuthor.IsAuthorCoAuthor,
                      OperationType = OperationType.Modify
                   });
-
+                 
                   existingCourseAuthor.IsAuthorCoAuthor = processingCourseAuthor.IsAuthorCoAuthor;
                }
+
+               // restore author
+               existingCourseAuthor.IsDeleted = false;
 
                processingCourseAuthorsDictionary.Remove(existingCourseAuthor);
             } else

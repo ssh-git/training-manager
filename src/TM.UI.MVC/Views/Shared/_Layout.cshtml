@@ -33,12 +33,14 @@
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Admin<span class="caret"></span></a>
                                 <ul class="dropdown-menu" role="menu">
+                                    <li class="dropdown-header">Services</li>
+                                    <li role="presentation"><a href="/hangfire">Hang Fire</a></li>
                                     <li class="dropdown-header">Users And Roles</li>
                                     <li role="presentation">@Html.ActionLink("Roles", "Index", "ApplicationRoles", new {area = "admin"}, null)</li>
                                     <li role="presentation">@Html.ActionLink("Users", "Index", "ApplicationUsers", new {area = "admin"}, null)</li>
                                     <li class="dropdown-header">Catalog</li>
                                     <li role="presentation">@Html.ActionLink("Training Providers", "Index", "TrainingProviders", new {area = "admin"}, null)</li>
-                                    <li role="presentation">@Html.ActionLink("Courses Without Specializations", "Index", "CoursesWithoutSpecializations", new { area = "admin" }, null)</li>
+                                    <li role="presentation">@Html.ActionLink("Courses Without Specializations", "Index", "CoursesWithoutSpecializations", new {area = "admin"}, null)</li>
                                     <li role="presentation">@Html.ActionLink("Update Events", "Index", "UpdateEvents", new {area = "admin"}, null)</li>
                                     <li role="presentation">@Html.ActionLink("Authors Resolve", "Index", "AuthorResolves", new {area = "admin"}, null)</li>
                                 </ul>

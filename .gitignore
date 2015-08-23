@@ -6,6 +6,9 @@
 *Web.Release.config
 archive/*
 scr/TM.UI.MVC/Properties/PublishProfiles/*
+scr/TM.UI.MVC/Content/images/authors/*
+scr/TM.UI.MVC/Content/images/badges/*
+scr/TM.UI.MVC/Content/images/category/*
 tests/Temp*
 
 # User-specific files

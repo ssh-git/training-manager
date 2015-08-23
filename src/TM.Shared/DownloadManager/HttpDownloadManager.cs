@@ -85,6 +85,8 @@ namespace TM.Shared.DownloadManager
       #endregion
 
 
+
+
       /// <exception cref="ObjectDisposedException"></exception>
       public async Task<DownloadResult<byte[]>> DownloadFileAsync(Uri requestUri)
       {
@@ -146,9 +148,8 @@ namespace TM.Shared.DownloadManager
          {
             await Task.Delay(requestDelay);
             response = await GetHttpResponseMessage(request);
-            if (response != null && response.IsSuccessStatusCode)
+            if (response != null && response.IsSuccessStatusCode && response.Content.Headers.ContentLength > 0)
             {
-
                break;
             }
             request = _proxy.GenerateRequestMessage(HttpMethod.Get, requestUri, acceptMediaType);

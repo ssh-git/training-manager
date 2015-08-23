@@ -23,7 +23,10 @@ namespace TM.Shared.DownloadManager
       {
          if (Disposed) { throw new ObjectDisposedException(GetType().FullName); }
 
-         return new HttpClient(HttpClientHandler, disposeHandler: false);
+         return new HttpClient(HttpClientHandler, disposeHandler: false)
+         {
+            Timeout = TimeSpan.FromMinutes(3.0)
+         };
       }
 
       /// <exception cref="ObjectDisposedException"></exception>
