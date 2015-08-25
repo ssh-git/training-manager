@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime;
 using System.Threading.Tasks;
 using Serilog;
 using TM.Data;
@@ -18,6 +19,11 @@ namespace TM.UI.MVC
       /// </summary>
       public static void ScheduledCatalogsUpdate()
       {
+         // free memory before update. Memory usage is limiting by hosting provider
+         GCSettings.LargeObjectHeapCompactionMode = GCLargeObjectHeapCompactionMode.CompactOnce;
+         GC.Collect();
+         GC.WaitForPendingFinalizers();
+
          AsyncHelper.RunSync(ScheduledCatalogsUpdateAsync);
       }
 
