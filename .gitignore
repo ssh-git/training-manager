@@ -4,12 +4,14 @@
 # Private configurations
 *Private.config
 *Web.Release.config
-archive/*
-scr/TM.UI.MVC/Properties/PublishProfiles/*
-scr/TM.UI.MVC/Content/images/authors/*
-scr/TM.UI.MVC/Content/images/badges/*
-scr/TM.UI.MVC/Content/images/category/*
-tests/Temp*
+
+# Custom locations
+archive/
+src/TM.UI.MVC/Properties/PublishProfiles/
+src/TM.UI.MVC/Content/images/authors/
+src/TM.UI.MVC/Content/images/badges/
+src/TM.UI.MVC/Content/images/category/
+tests/Temp/
 
 # User-specific files
 *.suo
@@ -93,6 +95,7 @@ $tf/
 _ReSharper*/
 *.[Rr]e[Ss]harper
 *.DotSettings.user
+*.DotSettings
 
 # JustCode is a .NET coding addin-in
 .JustCode
