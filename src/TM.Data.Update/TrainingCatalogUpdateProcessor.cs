@@ -167,6 +167,10 @@ namespace TM.Data.Update
             foreach (var category in deletedCategories)
             {
                Context.Entry(category).State = EntityState.Unchanged;
+               if (category.IsDeleted)
+               {
+                  continue;
+               }
                category.IsDeleted = true;
                AddUpdates(EntityType.Category, category.Id, OperationType.Delete);
             }
@@ -256,6 +260,10 @@ namespace TM.Data.Update
             {
                // resolved author. No need to delete.
                if (authorResolves.Any(x => x.AuthorSiteUrl == author.SiteUrl))
+               {
+                  continue;
+               }
+               if (author.IsDeleted)
                {
                   continue;
                }
@@ -431,6 +439,10 @@ namespace TM.Data.Update
       {
          foreach (var course in deletedCourses)
          {
+            if (course.IsDeleted)
+            {
+               continue;
+            }
             course.IsDeleted = true;
 
             foreach (var courseAuthor in course.CourseAuthors.Where(x => !x.IsDeleted))
@@ -527,6 +539,8 @@ namespace TM.Data.Update
             } else
             {
                // remove
+               if (existingCourseAuthor.IsDeleted) continue;
+
                courseAuthorsBackup.Add(new CourseAuthorBackup
                {
                   UpdateEventId = UpdateEvent.Id,
