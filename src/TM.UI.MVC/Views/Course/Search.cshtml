@@ -15,23 +15,22 @@
 
 @section scripts
 {
+    @*TODO: Refactor page structure*@
     <script>
-        var settings = {
-            useAjaxTable: true,
-            dtAjaxSettings: {
-                ajax: {
-                    url: '@Url.Action("AjaxSearch")',
-                    data: function (data) {
-                        data.__RequestVerificationToken = $("[name=__RequestVerificationToken]").val();
-                        data.searchTerm = '@Model.SearchTerm';
-                        return data;
+        (function ($) {
+            $('.tm-data-table').tmDataTableAjax({
+                dtSettings: {
+                    ajax: {
+                        url: '@Url.Action("AjaxSearch")',
+                        data: function (data) {
+                            data.__RequestVerificationToken = $('[name=__RequestVerificationToken]').val();
+                            data.searchTerm = '@Model.SearchTerm';
+                            return data;
+                        }
                     }
                 }
-            }
-        };
-
-        $(".tm-data-table").tmDataTable(settings);
-
+            });
+        })(jQuery);
     </script>
 }
 

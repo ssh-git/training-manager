@@ -62,13 +62,13 @@
                 <!--Authors-->
                 <td data-search="@string.Join(", ", entry.Course.Authors.Select(x => x.FullName))">@Html.DisplayCourseAuthors(entry.TrainingProvider.Name, entry.Course.Authors)</td>
                 <!--Level-->
-                <td data-order="@((int) entry.Course.Level)">@Html.DisplayFor(m => entry.Course.Level)</td>
+                <td data-order="@(((int) entry.Course.Level).ToString())">@Html.DisplayFor(m => entry.Course.Level)</td>
                 <!--Duration-->
-                <td data-order="@entry.Course.Duration.Ticks">@Html.DisplayFor(m => entry.Course.Duration)</td>
+                <td data-order="@entry.Course.Duration.Ticks.ToString()">@Html.DisplayFor(m => entry.Course.Duration)</td>
                 <!--ReleaseDate-->
-                <td data-order="@entry.Course.ReleaseDate.Ticks">@Html.DisplayFor(m => entry.Course.ReleaseDate)</td>
+                <td data-order="@entry.Course.ReleaseDate.Ticks.ToString()">@Html.DisplayFor(m => entry.Course.ReleaseDate)</td>
                 <!--Rating-->
-                <td data-order="@entry.Course.Rating.Rating">@Html.DisplayCourseRating(entry.Course.Rating)</td>
+                <td data-order="@entry.Course.Rating.Rating.ToString()">@Html.DisplayCourseRating(entry.Course.Rating)</td>
                 @if (User.Identity.IsAuthenticated)
                 {
                     <!--Actions-->

@@ -13,16 +13,16 @@ namespace TM.UI.MVC
       {
          // Use the development version of Modernizr to develop with and learn from. Then, when you're
          // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
-         bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                     "~/Scripts/modernizr-*"));
 
-         bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                     "~/Scripts/jquery-{version}.js"));
+         //BundleTable.EnableOptimizations = true;
+         bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
+            "~/Scripts/modernizr-*"));
 
          bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                     "~/Scripts/jquery.validate*"));
+            "~/Scripts/jquery.validate*"));
 
          bundles.Add(new ScriptBundle("~/bundles/scripts").Include(
+            "~/Scripts/jquery-{version}.js",
             "~/Scripts/bootstrap.js",
             "~/Scripts/respond.js",
             "~/Scripts/jquery.dataTables.js",
@@ -31,24 +31,46 @@ namespace TM.UI.MVC
             "~/Scripts/dataTables.colReorder.js",
             "~/Scripts/dataTables.colVis.js",
             "~/Scripts/notify-combined.js",
-            "~/Scripts/tm-dataTables.js",
-            "~/Scripts/tm-course-add-controller.js",
-            "~/Scripts/tm-dom-search.js"));
+            "~/Scripts/app/app.js",
+            "~/Scripts/app/tm-dataTables.js",
+            "~/Scripts/app/tm-course-add-controller.js",
+            "~/Scripts/app/tm-dom-search.js",
+            "~/Scripts/app/layout.js"));
 
-         bundles.Add(new ScriptBundle("~/bundles/learningPlan").Include(
-           "~/Scripts/jquery-ui.js",
-           "~/Scripts/star-rating.js",
-           "~/Scripts/tm-learning-plan.js"));
+         //Catalog Home
+         bundles.Add(new ScriptBundle("~/bundles/home").Include(
+            "~/Scripts/app/home.js"));
 
+         //Catalog Training Provider
          bundles.Add(new ScriptBundle("~/bundles/trainingProvider").Include(
-          "~/Scripts/jquery-ui.js",
-          "~/Scripts/tm-training-provider.js"));
+            "~/Scripts/jquery-ui.js",
+            "~/Scripts/app/tm-training-provider.js"));
 
+         //Catalog Author
+         bundles.Add(new ScriptBundle("~/bundles/authors").Include(
+            "~/Scripts/app/authors.js"));
+         bundles.Add(new ScriptBundle("~/bundles/author").Include(
+            "~/Scripts/app/author.js"));
+
+         //Catalog Category
+         bundles.Add(new ScriptBundle("~/bundles/categories").Include(
+            "~/Scripts/app/categories.js"));
+         bundles.Add(new ScriptBundle("~/bundles/category").Include(
+            "~/Scripts/app/category.js"));
+
+         //Catalog Course
          bundles.Add(new ScriptBundle("~/bundles/course").Include(
-           "~/Scripts/tm-course-toc.js",
-           "~/Scripts/tm-course-ajax-add-to-plan.js"));
+            "~/Scripts/app/tm-course-toc.js",
+            "~/Scripts/app/tm-course-ajax-add-to-plan.js"));
 
+         //Catalog Learning Plan
+         bundles.Add(new ScriptBundle("~/bundles/learningPlan").Include(
+            "~/Scripts/jquery.validate*",
+            "~/Scripts/jquery-ui.js",
+            "~/Scripts/star-rating.js",
+            "~/Scripts/app/tm-learning-plan.js"));
 
+         //Styles
          bundles.Add(new StyleBundle("~/Content/css").Include(
             "~/Content/jquery-ui.css",
             "~/Content/star-rating.css",

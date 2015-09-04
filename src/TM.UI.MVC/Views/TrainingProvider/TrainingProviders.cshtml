@@ -22,13 +22,13 @@
                 <div class="caption">
                     <div class="btn-group btn-group-sm btn-group-justified">
                         <a href="@Url.RouteUrl(AppConstants.RouteNames.TrainingProviderCategories, trainingProvider.TrainingProviderRouteValuesObject)" class="btn btn-default" role="button">
-                            Categories: <b>@trainingProvider.CategoryCount</b>
+                            Categories: <b>@trainingProvider.CategoryCount.ToString()</b>
                         </a>
                         <a href="@Url.RouteUrl(AppConstants.RouteNames.TrainingProviderCourses, trainingProvider.TrainingProviderRouteValuesObject)" class="btn btn-default" role="button">
-                            Courses: <b>@trainingProvider.CourseCount</b>
+                            Courses: <b>@trainingProvider.CourseCount.ToString()</b>
                         </a>
                         <a href="@Url.RouteUrl(AppConstants.RouteNames.TrainingProviderAuthors, trainingProvider.TrainingProviderRouteValuesObject)" class="btn btn-default" role="button">
-                            Authors: <b>@trainingProvider.AuthorsCount</b>
+                            Authors: <b>@trainingProvider.AuthorsCount.ToString()</b>
                         </a>
                     </div>
                 </div>

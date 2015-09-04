@@ -43,10 +43,10 @@
 <div class="row">
     <div class="col-xs-12 tm-filter-bar">
         <input id="authors-search-box" class="form-control" type="text" placeholder="Filter by full name" />
-        <div>
+        <div id="char-navigator">
             @foreach (var group in Model.Catalog)
             {
-                <a href="#@group.Key">@group.Key</a>@:&nbsp;
+                <a href="#@group.Key.ToString()">@group.Key.ToString()</a>@:&nbsp;
                     }
         </div>
     </div>
@@ -61,8 +61,8 @@
 <div id="search-source" data-tm-search="hide">
     @foreach (var group in Model.Catalog)
     {
-        <div id="@group.Key" class="row">
-            <h4>@group.Key</h4>
+        <div id="@group.Key.ToString()" class="row">
+            <h4>@group.Key.ToString()</h4>
         </div>
         <div class="row tm-line-bound">
             @foreach (var entry in group.OrderBy(x => x.Author.LastName).ThenBy(x => x.Author.FirstName))
@@ -81,17 +81,5 @@
 
 @section scripts
 {
-    <script>
-
-        $(".tm-filter-bar a").each(function (index, element) {
-            $(element).click(function (event) {
-                event.preventDefault();
-                var targetId = $(this).attr("href");
-                $("html, body").animate({ scrollTop: $(targetId).offset().top });
-            });
-        });
-
-        $("#authors-search-box").tmDomSearch($("#search-source"), $("#search-result"));       
-
-    </script>
+    @Scripts.Render("~/bundles/authors")
 }

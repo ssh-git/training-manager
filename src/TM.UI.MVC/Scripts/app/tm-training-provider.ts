@@ -1,12 +1,11 @@
-﻿(function($) {
+﻿(($: JQueryStatic) => {
+    'use strict';
 
-    $.fn.tmTrainingProvider = function (availableUpdateDates, selectedUpdateDate, options) {
-        'use strict';
-
+    $.fn.tmTrainingProvider = (availableUpdateDates: string[], selectedUpdateDate: string, options: TmTrainingProviderOptions) => {
         var dateFormat = 'yy-mm-dd',
-            previousUpdateDate,
+            previousUpdateDate: string,
 
-            defaults = {
+            defaults: TmTrainingProviderOptions = {
                 datePickerSelector: '#tm-modal-datepicker',
                 modalSelector: '#tm-date-select-modal',
                 modalOkButtonSelector: '#tm-modal-applay-date',
@@ -15,11 +14,11 @@
                 datePickerSettings: {
                     dateFormat: dateFormat,
                     defaultDate: selectedUpdateDate,
-                    onSelect: function(dateText) {
+                    onSelect(dateText) {
                         selectedUpdateDate = dateText;
                     },
-                    beforeShowDay: function (date) {
-                        var currentDate = $.datepicker.formatDate(dateFormat, date);
+                    beforeShowDay(date) {
+                        const currentDate = $.datepicker.formatDate(dateFormat, date);
                         if ($.inArray(currentDate, availableUpdateDates) !== -1) {
                             if (currentDate === selectedUpdateDate) {
                                 return [true, 'tm-selected-background'];
@@ -32,10 +31,11 @@
                 }
             },
 
-            settings = $.extend({}, defaults, options),
+            settings: TmTrainingProviderOptions = $.extend(true, {}, defaults, options),
             coursesContainer = $('#partialContent'),
-            loadCourses = function(url) {
-                coursesContainer.load(url, function () {
+
+            loadCourses = (url: string) => {
+                coursesContainer.load(url, () => {
                     $('table', coursesContainer).tmCourseAddController({
                         dtSettings: {
                             order: [[5, 'desc']],
@@ -45,20 +45,19 @@
                 });
             };
 
-        
+
         loadCourses(coursesContainer.data('url'));
 
         $(settings.datePickerSelector).datepicker(settings.datePickerSettings);
 
-        $(settings.modalSelector).on('show.bs.modal', function () {
+        $(settings.modalSelector).on('show.bs.modal', () => {
             previousUpdateDate = selectedUpdateDate;
             $(settings.datePickerSelector).datepicker('setDate', selectedUpdateDate);
 
-            $(settings.modalOkButtonSelector).one('click', function () {
+            $(settings.modalOkButtonSelector).one('click', () => {
                 if (selectedUpdateDate !== previousUpdateDate) {
                     $(settings.selectedDateContainerSelector).text(selectedUpdateDate);
-
-                    var url = coursesContainer.attr('data-url').replace(previousUpdateDate, selectedUpdateDate);
+                    const url = coursesContainer.attr('data-url').replace(previousUpdateDate, selectedUpdateDate);
                     coursesContainer.attr('data-url', url);
 
                     loadCourses(url);
@@ -66,6 +65,5 @@
                 $(settings.modalSelector).modal('hide');
             });
         });
-
     };
 })(jQuery);

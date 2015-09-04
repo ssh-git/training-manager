@@ -79,18 +79,18 @@
                 <!--Authors-->
                 <td data-search="@string.Join(", ", entry.Course.Authors.Select(x => x.FullName))">@Html.DisplayCourseAuthors(entry.TrainingProvider.Name, entry.Course.Authors)</td>
                 <!--Level-->
-                <td data-order="@((int) entry.Course.Level)">@Html.DisplayFor(modelItem => entry.Course.Level)</td>
+                <td data-order="@(((int) entry.Course.Level).ToString())">@Html.DisplayFor(modelItem => entry.Course.Level)</td>
                 <!--Duration-->
-                <td data-order="@entry.Course.Duration.Ticks">@Html.DisplayFor(modelItem => entry.Course.Duration)</td>
+                <td data-order="@entry.Course.Duration.Ticks.ToString()">@Html.DisplayFor(modelItem => entry.Course.Duration)</td>
                 <!--ReleaseDate-->
-                <td data-order="@entry.Course.ReleaseDate.Ticks">@Html.DisplayFor(modelItem => entry.Course.ReleaseDate)</td>
+                <td data-order="@entry.Course.ReleaseDate.Ticks.ToString()">@Html.DisplayFor(modelItem => entry.Course.ReleaseDate)</td>
                 <!--Rating-->
-                <td data-order="@entry.Course.Rating.Rating">@Html.DisplayCourseRating(entry.Course.Rating)</td>
+                <td data-order="@entry.Course.Rating.Rating.ToString()">@Html.DisplayCourseRating(entry.Course.Rating)</td>
                 <!--Start Date-->
-                <td data-order="@(entry.Subscription.StartDate.HasValue ? entry.Subscription.StartDate.Value.Ticks : 0)">@Html.DisplayFor(modelItem => entry.Subscription.StartDate)</td>
+                <td data-order="@(entry.Subscription.StartDate.HasValue ? entry.Subscription.StartDate.Value.Ticks.ToString() : "0")">@Html.DisplayFor(modelItem => entry.Subscription.StartDate)</td>
 
                 <!--Finish Date-->
-                <td data-order="@(entry.Subscription.FinishDate.HasValue ? entry.Subscription.FinishDate.Value.Ticks : 0)">@Html.DisplayFor(modelItem => entry.Subscription.FinishDate)</td>
+                <td data-order="@(entry.Subscription.FinishDate.HasValue ? entry.Subscription.FinishDate.Value.Ticks.ToString() : "0")">@Html.DisplayFor(modelItem => entry.Subscription.FinishDate)</td>
 
                 <!--Actions-->
                 <td>
@@ -100,7 +100,7 @@
                     var rateVisible = (entry.Subscription.StartDate != null && entry.Subscription.FinishDate != null) ? null : "style=display:none;";
                     }
 
-                    <input type="hidden" name="courseId" value="@entry.Course.Id" />
+                    <input type="hidden" name="courseId" value="@entry.Course.Id.ToString()" />
                     <button type="button" data-toggle="tooltip" title="Start learning" @startVisible class="btn btn-xs btn-primary" data-action="start" data-token="start"><span class="tm-marker">S</span></button>
                     <button type="button" data-toggle="tooltip" title="Finish learning" @finishVisible class="btn btn-xs btn-success" data-action="finish" data-token="finish"><span class="tm-marker">F</span></button>
                     <button type="button" data-toggle="tooltip" title="Rate course" @rateVisible class="btn btn-xs btn-info" data-action="rate" data-token="rate"><span class="tm-marker">R</span></button>
@@ -121,19 +121,7 @@
 
 </table>
 
-
-
 @section scripts
 {
-    @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/learningPlan")
-    @*<script>
-        var settings = {
-            tableId: "learning-plan",
-            order: [[7, "desc"]],
-            colVis: { exclude: [9, 10, 11] }
-        };
-
-        tmDataTable.registerLearningPlanTable(settings);
-    </script>*@
 }

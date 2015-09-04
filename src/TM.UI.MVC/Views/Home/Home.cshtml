@@ -50,9 +50,5 @@
 </div>
 
 @section scripts{
-    <script>
-        $(".tm-partial-block").each(function() {
-            $(this).load($(this).data("url"));
-        })
-    </script>
+    @Scripts.Render("~/bundles/home")
 }

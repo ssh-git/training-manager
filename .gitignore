@@ -12,6 +12,8 @@ src/TM.UI.MVC/Content/images/authors/
 src/TM.UI.MVC/Content/images/badges/
 src/TM.UI.MVC/Content/images/category/
 tests/Temp/
+src/TM.UI.MVC/Scripts/app/*.js
+src/TM.UI.MVC/Scripts/app/*.js.map
 
 # User-specific files
 *.suo

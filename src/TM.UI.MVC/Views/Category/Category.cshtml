@@ -39,19 +39,6 @@
 
 @section scripts
 {
-    <script>
-        $(function () {
-            var coursesContainer = $("#partialContent");
-            var url = coursesContainer.data("url");
-            coursesContainer.load(url, function () {
-                $("table", coursesContainer).tmCourseAddController({
-                    dtSettings: {
-                        order: [[4, 'desc']],
-                        pageLength: 10
-                    }
-                });
-            });
-        });
-    </script>
+    @Scripts.Render("~/bundles/category")
 }
 

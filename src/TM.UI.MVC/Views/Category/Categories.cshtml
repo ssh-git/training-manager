@@ -75,7 +75,7 @@
                         <span>
                             Courses:
                             <span class="text-primary">
-                                <b>@category.CourseCount</b>
+                                <b>@category.CourseCount.ToString()</b>
                             </span>|
                         </span>
                         <span>
@@ -94,7 +94,5 @@
 
 @section scripts
 {
-    <script>
-        $("#search-box").tmDomSearch($("#search-source"), $("#search-result")); 
-    </script>
+    @Scripts.Render("~/bundles/categories")
 }

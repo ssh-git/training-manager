@@ -3,7 +3,7 @@
 @section Title{
     Training Provider - @Model.Name.ToTitleCaseInvariant()
 }
-<div id="tm-date-select-modal" class="modal fade" tabindex="-1" role="dialog">
+<div id="tm-date-select-modal" class="modal" tabindex="-1" role="dialog">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
@@ -45,13 +45,13 @@
     <div class="col-md-3">
         <div class="list-group">
             <a href="@Url.RouteUrl(AppConstants.RouteNames.TrainingProviderCategories, Model.TrainingProviderRouteValueObject)" class="list-group-item">
-                View Categories: <span class="badge">@Model.CategoryCount</span>
+                View Categories: <span class="badge">@Model.CategoryCount.ToString()</span>
             </a>
             <a href="@Url.RouteUrl(AppConstants.RouteNames.TrainingProviderCourses, Model.TrainingProviderRouteValueObject)" class="list-group-item">
-                View Courses: <span class="badge">@Model.CourseCount</span>
+                View Courses: <span class="badge">@Model.CourseCount.ToString()</span>
             </a>
             <a href="@Url.RouteUrl(AppConstants.RouteNames.TrainingProviderAuthors, Model.TrainingProviderRouteValueObject)" class="list-group-item">
-                View Authors: <span class="badge">@Model.AuthorsCount</span>
+                View Authors: <span class="badge">@Model.AuthorsCount.ToString()</span>
             </a>
             <a id="tm-update-select" href="#" class="list-group-item list-group-item-info" data-target="#tm-date-select-modal" data-toggle="modal">
                 Select Update Date
@@ -69,7 +69,7 @@
 
 @if (User.Identity.IsAuthenticated)
 {
-  Html.RenderPartial("_CourseStatisticControl");
+    Html.RenderPartial("_CourseStatisticControl");
 }
 <div id="partialContent" data-url="@Url.RouteUrl(AppConstants.RouteNames.CoursesAddedOnDate, Model.CoursesForDateRouteValueObject)">
     <i class="fa fa-spinner fa-pulse"></i> Loading...
@@ -79,8 +79,9 @@
 {
     @Scripts.Render("~/bundles/trainingProvider")
 
+    @*TODO: Refactor page structure*@
     <script>
-        var availableUpdateDates = [@Html.Raw(string.Join(",", Model.UpdateDates.Select(x => string.Format("'{0:yyyy-MM-dd}'", x))))];
+        var availableUpdateDates = [@Html.Raw(string.Join(",", Model.UpdateDates.Select(x => string.Format("'{0}'", x.ToString("yyyy-MM-dd")))))];
         var selectedUpdateDate = "@Html.Raw(Model.SelectedUpdateDate.ToString("yyyy-MM-dd"))";
 
         $().tmTrainingProvider(availableUpdateDates, selectedUpdateDate);

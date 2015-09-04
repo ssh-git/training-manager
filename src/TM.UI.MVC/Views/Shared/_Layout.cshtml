@@ -95,48 +95,12 @@
                     @Html.RouteLink("Authors", AppConstants.RouteNames.AllAuthors)
                 </p>
 
-                <div>&copy; @DateTime.Now.Year - Training Manager.</div>
+                <div>&copy; @DateTime.Now.Year.ToString() - Training Manager.</div>
             </div>
         </footer>
     </div>
-
-
-    @Scripts.Render("~/bundles/jquery")
+    
     @Scripts.Render("~/bundles/scripts")
-    <script>
-        (function () {
-            var timer;
-            var siteUp = $("#tm-site-up");
-
-            $(window).scroll(function () {
-                if (timer) {
-                    window.clearTimeout(timer);
-                    timer = null;
-                }
-
-                timer = window.setTimeout(function () {
-                    siteUp.removeClass("on-scroll");
-                }, 400);
-                if (window.scrollY < 275) {
-                    siteUp.css("visibility", "hidden");
-                } else {
-                    siteUp.css("visibility", "visible");
-                    siteUp.addClass("on-scroll");
-                }
-            });
-
-            siteUp.click(function () {
-                $("html, body").animate({ scrollTop: 0 });
-            });
-
-            $("#tm-change-specializations").click(function(event) {
-                event.preventDefault();
-                window.location.href = $(event.target).attr("href") + "?ReturnUrl=" + window.location.pathname;
-            });
-
-        })();
-    </script>
     @RenderSection("scripts", required: false)
-
 </body>
 </html>

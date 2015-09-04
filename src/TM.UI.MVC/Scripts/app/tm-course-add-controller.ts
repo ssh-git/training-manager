@@ -1,34 +1,35 @@
-﻿(function ($) {
+﻿(($: JQueryStatic) => {
     'use strict';
-    $.fn.tmCourseAddController = function (options) {
-        var defaults = {
-            selectors: {
-                addCourseControl: '[data-action=add]',
-                courseNameColumn: '#course-name-column',
-                tokenColumn: '#token-column'
+
+    $.fn.tmCourseAddController = function(options: TmDtAddControllerSettings) {
+        var defaults: TmDtAddControllerSettings = {
+                selectors: {
+                    addCourseControl: '[data-action=add]',
+                    courseNameColumn: '#course-name-column',
+                    tokenColumn: '#token-column'
+                },
+                tokens: {
+                    add: 'plan'
+                },
+
+                markers: {
+                    available: { value: 'A', css: 'label-info', title: 'Available' },
+                    add: { value: 'P', css: 'label-warning', title: 'Planned' }
+                }
             },
-            tokens: {
-                add: 'plan'
-            },
-
-            markers: {
-                available: { value: 'A', css: 'label-info', title: 'Available' },
-                add: { value: 'P', css: 'label-warning', title: 'Planned' }
-            }
-        },
-            settings = $.extend(true, {}, defaults, options),
+            settings: TmDtAddControllerSettings = $.extend(true, {}, defaults, options),
 
 
-            dt = $(this).tmDataTable(options),
+            dt = $(this).tmDataTable(settings),
 
-            onAddCourse = function (event) {
+            onAddCourse = (event:JQueryEventObject) => {
                 var addControl = $(event.currentTarget),
                     tableRow = dt.getTableRow(addControl),
                     action = dt.getActionUrl('add'),
                     requestData = dt.getRequestData(tableRow);
 
                 dt.postRequest(action, requestData)
-                    .done(function () {
+                    .done(() => {
                         var markerNode = $('span', dt.api.cell(tableRow, settings.selectors.courseNameColumn).node()),
                             addMarker = settings.markers.add,
                             availableMarker = settings.markers.available;
