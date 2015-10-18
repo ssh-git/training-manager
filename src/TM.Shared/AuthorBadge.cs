@@ -13,7 +13,7 @@ namespace TM.Shared
       [StringLength(400)]
       public string Link { get; set; }
 
-      [StringLength(100)]
+      [StringLength(400)]
       public string HoverText { get; set; }
 
       public bool IsEmpty
