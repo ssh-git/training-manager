@@ -2,7 +2,6 @@
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using TM.UI.MVC.Infrastructure;
 using TM.UI.MVC.Models;
 
 namespace TM.UI.MVC.Controllers
@@ -132,12 +131,12 @@ namespace TM.UI.MVC.Controllers
       {
          if (!ModelState.IsValid)
          {
-            return new JsonNetResult(new HttpStatusCodeResult(HttpStatusCode.BadRequest));
+            return JsonNetModelError(searchRequest);
          }
 
          var searchResult = await CatalogManager.GetCourseCatalogSearchResultAsync(searchRequest, UserId, UserSpecializations);
 
-         return new JsonNetResult(searchResult);
+         return JsonNet(searchResult);
       }
    }
 }

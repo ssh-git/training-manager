@@ -115,6 +115,15 @@ namespace TM.UI.MVC.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This request has been blocked because sensitive information could be disclosed to third party web sites when this is used in a GET request. To allow GET requests, set JsonRequestBehavior to AllowGet..
+        /// </summary>
+        internal static string JsonRequest_GetNotAllowed {
+            get {
+                return ResourceManager.GetString("JsonRequest_GetNotAllowed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Author sort not supported.
         /// </summary>
         internal static string NotSupported_AuthorsSort {

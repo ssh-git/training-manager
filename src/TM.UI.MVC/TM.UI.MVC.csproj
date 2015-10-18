@@ -256,6 +256,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionResults\JsonNetResult.cs" />
     <Compile Include="App_Start\LoggerConfig.cs" />
     <Compile Include="Areas\Admin\Controllers\ApplicationRolesController.cs" />
     <Compile Include="Areas\Admin\Controllers\ApplicationUsersController.cs" />
@@ -272,6 +273,7 @@
     <Compile Include="Controllers\TrainingProviderController.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Helpers\EnumExtensions.cs" />
+    <Compile Include="Helpers\JsonExtensions.cs" />
     <Compile Include="Helpers\RouteValueDictionaryExtensions.cs" />
     <Compile Include="Helpers\ViewDataExtensions.cs" />
     <Compile Include="Identity\ApplicationRole.cs" />
@@ -303,7 +305,6 @@
     <Compile Include="Helpers\ViewModelsExtensions.cs" />
     <Compile Include="Identity\IdentityDbContext.cs" />
     <Compile Include="App_Start\AppConstants.cs" />
-    <Compile Include="Infrastructure\JsonNetResult.cs" />
     <Compile Include="Infrastructure\NinjectMappings.cs" />
     <Compile Include="App_Start\UpdateDaemon.cs" />
     <Compile Include="Migrations\201508180804108_Initial.cs" />

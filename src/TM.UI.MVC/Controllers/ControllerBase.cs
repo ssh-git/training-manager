@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
@@ -8,7 +10,7 @@ using TM.UI.MVC.Infrastructure;
 namespace TM.UI.MVC.Controllers
 {
    public abstract class ControllerBase<TCatalogManager> : Controller
-      where TCatalogManager: CatalogManagerBase
+      where TCatalogManager : CatalogManagerBase
    {
       private ApplicationUserManager _userManager;
       private string _userId = string.Empty;
@@ -56,7 +58,30 @@ namespace TM.UI.MVC.Controllers
             return _userManager ?? (_userManager = HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>());
          }
       }
-      
+
+      public JsonNetResult<T> JsonNet<T>(T model)
+      {
+         return new JsonNetResult<T>
+         {
+            Data = model
+         };
+      }
+
+      public JsonNetResult<T> JsonNetModelError<T>(T model)
+      {
+         var result = new JsonNetResult<T> { Data = model };
+         var errors = ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage);
+         result.AddErrors(errors);
+         return result;
+      }
+
+      public JsonNetResult JsonNetError(IEnumerable<string> errors)
+      {
+         var result = new JsonNetResult();
+         result.AddErrors(errors);
+         return result;
+      }
+
 
       protected override void Dispose(bool disposing)
       {

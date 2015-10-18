@@ -2,7 +2,6 @@
 using System.Net;
 using System.Threading.Tasks;
 using System.Web.Mvc;
-using TM.UI.MVC.Infrastructure;
 using TM.UI.MVC.Models;
 
 namespace TM.UI.MVC.Controllers
@@ -62,29 +61,23 @@ namespace TM.UI.MVC.Controllers
       }
 
       [HttpPost, ValidateAntiForgeryToken]
-      public async Task<ActionResult> AjaxStart(int courseId)
+      public async Task<JsonNetResult> AjaxStart(int courseId)
       {
          var subscriptionChangeResult = await CatalogManager.SetStartStateAsync(courseId, UserId);
 
-         if (subscriptionChangeResult.Succeeded)
-         {
-            return new JsonNetResult(subscriptionChangeResult.Value);
-         }
-
-         return new HttpStatusCodeResult(HttpStatusCode.BadRequest, subscriptionChangeResult.Errors.First());
+         return subscriptionChangeResult.Succeeded
+            ? JsonNet(subscriptionChangeResult.Value)
+            : JsonNetError(subscriptionChangeResult.Errors);
       }
 
       [HttpPost, ValidateAntiForgeryToken]
-      public async Task<ActionResult> AjaxFinish(int courseId)
+      public async Task<JsonNetResult> AjaxFinish(int courseId)
       {
          var subscriptionChangeResult = await CatalogManager.SetFinishStateAsync(courseId, UserId);
 
-         if (subscriptionChangeResult.Succeeded)
-         {
-            return new JsonNetResult(subscriptionChangeResult.Value);
-         }
-
-         return new HttpStatusCodeResult(HttpStatusCode.BadRequest, subscriptionChangeResult.Errors.First());
+         return subscriptionChangeResult.Succeeded
+            ? JsonNet(subscriptionChangeResult.Value)
+            : JsonNetError(subscriptionChangeResult.Errors);
       }
 
       [HttpPost, ValidateAntiForgeryToken]
@@ -93,45 +86,9 @@ namespace TM.UI.MVC.Controllers
          var result = await CatalogManager.DeleteCourseFromLearningPlanAsync(UserId, courseId);
 
          return result.Succeeded
-            ? new HttpStatusCodeResult(HttpStatusCode.NoContent)
-            : new HttpStatusCodeResult(HttpStatusCode.BadRequest, result.Errors.First());
+            ? (ActionResult)new HttpStatusCodeResult(HttpStatusCode.NoContent)
+            : JsonNetError(result.Errors);
       }
-
-
-      /*public async Task<ActionResult> Subscription(int? courseId)
-            {
-               if (courseId == null)
-               {
-                  return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-               }
-
-               var subscriptionInfoResult = await CatalogManager.GetCourseSubscriptionInfo(UserId, courseId.Value);
-
-               if (subscriptionInfoResult.Succeeded)
-               {
-                  return new JsonNetResult(subscriptionInfoResult.Value);
-               }
-
-               return new HttpStatusCodeResult(HttpStatusCode.BadRequest, subscriptionInfoResult.Errors.First());
-            }*/
-
-      /*[HttpPost, ValidateAntiForgeryToken]
-      public async Task<ActionResult> Subscription(VM.SubscriptionViewModel subscription)
-      {
-         if (ModelState.IsValid)
-         {
-
-         } else
-         {
-            subscription.ValidationMessage = string.Join(";", ModelState.Values
-               .Where(x => x.Errors.Count > 0)
-               .SelectMany(x => x.Errors)
-               .Select(x => x.ErrorMessage));
-
-            return new JsonNetResult(subscription);
-         }
-         return null;
-      }*/
 
       public async Task<ActionResult> Subscription(int? courseId)
       {
@@ -151,7 +108,7 @@ namespace TM.UI.MVC.Controllers
       }
 
       [HttpPost, ValidateAntiForgeryToken]
-      public async Task<ActionResult> Subscription(LearningPlanViewModels.SubscriptionViewModel subscription)
+      public async Task<JsonNetResult> Subscription(LearningPlanViewModels.SubscriptionViewModel subscription)
       {
          if (ModelState.IsValid)
          {
@@ -159,22 +116,14 @@ namespace TM.UI.MVC.Controllers
 
             if (result.Succeeded)
             {
-               return new JsonNetResult(subscription);
+               return JsonNet(subscription);
             }
 
             subscription.IsModelValid = false;
-            subscription.ErrorMessage = string.Join(";\r\n", result.Errors);
-
-            return new JsonNetResult(subscription);
+            subscription.ErrorMessage = string.Join(";\n", result.Errors);
          }
-
-         var errorMessage = string.Join(";\r\n", ModelState.Where(x => x.Value.Errors.Any())
-            .SelectMany(x => x.Value.Errors)
-            .Select(x => x.ErrorMessage));
-
-         subscription.IsModelValid = false;
-         subscription.ErrorMessage = errorMessage;
-         return new JsonNetResult(subscription);
+         
+         return JsonNetModelError(subscription);
       }
    }
 }

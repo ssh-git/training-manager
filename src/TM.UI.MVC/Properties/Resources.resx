@@ -135,6 +135,9 @@
   <data name="InvalidOperation_ValueSetAfterMethodInvoke" xml:space="preserve">
     <value>Operation not allowed. Value of '{0}' was set after '{1}' invokation.</value>
   </data>
+  <data name="JsonRequest_GetNotAllowed" xml:space="preserve">
+    <value>This request has been blocked because sensitive information could be disclosed to third party web sites when this is used in a GET request. To allow GET requests, set JsonRequestBehavior to AllowGet.</value>
+  </data>
   <data name="NotSupported_AuthorsSort" xml:space="preserve">
     <value>Author sort not supported</value>
   </data>
