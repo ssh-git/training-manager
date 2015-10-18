@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using TM.Data.Pluralsight.Json;
 using TM.Shared;
+using TM.Shared.DownloadManager;
 
 namespace TM.Data.Pluralsight
 {
@@ -57,13 +58,19 @@ namespace TM.Data.Pluralsight
       #region DataServiceBase Overrides
 
       /// <exception cref="KeyNotFoundException"><paramref name="urlName" /> does not exist in the authors archive.</exception>
-      protected override async Task<string> GetAuthorJsonDataAsync(string urlName)
+      protected internal override async Task<string> GetAuthorJsonDataAsync(string urlName)
       {
          var archive = await _authorsInfoArchive;
 
-         var jsonData = archive[urlName];
-
-         return jsonData;
+         try
+         {
+            var jsonData = archive[urlName];
+            return jsonData;
+         }
+         catch (KeyNotFoundException ex)
+         {
+            return AsyncHelper.RunSync(() => PluralsightWebDataService.CreateForDataQuery(new HttpDownloadManager()).GetAuthorJsonDataAsync(urlName));
+         }
       }
 
       protected override void UpdateAuthorsArchive(string urlName, string jsonData)
@@ -73,13 +80,20 @@ namespace TM.Data.Pluralsight
 
 
       /// <exception cref="KeyNotFoundException"><paramref name="urlName" /> does not exist in the courses archive.</exception>
-      protected override async Task<string> GetCourseJsonDataAsync(string urlName)
+      protected internal override async Task<string> GetCourseJsonDataAsync(string urlName)
       {
-         var archive = await _coursesInfoArchive;
+         try
+         {
+            var archive = await _coursesInfoArchive;
 
-         var jsonData = archive[urlName];
+            var jsonData = archive[urlName];
 
-         return jsonData;
+            return jsonData;
+         }
+         catch (KeyNotFoundException ex)
+         {
+            return AsyncHelper.RunSync(() => PluralsightWebDataService.CreateForDataQuery(new HttpDownloadManager()).GetCourseJsonDataAsync(urlName));
+         }
       }
 
       protected override void UpdateCourseArchive(string urlName, string jsonData)
@@ -89,13 +103,20 @@ namespace TM.Data.Pluralsight
 
 
       /// <exception cref="KeyNotFoundException"><paramref name="urlName" /> does not exist in the coursesToC archive.</exception>
-      protected override async Task<string> GetCourseToCJsonDataAsync(string urlName)
+      protected internal override async Task<string> GetCourseToCJsonDataAsync(string urlName)
       {
-         var archive = await _coursesToCArchive;
+         try
+         {
+            var archive = await _coursesToCArchive;
 
-         var jsonData = archive[urlName];
+            var jsonData = archive[urlName];
 
-         return jsonData;
+            return jsonData;
+         }
+         catch (KeyNotFoundException ex)
+         {
+            return AsyncHelper.RunSync(() => PluralsightWebDataService.CreateForDataQuery(new HttpDownloadManager()).GetCourseToCJsonDataAsync(urlName));
+         }
       }
 
       protected override void UpdateCourseToCArchive(string urlName, string jsonData)

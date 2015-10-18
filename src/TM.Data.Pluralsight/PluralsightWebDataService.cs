@@ -66,7 +66,7 @@ namespace TM.Data.Pluralsight
 
       #region DataServiceBase Overrides
 
-      protected override async Task<string> GetAuthorJsonDataAsync(string urlName)
+      protected internal override async Task<string> GetAuthorJsonDataAsync(string urlName)
       {
          var requestUri = new Uri(_authorInfoUrl, urlName);
 
@@ -81,7 +81,7 @@ namespace TM.Data.Pluralsight
       }
 
 
-      protected override async Task<string> GetCourseJsonDataAsync(string urlName)
+      protected internal override async Task<string> GetCourseJsonDataAsync(string urlName)
       {
          var requestUri = new Uri(_courseInfoUrl, urlName);
 
@@ -96,7 +96,7 @@ namespace TM.Data.Pluralsight
       }
 
 
-      protected override async Task<string> GetCourseToCJsonDataAsync(string urlName)
+      protected internal override async Task<string> GetCourseToCJsonDataAsync(string urlName)
       {
          var requestUri = new Uri(_courseToCUrl, urlName);
 

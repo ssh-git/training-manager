@@ -42,7 +42,7 @@ namespace TM.Data.Pluralsight
 
       #region Authors
 
-      protected abstract Task<string> GetAuthorJsonDataAsync(string urlName);
+      protected internal abstract Task<string> GetAuthorJsonDataAsync(string urlName);
       protected abstract void UpdateAuthorsArchive(string urlName, string jsonData);
 
       public async Task<Author> GetAuthorAsync(string urlName)
@@ -147,7 +147,7 @@ namespace TM.Data.Pluralsight
 
       #region Courses
 
-      protected abstract Task<string> GetCourseJsonDataAsync(string urlName);
+      protected internal abstract Task<string> GetCourseJsonDataAsync(string urlName);
       protected abstract void UpdateCourseArchive(string urlName, string jsonData);
 
       public async Task<string> GetCourseShortDescriptionAsync(string urlName)
@@ -183,7 +183,7 @@ namespace TM.Data.Pluralsight
 
       #region Courses table of contents
 
-      protected abstract Task<string> GetCourseToCJsonDataAsync(string urlName);
+      protected internal abstract Task<string> GetCourseToCJsonDataAsync(string urlName);
       protected abstract void UpdateCourseToCArchive(string urlName, string jsonData);
 
       public async Task<ICollection<Module>> GetCourseToCAsync(string urlName)
