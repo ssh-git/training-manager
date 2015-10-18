@@ -35,7 +35,7 @@ namespace TM.Data.Update
       /// <paramref name="existingCategories"/> or 
       /// <paramref name="changesDetector"/> is <see langword="null" />.</exception>
       /// <exception cref="ChangesProcessorException"></exception>
-      public Task<ChangesResult<Category, TCategoryParseModel>> GetCategoriesChangesAsync(
+      public async Task<ChangesResult<Category, TCategoryParseModel>> GetCategoriesChangesAsync(
          int trainingProviderId,
          IEnumerable<Category> existingCategories,
          IChangesDetector<Category, TCategoryParseModel> changesDetector)
@@ -52,10 +52,10 @@ namespace TM.Data.Update
             var processingCategoriesContainer = UpdateParseResult.CategoriesParseResult.CategoryContainer.Values
                .ToDictionary(x => x, x => x, UrlNameNaturalKeyEqualityComparer<IUrlNameNaturalKey>.Instance);
 
-            var task = GetChangesAsync(trainingProviderId, existingCategories, processingCategoriesContainer,
+            var changesResult = await GetChangesAsync(trainingProviderId, existingCategories, processingCategoriesContainer,
                changesDetector, MapToCategoryAsync, (dbe, pme) => pme.Id = dbe.Id);
 
-            return task;
+            return changesResult;
          }
          catch (Exception ex)
          {
@@ -68,7 +68,7 @@ namespace TM.Data.Update
       /// <paramref name="existingCourses"/> or 
       /// <paramref name="changesDetector"/> is <see langword="null" />.</exception>
       /// <exception cref="ChangesProcessorException"></exception>
-      public Task<ChangesResult<Course, TCourseParseModel>> GetCoursesChangesAsync(
+      public async Task<ChangesResult<Course, TCourseParseModel>> GetCoursesChangesAsync(
          int trainingProviderId,
          IEnumerable<Course> existingCourses,
          IChangesDetector<Course, TCourseParseModel> changesDetector)
@@ -85,10 +85,10 @@ namespace TM.Data.Update
             var processingCoursesContainer = UpdateParseResult.CoursesParseResult.CourseContainer.Values
                .ToDictionary(x => x, x => x, UrlNameNaturalKeyEqualityComparer<IUrlNameNaturalKey>.Instance);
 
-            var task = GetChangesAsync(trainingProviderId, existingCourses, processingCoursesContainer, changesDetector,
+            var changesResult = await GetChangesAsync(trainingProviderId, existingCourses, processingCoursesContainer, changesDetector,
                MapToCourseAsync, (dbe, pme) => pme.Id = dbe.Id);
 
-            return task;
+            return changesResult;
          }
          catch (Exception ex)
          {
@@ -101,7 +101,7 @@ namespace TM.Data.Update
       /// <paramref name="existingAuthors"/> or 
       /// <paramref name="changesDetector"/> is <see langword="null" />.</exception>
       /// <exception cref="ChangesProcessorException"></exception>
-      public Task<ChangesResult<TrainingProviderAuthor, TAuthorParseModel>> GetAuthorsChangesAsync(
+      public async Task<ChangesResult<TrainingProviderAuthor, TAuthorParseModel>> GetAuthorsChangesAsync(
          int trainingProviderId,
          IEnumerable<TrainingProviderAuthor> existingAuthors,
          IChangesDetector<TrainingProviderAuthor, TAuthorParseModel> changesDetector)
@@ -119,10 +119,10 @@ namespace TM.Data.Update
                .Values
                .ToDictionary(x => x, x => x, UrlNameNaturalKeyEqualityComparer<IUrlNameNaturalKey>.Instance);
 
-            var task = GetChangesAsync(trainingProviderId, existingAuthors, processingAuthorsContainer, changesDetector,
+            var changesResult = await GetChangesAsync(trainingProviderId, existingAuthors, processingAuthorsContainer, changesDetector,
                MapToAuthorAsync, (dbe, pme) => pme.Id = dbe.AuthorId);
 
-            return task;
+            return changesResult;
          }
          catch (Exception ex)
          {
