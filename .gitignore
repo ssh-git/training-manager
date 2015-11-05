@@ -16,6 +16,7 @@ src/TM.UI.MVC/Scripts/app/*.js
 src/TM.UI.MVC/Scripts/app/*.js.map
 
 # User-specific files
+WE-browsers.xml
 *.suo
 *.user
 *.sln.docstates

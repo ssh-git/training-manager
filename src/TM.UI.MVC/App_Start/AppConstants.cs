@@ -40,6 +40,12 @@ namespace TM.UI.MVC
          /// </summary>
          public const string Error = "Error Route";
 
+
+         /// <summary>
+         /// Name for route 'feeds/atom'
+         /// </summary>
+         public const string Feed = "Feed Route";
+
          /// <summary>
          /// Name for route 'learning-plan'
          /// </summary>

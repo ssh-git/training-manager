@@ -59,6 +59,14 @@ html, body {
 
 /*#endregion*/
 
+.tm-rss {
+    color: #fa9b39 !important;
+    font-size: 28px;
+    padding-top: 13px;
+    padding-left: 5px;
+    outline: 0 !important;
+}
+
 .tm-selected-background {
     background-color: red;
 }

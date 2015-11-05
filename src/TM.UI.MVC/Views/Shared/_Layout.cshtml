@@ -5,8 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:700,300|Open+Sans" rel="stylesheet" type="text/css">
+    <link href="@Url.RouteUrl(AppConstants.RouteNames.Feed, new { area = "" })" rel="alternate" type="application/atom+xml">
     <title>
-        TM: @RenderSection("Title", required:false)
+        TM: @RenderSection("Title", required: false)
     </title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -22,7 +23,11 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    @Html.ActionLink("Training Manager", "Home", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                    @Html.ActionLink("Training Manager", "Home", "Home", new { area = "" }, new{@class="navbar-brand"})
+
+                    <a class="navbar-brand tm-rss" href="@Url.RouteUrl(AppConstants.RouteNames.Feed, new {area = ""})" title="Subscribe">
+                        <i class="fa fa-rss-square "></i>
+                    </a>
                 </div>
 
                 <div class="navbar-collapse collapse">
@@ -36,17 +41,17 @@
                                     <li class="dropdown-header">Services</li>
                                     <li role="presentation"><a href="/hangfire">Hang Fire</a></li>
                                     <li class="dropdown-header">Users And Roles</li>
-                                    <li role="presentation">@Html.ActionLink("Roles", "Index", "ApplicationRoles", new {area = "admin"}, null)</li>
-                                    <li role="presentation">@Html.ActionLink("Users", "Index", "ApplicationUsers", new {area = "admin"}, null)</li>
+                                    <li role="presentation">@Html.ActionLink("Roles", "Index", "ApplicationRoles", new { area = "admin" }, null)</li>
+                                    <li role="presentation">@Html.ActionLink("Users", "Index", "ApplicationUsers", new { area = "admin" }, null)</li>
                                     <li class="dropdown-header">Catalog</li>
-                                    <li role="presentation">@Html.ActionLink("Training Providers", "Index", "TrainingProviders", new {area = "admin"}, null)</li>
-                                    <li role="presentation">@Html.ActionLink("Courses Without Specializations", "Index", "CoursesWithoutSpecializations", new {area = "admin"}, null)</li>
-                                    <li role="presentation">@Html.ActionLink("Update Events", "Index", "UpdateEvents", new {area = "admin"}, null)</li>
-                                    <li role="presentation">@Html.ActionLink("Authors Resolve", "Index", "AuthorResolves", new {area = "admin"}, null)</li>
+                                    <li role="presentation">@Html.ActionLink("Training Providers", "Index", "TrainingProviders", new { area = "admin" }, null)</li>
+                                    <li role="presentation">@Html.ActionLink("Courses Without Specializations", "Index", "CoursesWithoutSpecializations", new { area = "admin" }, null)</li>
+                                    <li role="presentation">@Html.ActionLink("Update Events", "Index", "UpdateEvents", new { area = "admin" }, null)</li>
+                                    <li role="presentation">@Html.ActionLink("Authors Resolve", "Index", "AuthorResolves", new { area = "admin" }, null)</li>
                                 </ul>
                             </li>
                         }
-                        
+
                         <li>@Html.RouteLink("Learning Plan", AppConstants.RouteNames.LearningPlan)</li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">Catalog<span class="caret"></span></a>
@@ -99,7 +104,7 @@
             </div>
         </footer>
     </div>
-    
+
     @Scripts.Render("~/bundles/scripts")
     @RenderSection("scripts", required: false)
 </body>

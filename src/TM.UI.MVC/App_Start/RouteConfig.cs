@@ -23,6 +23,19 @@ namespace TM.UI.MVC
 
          #endregion
 
+         #region Feed Routes
+
+         routes.MapRoute(
+            name: AppConstants.RouteNames.Feed,
+            url: "feeds/atom",
+            defaults: new
+            {
+               controller = "Feed",
+               action = "NewCoursesAsync"
+            });
+
+         #endregion
+
 
          #region Learning Plan Routes
 
